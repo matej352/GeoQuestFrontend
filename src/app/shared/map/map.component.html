@@ -1,0 +1,9 @@
+<div class="map-container">
+  <div class="map-frame">
+    <div id="map"></div>
+  </div>
+  <div *ngIf="zupanijaToSelect; else congratulations">
+    <p>Odaberi županiju: {{ zupanijaToSelect }}</p>
+  </div>
+  <ng-template #congratulations> Well done! </ng-template>
+</div>
