@@ -3,27 +3,27 @@ import * as L from 'leaflet';
 import { MarkerService } from 'src/app/services/marker.service';
 import { ShapeService } from 'src/app/services/shape.service';
 
+const iconRetinaUrl = 'assets/marker-icon-2x.png';
+const iconUrl = 'assets/marker-icon.png';
+const shadowUrl = 'assets/marker-shadow.png';
+const iconDefault = L.icon({
+  iconRetinaUrl,
+  iconUrl,
+  shadowUrl,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  tooltipAnchor: [16, -28],
+  shadowSize: [41, 41],
+});
+L.Marker.prototype.options.icon = iconDefault;
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit, AfterViewInit {
-  readonly iconRetinaUrl = 'assets/marker-icon-2x.png';
-  readonly iconUrl = 'assets/marker-icon.png';
-  readonly shadowUrl = 'assets/marker-shadow.png';
-
-  readonly iconDefault = L.icon({
-    iconRetinaUrl: this.iconRetinaUrl,
-    iconUrl: this.iconUrl,
-    shadowUrl: this.shadowUrl,
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    tooltipAnchor: [16, -28],
-    shadowSize: [41, 41],
-  });
-
   @Input()
   mapType!: string;
 
