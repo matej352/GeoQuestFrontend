@@ -1,0 +1,30 @@
+<ng-container *ngIf="link; else noLink">
+  <a [routerLink]="link">
+    <button
+      [style]="{
+        marginTop: mt,
+        marginRight: mr,
+        marginBottom: mb,
+        marginLeft: ml
+      }"
+      type="button"
+    >
+      {{ title }}
+    </button>
+  </a>
+</ng-container>
+<ng-template #noLink>
+  <a>
+    <button
+      [style]="{
+        marginTop: mt,
+        marginRight: mr,
+        marginBottom: mb,
+        marginLeft: ml
+      }"
+      type="button"
+    >
+      {{ title }}
+    </button>
+  </a>
+</ng-template>

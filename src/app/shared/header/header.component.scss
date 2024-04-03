@@ -1,0 +1,34 @@
+.header {
+    padding-top: 100px;
+    padding-bottom: var(--elements-space);
+    height: auto;
+    width: 100%;
+    background-image: url("../../../assets/images/backgroundImage.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+
+    &-container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        flex-direction: column;
+
+        h1 {
+            color: var(--white-color);
+            font-size: calc(var(--font-size-h1) * 1.4);
+            font-family: var(--primary-font-black);
+            text-align: center;
+
+            .fun {
+                color: var(--primary-color);
+                font-family: var(--primary-font-black);
+            }
+        }
+
+        
+    }
+}
+
+

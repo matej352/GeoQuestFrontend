@@ -1,26 +1,29 @@
-.login {
+.login, .registration {
     padding: var(--elements-space) var(--padding-size-0);
     height: 100vh;
     width: 100%;
     background-color: #f2f2f2;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+
+    .container {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+    }
 }
 
-.loginContainer {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-}
+
 
 
 
 $gray-light: #f5f6f8;
 
 
-.login-form {
+.form {
    min-width: 50%;
 }
 

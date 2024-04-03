@@ -10,6 +10,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { ExamsPageComponent } from './pages/exams-page/exams-page.component';
 import { CookieService } from 'ngx-cookie-service';
+import { NavigationBarComponent } from './shared/navigation-bar/navigation-bar.component';
+import { SharedModule } from './modules/shared.module';
+import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 
 @NgModule({
   declarations: [
@@ -19,8 +22,16 @@ import { CookieService } from 'ngx-cookie-service';
     HomeComponent,
     LoginPageComponent,
     ExamsPageComponent,
+    NavigationBarComponent,
+    LandingPageComponent,
   ],
-  imports: [BrowserModule, HttpClientModule, FormsModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    AppRoutingModule,
+    SharedModule,
+  ],
   providers: [CookieService],
   bootstrap: [AppComponent],
 })

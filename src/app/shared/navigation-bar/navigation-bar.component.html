@@ -1,0 +1,17 @@
+<div class="navBar">
+  <div class="leftNavBar">
+    <p>GeoQuest</p>
+  </div>
+  <div class="middleNavBar">
+    <ul>
+      <li *ngFor="let item of centarData">
+        <a routerLink="{{ item.link }}" (click)="onClick(item.link)">{{
+          item.text
+        }}</a>
+      </li>
+      <li *ngIf="currentUser$ | async">
+        <app-button title="Odjava" mr="8px" (click)="logout()"></app-button>
+      </li>
+    </ul>
+  </div>
+</div>

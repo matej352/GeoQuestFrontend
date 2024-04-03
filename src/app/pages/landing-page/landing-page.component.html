@@ -1,0 +1,132 @@
+<app-header
+  text1="Učenje uz"
+  highlitedText="interaktivne"
+  text2="geografske karte"
+  height="170px"
+></app-header>
+
+<div class="login" *ngIf="loginOpened; else registration">
+  <div class="container">
+    <h1>Prijavi se</h1>
+    <form class="form" [formGroup]="logInForm" (ngSubmit)="login()">
+      <div class="flex-row">
+        <label class="label" for="email">
+          <fa-icon [icon]="email" size="lg"></fa-icon>
+        </label>
+        <input
+          id="email"
+          class="input"
+          placeholder="Email"
+          type="text"
+          formControlName="email"
+        />
+      </div>
+      <div class="flex-row">
+        <label class="label" for="password">
+          <fa-icon [icon]="password" size="lg"></fa-icon>
+        </label>
+        <input
+          id="password"
+          class="input"
+          placeholder="Lozinka"
+          type="password"
+          formControlName="password"
+        />
+      </div>
+      <input
+        class="submit"
+        type="submit"
+        value="Prijavi se"
+        [disabled]="!logInForm.valid"
+        [ngClass]="{ disabled: !logInForm.valid }"
+      />
+    </form>
+    <div *ngIf="loginFailed" class="loginFailed">
+      {{ loginErrorMessage }}
+    </div>
+    <a class="forgot" href="#">Forgot password?</a>
+  </div>
+  <div class="container">
+    <app-button
+      title="Registriraj se"
+      mt="30px"
+      (click)="showRegisterForm()"
+    ></app-button>
+  </div>
+</div>
+
+<ng-template #registration>
+  <div class="registration">
+    <div class="container">
+      <form class="form" [formGroup]="registerForm" (ngSubmit)="register()">
+        <div class="flex-row">
+          <label class="label" for="firstName">
+            <fa-icon [icon]="email" size="lg"></fa-icon>
+          </label>
+          <input
+            id="firstName"
+            class="input"
+            placeholder="Ime"
+            type="text"
+            formControlName="firstName"
+          />
+        </div>
+        <div class="flex-row">
+          <label class="label" for="lastName">
+            <fa-icon [icon]="email" size="lg"></fa-icon>
+          </label>
+          <input
+            id="lastName"
+            class="input"
+            placeholder="Prezime"
+            type="text"
+            formControlName="lastName"
+          />
+        </div>
+        <div class="flex-row">
+          <label class="label" for="email">
+            <fa-icon [icon]="email" size="lg"></fa-icon>
+          </label>
+          <input
+            id="email"
+            class="input"
+            placeholder="Email"
+            type="text"
+            formControlName="email"
+          />
+        </div>
+        <div class="flex-row">
+          <label class="label" for="password">
+            <fa-icon [icon]="password" size="lg"></fa-icon>
+          </label>
+          <input
+            id="password"
+            class="input"
+            placeholder="Lozinka"
+            type="password"
+            formControlName="password"
+          />
+        </div>
+        <div class="flex-row">
+          <label class="label" for="confirmPassword">
+            <fa-icon [icon]="password" size="lg"></fa-icon>
+          </label>
+          <input
+            id="confirmPassword"
+            class="input"
+            placeholder="Potvrdite lozinku"
+            type="password"
+            formControlName="confirmPassword"
+          />
+        </div>
+        <input
+          class="submit"
+          type="submit"
+          value="Registriraj se"
+          [disabled]="!registerForm.valid"
+          [ngClass]="{ disabled: !registerForm.valid }"
+        />
+      </form>
+    </div>
+  </div>
+</ng-template>

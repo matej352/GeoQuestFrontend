@@ -1,4 +1,53 @@
-<p>login-page works!</p>
-<button (click)="login()">Login</button>
-<button (click)="logout()">Logout</button>
-<button (click)="redirect()">Redirect</button>
+<app-header
+  text1="Učenje uz"
+  highlitedText="interaktivne"
+  text2="geografske karte"
+  height="170px"
+></app-header>
+
+<div class="login">
+  <div class="loginContainer">
+    <h1>
+      Welcome back, <br />
+      login to continue your work on <br />
+      admin dashboard
+    </h1>
+    <form class="login-form" [formGroup]="logInForm" (ngSubmit)="logIn()">
+      <div class="flex-row">
+        <label class="label" for="username">
+          <fa-icon [icon]="usernameOrEmail" size="lg"></fa-icon>
+        </label>
+        <input
+          id="username"
+          class="input"
+          placeholder="Username or email"
+          type="text"
+          formControlName="usernameOrEmail"
+        />
+      </div>
+      <div class="flex-row">
+        <label class="label" for="password">
+          <fa-icon [icon]="password" size="lg"></fa-icon>
+        </label>
+        <input
+          id="password"
+          class="input"
+          placeholder="Password"
+          type="password"
+          formControlName="password"
+        />
+      </div>
+      <input
+        class="submit"
+        type="submit"
+        value="Login"
+        [disabled]="!logInForm.valid"
+        [ngClass]="{ disabled: !logInForm.valid }"
+      />
+    </form>
+    <div *ngIf="loginFailed" class="loginFailed">
+      {{ loginErrorMessage }}
+    </div>
+    <a class="forgot" href="#">Forgot password?</a>
+  </div>
+</div>

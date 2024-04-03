@@ -8,13 +8,23 @@ import { IAccount } from '../models/account';
 export class UserProfileStoreService {
   constructor() {}
 
-  private _accountData!: IAccount | null;
+  private _accountData: BehaviorSubject<IAccount | null> =
+    new BehaviorSubject<IAccount | null>(null);
+  private _accountDataFetched = false;
 
   setAccountData(account: IAccount | null) {
-    this._accountData = account;
+    this._accountData.next(account);
   }
 
-  getAccountData(): IAccount | null {
-    return this._accountData;
+  getAccountData(): Observable<IAccount | null> {
+    return this._accountData.asObservable();
+  }
+
+  setAccountDataFetched() {
+    this._accountDataFetched = true;
+  }
+
+  getAccountDataFetched(): boolean {
+    return this._accountDataFetched;
   }
 }

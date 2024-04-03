@@ -12,23 +12,7 @@ import { EMPTY, catchError } from 'rxjs';
 export class AppComponent implements OnInit {
   title = 'geo-quest';
 
-  constructor(
-    private _accountService: AccountService,
-    private _userProfileStore: UserProfileStoreService
-  ) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this._accountService
-      .getAccountDetails()
-      .pipe(
-        catchError((err) => {
-          console.log(err);
-          this._userProfileStore.setAccountData(null);
-          return EMPTY;
-        })
-      )
-      .subscribe((account: IAccount) => {
-        this._userProfileStore.setAccountData(account);
-      });
-  }
+  ngOnInit(): void {}
 }

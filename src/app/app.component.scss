@@ -1,0 +1,30 @@
+:host-context {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+::ng-deep app-navigation-bar {
+    width: 100%;
+    position: absolute;
+    top: 55px;
+    left: 0;
+}
+
+//sets maximum width (so on laptop we have width limit, and on phones its whole screen width (100%))
+
+::ng-deep app-navigation-bar .navBar
+
+{
+    width: var(--breakpoint-desktop);
+}
+
+
+@media only screen and (max-width: 1200px) {
+
+    // desktops, 1200px and lower
+    ::ng-deep app-navigation-bar .navBar
+    {
+        width: 100%;
+    }
+}

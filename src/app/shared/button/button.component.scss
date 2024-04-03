@@ -1,0 +1,17 @@
+button {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    font-size: var(--font-size-h5);
+    font-family: var(--secondary-font-bold);
+    padding: var(--padding-size-2) var(--padding-size-3);
+    border-radius: 10px;
+    box-shadow: inset -3px -3px 0px #eb800a;
+    border: none;
+    outline: none;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+button:hover {
+    box-shadow: inset -3px -3px 5px #eb800a;
+}
