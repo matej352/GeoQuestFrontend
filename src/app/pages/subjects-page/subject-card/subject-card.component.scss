@@ -1,0 +1,22 @@
+div.card {
+    height: 100%;
+    cursor: pointer;
+    padding: 15px;
+    display: flex;
+flex-direction: column;
+    h2 {
+        margin-bottom: 5px;
+        color: var(--primary-color);
+    }
+    
+    span {
+    
+        color: #747685;
+    }
+    
+    .date-container {
+        align-self: flex-end;
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+}

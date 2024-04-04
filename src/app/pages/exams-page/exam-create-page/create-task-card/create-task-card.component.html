@@ -1,0 +1,15 @@
+<div class="filter-item">
+  <p>Odaberite tip karte</p>
+  <mat-form-field appearance="fill">
+    <mat-select [(value)]="selection.selectedOption" disableOptionCentering>
+      <mat-option
+        [value]="option.value"
+        *ngFor="let option of selection.otherOptions"
+        (click)="onSelect()"
+        >{{ option.viewValue }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<app-plain-map></app-plain-map>

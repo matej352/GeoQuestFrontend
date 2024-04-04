@@ -37,7 +37,7 @@ export class LandingPageGuardService implements CanActivate {
           if (user) {
             let role = user.role === ROLE_TEACHER ? 'teacher' : 'student';
 
-            this._router.navigate(['/home', role]);
+            this._router.navigate([role, 'home']);
 
             return false;
           }
@@ -59,7 +59,7 @@ export class LandingPageGuardService implements CanActivate {
             this._userProfileStore.setAccountData(account);
             let role = account.role === ROLE_TEACHER ? 'teacher' : 'student';
 
-            this._router.navigate(['/home', role]);
+            this._router.navigate([role, 'home']);
           }
         }),
         map((account: IAccount) => {

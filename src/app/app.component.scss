@@ -13,7 +13,9 @@
 
 //sets maximum width (so on laptop we have width limit, and on phones its whole screen width (100%))
 
-::ng-deep app-navigation-bar .navBar
+::ng-deep app-navigation-bar .navBar,
+::ng-deep app-exams-page .exams-page-container,
+::ng-deep app-exam-create-page .exam-create-page-container
 
 {
     width: var(--breakpoint-desktop);
@@ -23,7 +25,9 @@
 @media only screen and (max-width: 1200px) {
 
     // desktops, 1200px and lower
-    ::ng-deep app-navigation-bar .navBar
+    ::ng-deep app-navigation-bar .navBar,
+    ::ng-deep app-exams-page .exams-page-container,
+    ::ng-deep app-exam-create-page .exam-create-page-container
     {
         width: 100%;
     }

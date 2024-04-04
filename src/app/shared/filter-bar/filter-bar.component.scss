@@ -1,0 +1,71 @@
+.filter-background {
+    height: 56px;
+    background: rgba(58, 50, 50, 0.8);
+    opacity: 0.3;
+}
+
+.filter {
+    width: calc(100% - 10px);
+    height: 50px;
+    padding: 0 5px;
+    font-size: 14px;
+    position: absolute;
+    top: 3px;
+    display: flex;
+    align-items: center;
+    overflow: auto;
+   
+    ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+        padding: 0 !important;
+    }
+    
+    ::ng-deep .mat-form-field-underline {
+        display: none !important;
+    }
+    
+    ::ng-deep .mat-select-arrow {
+        color: white !important;
+    }
+    
+    ::ng-deep .mat-select-value {
+        color: white !important;
+    }
+    
+    
+    ::ng-deep .mat-select-arrow-wrapper {
+        height: auto !important;
+    }
+    
+    ::ng-deep .mat-form-field-wrapper {
+        padding-bottom: 0px !important;
+    }
+    
+    ::ng-deep .mat-select-value-text {
+        margin-left: 25px;
+    }
+    
+
+    .filter-item {
+        margin: 0 10px;
+        display: flex;
+
+        p.name {
+            align-self: center;
+            color: white;
+            margin: 0 10px;
+            margin-top: 2px;
+            white-space: nowrap;
+        }
+    }
+}
+
+
+@media (max-width: 900px) {
+    .filter {
+        height: 70px;
+    }
+
+    .filter-background {
+        height: 70px;
+    }
+}

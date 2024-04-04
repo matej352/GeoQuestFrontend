@@ -7,11 +7,18 @@ import { AuthGuardService } from './guards/auth-guard.service';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { LandingPageGuardService } from './guards/landing-page-guard.service';
 import { CurrentUserResolver } from './resolvers/current-user-resolver';
+import { SubjectsPageComponent } from './pages/subjects-page/subjects-page.component';
+import { ExamCreatePageComponent } from './pages/exams-page/exam-create-page/exam-create-page.component';
 
 const routes: Routes = [
   {
-    path: 'home/:role',
+    path: ':role/home',
     component: QuestComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: ':role/subjects',
+    component: SubjectsPageComponent,
     canActivate: [AuthGuardService],
   },
   {
@@ -21,10 +28,14 @@ const routes: Routes = [
   },
   { path: '', pathMatch: 'full', redirectTo: 'landing' },
   {
-    path: 'exams',
+    path: ':role/exams',
     component: ExamsPageComponent,
     canActivate: [AuthGuardService],
-    canActivateChild: [AuthGuardService],
+  },
+  {
+    path: ':role/exams/new',
+    component: ExamCreatePageComponent,
+    canActivate: [AuthGuardService],
   },
 ];
 

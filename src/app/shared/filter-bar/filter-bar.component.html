@@ -1,0 +1,19 @@
+<div class="filter-background"></div>
+<div class="filter">
+  <div class="filter-item" *ngFor="let selectionType of selectArray">
+    <p class="name">{{ selectionType.name }}</p>
+    <mat-form-field appearance="fill">
+      <mat-select
+        [(value)]="selectionType.selectedOption"
+        disableOptionCentering
+      >
+        <mat-option
+          [value]="option.value"
+          *ngFor="let option of selectionType.otherOptions"
+          (click)="onSelect()"
+          >{{ option.viewValue }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

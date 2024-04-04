@@ -111,10 +111,10 @@ export class LandingPageComponent implements OnInit {
         console.log(user);
         this._userProfileStore.setAccountData(user);
         this._router.navigate([
-          'home',
           user.role === ROLE_TEACHER
             ? RoleRouteParam.Teacher
             : RoleRouteParam.Student,
+          'home',
         ]);
       });
   }

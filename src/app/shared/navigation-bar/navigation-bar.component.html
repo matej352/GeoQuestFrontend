@@ -1,11 +1,11 @@
 <div class="navBar">
   <div class="leftNavBar">
-    <p>GeoQuest</p>
+    <a routerLink="/">GeoQuest</a>
   </div>
   <div class="middleNavBar">
-    <ul>
-      <li *ngFor="let item of centarData">
-        <a routerLink="{{ item.link }}" (click)="onClick(item.link)">{{
+    <ul *ngIf="currentUser$ | async as user">
+      <li *ngFor="let item of navigationItems">
+        <a *ngIf="item.role.includes(user.role)" routerLink="{{ item.link }}">{{
           item.text
         }}</a>
       </li>
