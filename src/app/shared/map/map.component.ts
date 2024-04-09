@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import * as L from 'leaflet';
+import { MapType } from 'src/app/pages/exams-page/exam-create-page/create-task-card/create-task-card.component';
 import { MarkerService } from 'src/app/services/map-services/marker.service';
 import { ShapeService } from 'src/app/services/map-services/shape.service';
 
@@ -25,7 +26,7 @@ L.Marker.prototype.options.icon = iconDefault;
 })
 export class MapComponent implements OnInit, AfterViewInit {
   @Input()
-  mapType!: string;
+  mapType!: MapType;
 
   map: any;
   zupanije: any;

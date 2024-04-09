@@ -23,15 +23,25 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatStepperModule } from '@angular/material/stepper';
+import { QuillModule } from 'ngx-quill';
+import { QuillEditorComponent } from '../shared/quill-editor/quill-editor.component';
 
 @NgModule({
-  declarations: [ButtonComponent, HeaderComponent, EnumToArrayPipe],
+  declarations: [
+    ButtonComponent,
+    HeaderComponent,
+    QuillEditorComponent,
+    EnumToArrayPipe,
+  ],
   imports: [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
     FontAwesomeModule,
     FormsModule,
+
+    //Quill
+    QuillModule,
 
     // Angular Material
     MatSelectModule,
@@ -60,7 +70,11 @@ import { MatStepperModule } from '@angular/material/stepper';
     // Components
     ButtonComponent,
     HeaderComponent,
+    QuillEditorComponent,
     EnumToArrayPipe,
+
+    //Quill
+    QuillModule,
 
     // Angular Material
     MatSelectModule,

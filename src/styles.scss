@@ -29,6 +29,16 @@ $goe-web-facebook-theme: mat.define-light-theme((color: (primary: $goe-web-faceb
 // that you are using.
 @include mat.all-component-themes($goe-web-facebook-theme);
 
+
+
+//for WYSIWYG editor
+@import "~quill/dist/quill.core.css";
+@import "~quill/dist/quill.bubble.css";
+@import "~quill/dist/quill.snow.css";
+
+
+
+
 @font-face {
     font-family: "poppins-regular";
     src: url("./assets/fonts/Poppins/Poppins-Regular.ttf");
@@ -110,7 +120,7 @@ $goe-web-facebook-theme: mat.define-light-theme((color: (primary: $goe-web-faceb
     --padding-size-4: 24px;
     --padding-size-5: 48px;
     /* ===== Breakpoints ===== */
-    --breakpoint-desktop: 1200px;
+    --breakpoint-desktop: 1500px;
     --breakpoint-laptop: 1024px;
     --breakpoint-tablet: 768px;
     --breakpoint-phone: 480px;

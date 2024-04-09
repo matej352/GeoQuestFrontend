@@ -1,15 +1,92 @@
-<div class="filter-item">
-  <p>Odaberite tip karte</p>
-  <mat-form-field appearance="fill">
-    <mat-select [(value)]="selection.selectedOption" disableOptionCentering>
-      <mat-option
-        [value]="option.value"
-        *ngFor="let option of selection.otherOptions"
-        (click)="onSelect()"
-        >{{ option.viewValue }}</mat-option
-      >
-    </mat-select>
-  </mat-form-field>
-</div>
+<main>
+  <div class="filters-container">
+    <div class="filter-item">
+      <p>Odaberite tip karte</p>
+      <mat-form-field appearance="fill">
+        <mat-select [(value)]="selection.selectedOption" disableOptionCentering>
+          <mat-option
+            [value]="option.value"
+            *ngFor="let option of selection.otherOptions"
+            (click)="onSelect()"
+            >{{ option.viewValue }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="filter-item">
+      <p>Odaberite tip zadatka</p>
+      <mat-form-field appearance="fill" class="task-type">
+        <mat-select
+          [(value)]="selection2.selectedOption"
+          disableOptionCentering
+        >
+          <mat-option
+            [value]="option.value"
+            *ngFor="let option of selection2.otherOptions"
+            (click)="onSelect()"
+            >{{ option.viewValue }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="configuration-container">
+    <app-plain-map
+      [mapType]="selectedMapTypeOption"
+      [taskType]="selectedTaskTypeOption"
+    ></app-plain-map>
+    <div class="right" [ngSwitch]="selectedTaskTypeOption">
+      <div *ngSwitchCase="'non_map'">
+        <form [formGroup]="taskForm" (ngSubmit)="submit()">
+          <div class="form-container">
+            <div class="form-group-column">
+              <label for="question"> Question </label>
+              <textarea
+                formControlName="question"
+                cols="30"
+                rows="2"
+              ></textarea>
+            </div>
 
-<app-plain-map></app-plain-map>
+            <div class="form-group-column">
+              <label for="answer"> Answer </label>
+              <app-quill-editor
+                formControlName="answer"
+                errorMessage="Answer"
+              ></app-quill-editor>
+            </div>
+            <input
+              class="submit"
+              type="submit"
+              value="Create"
+              [disabled]="!taskForm.valid"
+              [ngClass]="{ disabled: !taskForm.valid }"
+            />
+          </div>
+        </form>
+      </div>
+      <div *ngSwitchCase="'mark_point'">
+        <form [formGroup]="taskForm" (ngSubmit)="submit()">
+          <div class="form-container">
+            <div class="form-group-column">
+              <label for="question"> Tekst zadatka </label>
+              <app-quill-editor
+                formControlName="question"
+                errorMessage="Answer"
+              ></app-quill-editor>
+            </div>
+            <div>Označite točan odgovor (točku) na karti</div>
+
+            <input
+              class="submit"
+              type="submit"
+              value="Create"
+              [disabled]="!taskForm.valid"
+              [ngClass]="{ disabled: !taskForm.valid }"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>

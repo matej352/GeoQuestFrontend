@@ -1,5 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import * as L from 'leaflet';
+import {
+  MapType,
+  TaskType,
+} from 'src/app/pages/exams-page/exam-create-page/create-task-card/create-task-card.component';
 import { MarkerService } from 'src/app/services/map-services/marker.service';
 import { ShapeService } from 'src/app/services/map-services/shape.service';
 
@@ -23,40 +33,89 @@ L.Marker.prototype.options.icon = iconDefault;
   templateUrl: './plain-map.component.html',
   styleUrls: ['./plain-map.component.scss'],
 })
-export class PlainMapComponent implements OnInit {
-  @Input()
-  mapType!: string;
+export class PlainMapComponent implements OnInit, OnChanges {
+  @Input() mapType!: MapType;
+  @Input() taskType!: TaskType;
 
-  map: any;
+  map!: L.Map;
+  marker: L.Marker | null = null;
+  tileLayer!: L.TileLayer; // Store the current tile layer
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['mapType'] && !changes['mapType'].firstChange) {
+      this.updateMapTiles();
+    }
 
-  ngAfterViewInit(): void {
-    this.initMap();
-    //this.markerService.makeCapitalMarkers(this.map);
-
-    /*this.shapeService.getStateShapes().subscribe((shapes) => {
-      this.zupanije = shapes;
-      this.zupanijePool = (shapes as any).features.map(
-        (item: any) => item.properties.name
-      );
-      this.initStatesLayer();
-      this.getNextZupanijaQuestion();
-    }); */
+    if (changes['taskType'] && !changes['taskType'].firstChange) {
+      this.updateMapListeners();
+    }
   }
 
-  private initMap(): void {
-    var tiles;
+  ngOnInit(): void {
+    // Map initialization moved to ngOnInit to ensure it's only done once
+  }
+
+  ngAfterViewInit(): void {
+    this.initializeMap();
+    this.updateMapListeners();
+  }
+
+  private initializeClickListener() {
+    this.map.on('click', (event: L.LeafletMouseEvent) => {
+      this.handleMapClick(event);
+    });
+  }
+
+  private handleMapClick(event: L.LeafletMouseEvent): void {
+    const { lat, lng } = event.latlng;
+
+    // Remove previous marker if exists
+    if (this.marker) {
+      this.map.removeLayer(this.marker);
+    }
+
+    // Add a marker at the clicked location
+    this.marker = L.marker([lat, lng]).addTo(this.map);
+
+    // Do whatever you need with the coordinates (lat, lng)
+    console.log(`Clicked at: ${lat}, ${lng}`);
+  }
+
+  private initializeMap(): void {
+    this.map = L.map('map2', {
+      center: [44.5, 16],
+      zoom: 8,
+    });
+    this.updateMapTiles(); // Ensure tiles are added when the map initializes
+  }
+
+  private updateMapListeners() {
+    // ### First clear map from event listeners, markers, polygons
+    if (this.marker) {
+      this.map.removeLayer(this.marker);
+    }
+    this.map.off();
+    // ###
+
+    switch (this.taskType) {
+      case 'mark_point':
+        this.initializeClickListener();
+
+        break;
+      default:
+    }
+  }
+
+  private updateMapTiles(): void {
+    if (this.map && this.tileLayer) {
+      this.map.removeLayer(this.tileLayer); // Remove the previous tile layer
+    }
 
     switch (this.mapType) {
       case 'blind':
-        this.map = L.map('map2', {
-          center: [44.5, 16],
-          zoom: 8,
-        });
-        tiles = L.tileLayer(
+        this.tileLayer = L.tileLayer(
           'https://tile.openstreetmap.bzh/br/{z}/{x}/{y}.png',
           {
             maxZoom: 8,
@@ -71,11 +130,7 @@ export class PlainMapComponent implements OnInit {
         );
         break;
       case 'satellite':
-        this.map = L.map('map2', {
-          center: [39.8282, -98.5795],
-          zoom: 3,
-        });
-        tiles = L.tileLayer(
+        this.tileLayer = L.tileLayer(
           'http://{s}.google.com/vt?lyrs=s&x={x}&y={y}&z={z}',
           {
             maxZoom: 20,
@@ -84,11 +139,7 @@ export class PlainMapComponent implements OnInit {
         );
         break;
       default:
-        this.map = L.map('map2', {
-          center: [39.8282, -98.5795],
-          zoom: 3,
-        });
-        tiles = L.tileLayer(
+        this.tileLayer = L.tileLayer(
           'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
           {
             maxZoom: 18,
@@ -99,6 +150,6 @@ export class PlainMapComponent implements OnInit {
         );
     }
 
-    tiles.addTo(this.map);
+    this.tileLayer.addTo(this.map);
   }
 }
