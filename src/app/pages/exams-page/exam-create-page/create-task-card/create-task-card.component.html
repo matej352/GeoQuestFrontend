@@ -31,62 +31,100 @@
     </div>
   </div>
   <div class="configuration-container">
-    <app-plain-map
-      [mapType]="selectedMapTypeOption"
-      [taskType]="selectedTaskTypeOption"
-    ></app-plain-map>
-    <div class="right" [ngSwitch]="selectedTaskTypeOption">
-      <div *ngSwitchCase="'non_map'">
-        <form [formGroup]="taskForm" (ngSubmit)="submit()">
-          <div class="form-container">
-            <div class="form-group-column">
-              <label for="question"> Question </label>
-              <textarea
-                formControlName="question"
-                cols="30"
-                rows="2"
-              ></textarea>
+    <ng-container [ngSwitch]="selectedTaskTypeOption">
+      <ng-container *ngSwitchCase="'select_polygon'">
+        <div class="left">
+          <app-select-polygon-map
+            [mapType]="selectedMapTypeOption"
+            (onDrawnItemsChange)="drawnItemsChange($event)"
+          ></app-select-polygon-map>
+        </div>
+        <div class="right">
+          <form [formGroup]="taskForm" (ngSubmit)="submit()">
+            <div class="form-container">
+              <div class="form-group-column">
+                <label for="question"> Tekst zadatka </label>
+                <app-quill-editor
+                  formControlName="question"
+                  errorMessage="Tekst zadatka"
+                ></app-quill-editor>
+              </div>
+              <input
+                class="submit"
+                type="submit"
+                value="Create"
+                [disabled]="!taskForm.valid"
+                [ngClass]="{ disabled: !taskForm.valid }"
+              />
             </div>
+          </form>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'non_map'">
+        <div class="left">
+          <!--app-test-map></app-test-map-->
+        </div>
+        <div class="right">
+          <form [formGroup]="taskForm" (ngSubmit)="submit()">
+            <div class="form-container">
+              <div class="form-group-column">
+                <label for="question"> Tekst zadatka </label>
+                <textarea
+                  formControlName="question"
+                  cols="30"
+                  rows="2"
+                ></textarea>
+              </div>
 
-            <div class="form-group-column">
-              <label for="answer"> Answer </label>
-              <app-quill-editor
-                formControlName="answer"
-                errorMessage="Answer"
-              ></app-quill-editor>
+              <div class="form-group-column">
+                <label for="answer"> Answer </label>
+                <app-quill-editor
+                  formControlName="answer"
+                  errorMessage="Answer"
+                ></app-quill-editor>
+              </div>
+              <input
+                class="submit"
+                type="submit"
+                value="Create"
+                [disabled]="!taskForm.valid"
+                [ngClass]="{ disabled: !taskForm.valid }"
+              />
             </div>
-            <input
-              class="submit"
-              type="submit"
-              value="Create"
-              [disabled]="!taskForm.valid"
-              [ngClass]="{ disabled: !taskForm.valid }"
-            />
-          </div>
-        </form>
-      </div>
-      <div *ngSwitchCase="'mark_point'">
-        <form [formGroup]="taskForm" (ngSubmit)="submit()">
-          <div class="form-container">
-            <div class="form-group-column">
-              <label for="question"> Tekst zadatka </label>
-              <app-quill-editor
-                formControlName="question"
-                errorMessage="Answer"
-              ></app-quill-editor>
-            </div>
-            <div>Označite točan odgovor (točku) na karti</div>
+          </form>
+        </div>
+      </ng-container>
 
-            <input
-              class="submit"
-              type="submit"
-              value="Create"
-              [disabled]="!taskForm.valid"
-              [ngClass]="{ disabled: !taskForm.valid }"
-            />
-          </div>
-        </form>
-      </div>
-    </div>
+      <ng-container *ngSwitchCase="'mark_point'">
+        <div class="left">
+          <app-plain-map
+            [mapType]="selectedMapTypeOption"
+            [taskType]="selectedTaskTypeOption"
+          ></app-plain-map>
+        </div>
+        <div class="right">
+          <form [formGroup]="taskForm" (ngSubmit)="submit()">
+            <div class="form-container">
+              <div class="form-group-column">
+                <label for="question"> Tekst zadatka </label>
+                <app-quill-editor
+                  formControlName="question"
+                  errorMessage="Answer"
+                ></app-quill-editor>
+              </div>
+              <div>Označite točan odgovor (točku) na karti</div>
+
+              <input
+                class="submit"
+                type="submit"
+                value="Create"
+                [disabled]="!taskForm.valid"
+                [ngClass]="{ disabled: !taskForm.valid }"
+              />
+            </div>
+          </form>
+        </div>
+      </ng-container>
+    </ng-container>
   </div>
 </main>

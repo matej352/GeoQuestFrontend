@@ -7,11 +7,13 @@ import {
 } from '@angular/core';
 import * as L from 'leaflet';
 import {
-  MapType,
-  TaskType,
+  mapType,
+  taskType,
 } from 'src/app/pages/exams-page/exam-create-page/create-task-card/create-task-card.component';
 import { MarkerService } from 'src/app/services/map-services/marker.service';
 import { ShapeService } from 'src/app/services/map-services/shape.service';
+
+import 'leaflet-draw'; // Import Leaflet.Draw
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
@@ -34,8 +36,8 @@ L.Marker.prototype.options.icon = iconDefault;
   styleUrls: ['./plain-map.component.scss'],
 })
 export class PlainMapComponent implements OnInit, OnChanges {
-  @Input() mapType!: MapType;
-  @Input() taskType!: TaskType;
+  @Input() mapType!: mapType;
+  @Input() taskType!: taskType; //ovo onda ne treba
 
   map!: L.Map;
   marker: L.Marker | null = null;
@@ -48,6 +50,7 @@ export class PlainMapComponent implements OnInit, OnChanges {
       this.updateMapTiles();
     }
 
+    //vidjet jel ti ovo zapravo treba
     if (changes['taskType'] && !changes['taskType'].firstChange) {
       this.updateMapListeners();
     }

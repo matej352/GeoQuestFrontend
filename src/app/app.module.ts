@@ -19,6 +19,8 @@ import { SubjectCardComponent } from './pages/subjects-page/subject-card/subject
 import { ExamCreatePageComponent } from './pages/exams-page/exam-create-page/exam-create-page.component';
 import { CreateTaskCardComponent } from './pages/exams-page/exam-create-page/create-task-card/create-task-card.component';
 import { PlainMapComponent } from './shared/plain-map/plain-map.component';
+import { TestMapComponent } from './shared/test-map/test-map.component';
+import { SelectPolygonMapComponent } from './shared/maps/select-polygon-map/select-polygon-map.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { PlainMapComponent } from './shared/plain-map/plain-map.component';
     ExamCreatePageComponent,
     CreateTaskCardComponent,
     PlainMapComponent,
+    TestMapComponent,
+    SelectPolygonMapComponent,
   ],
   imports: [
     BrowserModule,

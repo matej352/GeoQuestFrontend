@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TaskType } from 'src/app/enums/task-type';
+import { IOptionAnwser } from 'src/app/models/option-anwser';
+import { OptionAnswerDto, TaskDto } from 'src/app/models/taskDto';
+import { TaskService } from 'src/app/services/task.service';
 import { SelectionType } from 'src/app/shared/filter-bar/selection-values';
 
 @Component({
@@ -11,21 +15,20 @@ export class CreateTaskCardComponent implements OnInit {
   selection!: SelectionType;
   selection2!: SelectionType;
 
+  drawnItems!: IOptionAnwser[];
+
   //form
   taskForm!: FormGroup;
 
-  selectedMapTypeOption: MapType = 'normal';
-  selectedTaskTypeOption: TaskType = 'mark_point';
+  selectedMapTypeOption: mapType = 'normal';
+  selectedTaskTypeOption: taskType = 'mark_point';
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private _taskService: TaskService) {}
 
   ngOnInit(): void {
     this.taskForm = this.fb.group({
-      question: [
-        '',
-        { validators: [Validators.required, Validators.maxLength(100)] },
-      ],
-      answer: ['', { validators: [Validators.required] }],
+      question: ['', { validators: [Validators.required] }],
+      answer: [''],
     });
 
     this.selection = {
@@ -53,15 +56,62 @@ export class CreateTaskCardComponent implements OnInit {
 
   onSelect() {
     console.log(this.selection.selectedOption);
-    this.selectedMapTypeOption = this.selection.selectedOption as MapType;
-    this.selectedTaskTypeOption = this.selection2.selectedOption as TaskType;
+    this.selectedMapTypeOption = this.selection.selectedOption as mapType;
+    this.selectedTaskTypeOption = this.selection2.selectedOption as taskType;
   }
 
-  submit() {}
+  drawnItemsChange(items: any) {
+    this.drawnItems = items;
+    console.log(this.drawnItems);
+  }
+
+  submit() {
+    let optionAnswers = [] as OptionAnswerDto[];
+
+    this.drawnItems.forEach((optionAnswer) => {
+      optionAnswers.push({
+        content: JSON.stringify(optionAnswer.coordinates),
+        correct: true,
+      });
+    });
+
+    let taskDto: TaskDto = {
+      question: this.taskForm.get('question')?.value.editor,
+      answer: this.taskForm.get('answer')?.value,
+      type: this.getTaskType(),
+      options: {
+        singleSelect: true,
+        optionAnswers: optionAnswers,
+      },
+    };
+
+    console.log(taskDto);
+
+    this._taskService.createTask(taskDto).subscribe((res) => console.log(res));
+  }
+
+  getTaskType(): TaskType {
+    switch (this.selectedTaskTypeOption) {
+      case 'mark_point':
+        return TaskType.MarkPoint;
+
+      case 'mark_polygon':
+        return TaskType.MarkPolygon;
+
+      case 'select_point':
+        return TaskType.SelectPoint;
+
+      case 'select_polygon':
+        return TaskType.SelectPolygon;
+
+      case 'non_map':
+        return TaskType.SelectPolygon;
+    }
+  }
 }
 
-export type MapType = 'normal' | 'blind' | 'satellite';
-export type TaskType =
+export type mapType = 'normal' | 'blind' | 'satellite';
+export type taskType =
   | 'mark_point'
   | 'mark_polygon'
   | 'select_point'
