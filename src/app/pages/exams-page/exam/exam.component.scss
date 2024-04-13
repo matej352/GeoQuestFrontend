@@ -1,0 +1,19 @@
+
+.exam {
+    padding: var(--elements-space) var(--padding-size-0);
+    height: auto;
+    width: 100%;
+    background-color: var(--gray-background-color);
+    display: flex;
+    justify-content: center;
+
+    .exam-container {
+
+        .general-info {
+            background: white;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+            height: 200px;
+        }
+
+    }
+}

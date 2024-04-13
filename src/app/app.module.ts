@@ -22,6 +22,7 @@ import { PlainMapComponent } from './shared/plain-map/plain-map.component';
 import { TestMapComponent } from './shared/test-map/test-map.component';
 import { SelectPolygonMapComponent } from './shared/maps/select-polygon-map/select-polygon-map.component';
 import { TooltipComponent } from './shared/tooltip/tooltip.component';
+import { ExamComponent } from './pages/exams-page/exam/exam.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { TooltipComponent } from './shared/tooltip/tooltip.component';
     TestMapComponent,
     SelectPolygonMapComponent,
     TooltipComponent,
+    ExamComponent,
   ],
   imports: [
     BrowserModule,
