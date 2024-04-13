@@ -7,11 +7,14 @@
             mapType="normal"
             context="view"
             [mapId]="task.id!.toString()"
+            [answers]="task.options!.optionAnswers"
           ></app-select-polygon-map>
         </div>
         <div class="right">
           <div class="form-container">
             <div class="form-group-column">
+              <label for="question"> Tip zadatka </label>
+              <div>Odaberi točan odgovor na karti</div>
               <label for="question"> Tekst zadatka </label>
               <div class="question" [innerHTML]="task.question"></div>
             </div>
@@ -25,6 +28,8 @@
         <div class="right">
           <div class="form-container">
             <div class="form-group-column">
+              <label for="question"> Tip zadatka </label>
+              <div>Obično pitanje</div>
               <label for="question"> Tekst zadatka </label>
               <div class="question" [innerHTML]="task.question"></div>
             </div>
@@ -46,6 +51,8 @@
         <div class="right">
           <div class="form-container">
             <div class="form-group-column">
+              <label for="question"> Tip zadatka </label>
+              <div>Odaberi točku na karti</div>
               <label for="question"> Tekst zadatka </label>
               <div class="question" [innerHTML]="task.question"></div>
             </div>

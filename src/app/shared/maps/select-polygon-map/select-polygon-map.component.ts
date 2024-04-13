@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import * as L from 'leaflet';
 import { IOptionAnwser } from 'src/app/models/option-anwser';
+import { IOptionAnswerDto } from 'src/app/models/taskDto';
 import { mapType } from 'src/app/pages/exams-page/exam/create-task-card/create-task-card.component';
 import { mapContextType } from 'src/app/types/map-context-type';
 
@@ -23,6 +24,9 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
 
   @Input()
   mapId!: string;
+
+  @Input()
+  answers!: IOptionAnswerDto[];
 
   private map!: L.Map;
   tileLayer!: L.TileLayer; // Store the current tile layer
@@ -57,96 +61,118 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
 
     // FeatureGroup is to store editable layers
 
-    this.map.addLayer(this.drawnItems);
+    // slučaj kad se ova karta koristi u CREATE mode-u (unutar create task card komponente)
+    if (this.mapId === 'select_polygon') {
+      this.map.addLayer(this.drawnItems);
 
-    var drawControl = new L.Control.Draw({
-      draw: {
-        polygon: {
-          allowIntersection: true,
-          showArea: true,
+      var drawControl = new L.Control.Draw({
+        draw: {
+          polygon: {
+            allowIntersection: true,
+            showArea: true,
+          },
+          marker: false, // Disable other drawing tools
+          circle: {},
+          circlemarker: false,
+          polyline: false,
+          rectangle: false,
         },
-        marker: false, // Disable other drawing tools
-        circle: {},
-        circlemarker: false,
-        polyline: false,
-        rectangle: false,
-      },
-      edit: {
-        featureGroup: this.drawnItems, // Enable editing of drawn polygons
-        remove: false,
-      },
-    });
-    this.map.addControl(drawControl);
+        edit: {
+          featureGroup: this.drawnItems, // Enable editing of drawn polygons
+          remove: false,
+        },
+      });
+      this.map.addControl(drawControl);
 
-    this.map.on(L.Draw.Event.CREATED, (event: any) => {
-      //console.log(this.drawnItems);
+      this.map.on(L.Draw.Event.CREATED, (event: any) => {
+        //console.log(this.drawnItems);
 
-      const layer = event.layer;
+        const layer = event.layer;
 
-      (layer as CustomLayer).properties = {
-        // Add your custom properties here
-        name: 'My Polygon',
-        description: 'This is a drawn polygon',
-        isCorrect: 'false',
-      };
+        (layer as CustomLayer).properties = {
+          // Add your custom properties here
+          name: 'My Polygon',
+          description: 'This is a drawn polygon',
+          isCorrect: 'false',
+        };
 
-      setTimeout(() => {
-        this.emitDrawnItemsChange();
-      }, 100);
+        setTimeout(() => {
+          this.emitDrawnItemsChange();
+        }, 100);
 
-      // Create a delete button for the polygon
-      const deleteButton = L.DomUtil.create('button', 'delete-button');
-      deleteButton.innerHTML = 'Obriši';
-      deleteButton.addEventListener('click', () => {
-        this.deletePolygon(layer, this.drawnItems); // Delete the polygon when the delete button is clicked
+        // Create a delete button for the polygon
+        const deleteButton = L.DomUtil.create('button', 'delete-button');
+        deleteButton.innerHTML = 'Obriši';
+        deleteButton.addEventListener('click', () => {
+          this.deletePolygon(layer, this.drawnItems); // Delete the polygon when the delete button is clicked
 
+          this.emitDrawnItemsChange();
+        });
+
+        // Create a toggle button for the polygon
+        const toggleButton = document.createElement('input');
+        toggleButton.type = 'checkbox';
+        toggleButton.checked = false; // Default value for the toggle button
+
+        toggleButton.addEventListener('change', (event) => {
+          const isChecked = (event.target as HTMLInputElement).checked;
+          (layer as CustomLayer).properties['isCorrect'] = isChecked; // Update the selected property
+
+          this.emitDrawnItemsChange();
+        });
+
+        // Create a container element for the popup content
+        const popupContent = document.createElement('div');
+        popupContent.classList.add('popup-container');
+
+        // Add the toggle button to the popup content
+        const toggleLabel = document.createElement('label');
+        toggleLabel.classList.add('toggle-label');
+        toggleLabel.textContent = 'Točan odgovor?';
+        popupContent.appendChild(toggleLabel);
+        popupContent.appendChild(toggleButton);
+
+        // Add the description text
+        const description = document.createElement('p');
+        description.textContent = 'Custom description goes here';
+        //popupContent.appendChild(description);  Ovo nisam iskoristio
+
+        // Add the delete button to the popup content
+        popupContent.appendChild(deleteButton);
+
+        // Add the delete button to the polygon
+        layer.bindPopup(popupContent);
+
+        this.drawnItems.addLayer(layer);
+      });
+
+      this.map.on(L.Draw.Event.EDITED, (event: any) => {
         this.emitDrawnItemsChange();
       });
 
-      // Create a toggle button for the polygon
-      const toggleButton = document.createElement('input');
-      toggleButton.type = 'checkbox';
-      toggleButton.checked = false; // Default value for the toggle button
-
-      toggleButton.addEventListener('change', (event) => {
-        const isChecked = (event.target as HTMLInputElement).checked;
-        (layer as CustomLayer).properties['isCorrect'] = isChecked; // Update the selected property
-
-        this.emitDrawnItemsChange();
+      this.drawnItems.on('click', (event: any) => {
+        console.log(event.layer.properties); // Access the custom properties
       });
+    }
 
-      // Create a container element for the popup content
-      const popupContent = document.createElement('div');
-      popupContent.classList.add('popup-container');
+    // ovo nek npr bude case kad je contect VIEW --> teacher samo gleda svoje vec napravljene zadatke
+    else if (true) {
+      this.answers.forEach((obj) => {
+        // Parse the content to extract coordinates
+        const coordinates = JSON.parse(obj.content);
 
-      // Add the toggle button to the popup content
-      const toggleLabel = document.createElement('label');
-      toggleLabel.classList.add('toggle-label');
-      toggleLabel.textContent = 'Točan odgovor?';
-      popupContent.appendChild(toggleLabel);
-      popupContent.appendChild(toggleButton);
+        // Create an array of LatLng objects
+        const latLngs = coordinates.map((coord: { lat: number; lng: number }) =>
+          L.latLng(coord.lat, coord.lng)
+        );
 
-      // Add the description text
-      const description = document.createElement('p');
-      description.textContent = 'Custom description goes here';
-      //popupContent.appendChild(description);  Ovo nisam iskoristio
+        // Create polygon
+        const polygon = L.polygon(latLngs);
 
-      // Add the delete button to the popup content
-      popupContent.appendChild(deleteButton);
-
-      // Add the delete button to the polygon
-      layer.bindPopup(popupContent);
-
-      this.drawnItems.addLayer(layer);
-    });
-
-    this.map.on(L.Draw.Event.EDITED, (event: any) => {
-      this.emitDrawnItemsChange();
-    });
-
-    this.drawnItems.on('click', (event: any) => {
-      console.log(event.layer.properties); // Access the custom properties
-    });
+        // Add polygon to map
+        polygon.addTo(this.map);
+      });
+    }
   }
 
   private updateMapTiles(): void {

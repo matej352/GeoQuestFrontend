@@ -16,7 +16,6 @@
 
 ::ng-deep app-navigation-bar .navBar,
 ::ng-deep app-exams-page .exams-page-container,
-::ng-deep app-exam-create-page .exam-create-page-container,
 ::ng-deep app-exam .exam-container
 
 {
@@ -29,9 +28,8 @@
     // desktops, 1200px and lower
     ::ng-deep app-navigation-bar .navBar,
     ::ng-deep app-exams-page .exams-page-container,
-    ::ng-deep app-exam-create-page .exam-create-page-container,
     ::ng-deep app-exam .exam-container
-    
+
     {
         width: 100%;
     }
