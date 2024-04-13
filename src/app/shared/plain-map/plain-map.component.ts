@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   Input,
   OnChanges,
@@ -9,7 +10,7 @@ import * as L from 'leaflet';
 import {
   mapType,
   taskType,
-} from 'src/app/pages/exams-page/exam-create-page/create-task-card/create-task-card.component';
+} from 'src/app/pages/exams-page/exam/create-task-card/create-task-card.component';
 import { MarkerService } from 'src/app/services/map-services/marker.service';
 import { ShapeService } from 'src/app/services/map-services/shape.service';
 
@@ -35,9 +36,12 @@ L.Marker.prototype.options.icon = iconDefault;
   templateUrl: './plain-map.component.html',
   styleUrls: ['./plain-map.component.scss'],
 })
-export class PlainMapComponent implements OnInit, OnChanges {
+export class PlainMapComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() mapType!: mapType;
   @Input() taskType!: taskType; //ovo onda ne treba
+
+  @Input()
+  mapId!: string;
 
   map!: L.Map;
   marker: L.Marker | null = null;
@@ -51,9 +55,9 @@ export class PlainMapComponent implements OnInit, OnChanges {
     }
 
     //vidjet jel ti ovo zapravo treba
-    if (changes['taskType'] && !changes['taskType'].firstChange) {
+    /*if (changes['taskType'] && !changes['taskType'].firstChange) {
       this.updateMapListeners();
-    }
+    }*/
   }
 
   ngOnInit(): void {
@@ -62,7 +66,8 @@ export class PlainMapComponent implements OnInit, OnChanges {
 
   ngAfterViewInit(): void {
     this.initializeMap();
-    this.updateMapListeners();
+    //this.updateMapListeners();
+    this.initializeClickListener();
   }
 
   private initializeClickListener() {
@@ -87,14 +92,14 @@ export class PlainMapComponent implements OnInit, OnChanges {
   }
 
   private initializeMap(): void {
-    this.map = L.map('map2', {
+    this.map = L.map(this.mapId, {
       center: [44.5, 16],
       zoom: 8,
     });
     this.updateMapTiles(); // Ensure tiles are added when the map initializes
   }
 
-  private updateMapListeners() {
+  /*private updateMapListeners() {
     // ### First clear map from event listeners, markers, polygons
     if (this.marker) {
       this.map.removeLayer(this.marker);
@@ -109,7 +114,7 @@ export class PlainMapComponent implements OnInit, OnChanges {
         break;
       default:
     }
-  }
+  } */
 
   private updateMapTiles(): void {
     if (this.map && this.tileLayer) {

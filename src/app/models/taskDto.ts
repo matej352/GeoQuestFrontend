@@ -1,21 +1,22 @@
 import { TaskType } from '../enums/task-type';
 
 // TaskDto interface
-export interface TaskDto {
+export interface ITaskDto {
+  id?: number;
   question: string;
   answer?: string;
   type: TaskType;
-  options?: OptionsDto;
+  options?: IOptionsDto;
 }
 
 // OptionsDto interface
-interface OptionsDto {
+interface IOptionsDto {
   singleSelect: boolean;
-  optionAnswers: OptionAnswerDto[];
+  optionAnswers: IOptionAnswerDto[];
 }
 
 // OptionAnswerDto interface
-export interface OptionAnswerDto {
+export interface IOptionAnswerDto {
   content: string;
   correct: boolean;
 }

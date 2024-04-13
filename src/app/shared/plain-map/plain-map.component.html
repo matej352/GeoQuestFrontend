@@ -1,5 +1,5 @@
-<div class="map-container">
+<div *ngIf="mapId" class="map-container">
   <div class="map-frame">
-    <div id="map2"></div>
+    <div [id]="mapId"></div>
   </div>
 </div>

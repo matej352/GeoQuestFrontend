@@ -8,7 +8,6 @@ import { LandingPageComponent } from './pages/landing-page/landing-page.componen
 import { LandingPageGuardService } from './guards/landing-page-guard.service';
 import { CurrentUserResolver } from './resolvers/current-user-resolver';
 import { SubjectsPageComponent } from './pages/subjects-page/subjects-page.component';
-import { ExamCreatePageComponent } from './pages/exams-page/exam-create-page/exam-create-page.component';
 import { ExamComponent } from './pages/exams-page/exam/exam.component';
 
 const routes: Routes = [
@@ -36,11 +35,6 @@ const routes: Routes = [
   {
     path: ':role/exams',
     component: ExamsPageComponent,
-    canActivate: [AuthGuardService],
-  },
-  {
-    path: ':role/exams/new',
-    component: ExamCreatePageComponent,
     canActivate: [AuthGuardService],
   },
 ];

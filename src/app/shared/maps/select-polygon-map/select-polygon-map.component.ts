@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   EventEmitter,
   Input,
@@ -9,15 +10,20 @@ import {
 } from '@angular/core';
 import * as L from 'leaflet';
 import { IOptionAnwser } from 'src/app/models/option-anwser';
-import { mapType } from 'src/app/pages/exams-page/exam-create-page/create-task-card/create-task-card.component';
+import { mapType } from 'src/app/pages/exams-page/exam/create-task-card/create-task-card.component';
+import { mapContextType } from 'src/app/types/map-context-type';
 
 @Component({
   selector: 'app-select-polygon-map',
   templateUrl: './select-polygon-map.component.html',
   styleUrls: ['./select-polygon-map.component.scss'],
 })
-export class SelectPolygonMapComponent implements OnInit, OnChanges {
+export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
   @Input() mapType!: mapType;
+
+  @Input()
+  mapId!: string;
+
   private map!: L.Map;
   tileLayer!: L.TileLayer; // Store the current tile layer
   drawnItems = new L.FeatureGroup();
@@ -33,7 +39,7 @@ export class SelectPolygonMapComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.initializeMap();
   }
 
@@ -42,7 +48,7 @@ export class SelectPolygonMapComponent implements OnInit, OnChanges {
   }
 
   private initializeMap(): void {
-    this.map = L.map('map', {
+    this.map = L.map(this.mapId, {
       center: [44.5, 16],
       zoom: 8,
     });

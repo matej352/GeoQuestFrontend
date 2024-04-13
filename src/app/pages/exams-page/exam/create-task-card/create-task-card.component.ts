@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TaskType } from 'src/app/enums/task-type';
 import { IOptionAnwser } from 'src/app/models/option-anwser';
-import { OptionAnswerDto, TaskDto } from 'src/app/models/taskDto';
+import { IOptionAnswerDto, ITaskDto } from 'src/app/models/taskDto';
 import { TaskService } from 'src/app/services/task.service';
 import { SelectionType } from 'src/app/shared/filter-bar/selection-values';
 
@@ -66,7 +66,7 @@ export class CreateTaskCardComponent implements OnInit {
   }
 
   submit() {
-    let optionAnswers = [] as OptionAnswerDto[];
+    let optionAnswers = [] as IOptionAnswerDto[];
 
     this.drawnItems.forEach((optionAnswer) => {
       optionAnswers.push({
@@ -75,7 +75,7 @@ export class CreateTaskCardComponent implements OnInit {
       });
     });
 
-    let taskDto: TaskDto = {
+    let taskDto: ITaskDto = {
       question: this.taskForm.get('question')?.value.editor,
       answer: this.taskForm.get('answer')?.value,
       type: this.getTaskType(),

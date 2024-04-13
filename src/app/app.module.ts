@@ -16,13 +16,13 @@ import { LandingPageComponent } from './pages/landing-page/landing-page.componen
 import { SubjectsPageComponent } from './pages/subjects-page/subjects-page.component';
 import { FilterBarComponent } from './shared/filter-bar/filter-bar.component';
 import { SubjectCardComponent } from './pages/subjects-page/subject-card/subject-card.component';
-import { ExamCreatePageComponent } from './pages/exams-page/exam-create-page/exam-create-page.component';
-import { CreateTaskCardComponent } from './pages/exams-page/exam-create-page/create-task-card/create-task-card.component';
+import { CreateTaskCardComponent } from './pages/exams-page/exam/create-task-card/create-task-card.component';
 import { PlainMapComponent } from './shared/plain-map/plain-map.component';
 import { TestMapComponent } from './shared/test-map/test-map.component';
 import { SelectPolygonMapComponent } from './shared/maps/select-polygon-map/select-polygon-map.component';
 import { TooltipComponent } from './shared/tooltip/tooltip.component';
 import { ExamComponent } from './pages/exams-page/exam/exam.component';
+import { TaskCardComponent } from './pages/exams-page/exam/task-card/task-card.component';
 
 @NgModule({
   declarations: [
@@ -37,13 +37,13 @@ import { ExamComponent } from './pages/exams-page/exam/exam.component';
     SubjectsPageComponent,
     FilterBarComponent,
     SubjectCardComponent,
-    ExamCreatePageComponent,
     CreateTaskCardComponent,
     PlainMapComponent,
     TestMapComponent,
     SelectPolygonMapComponent,
     TooltipComponent,
     ExamComponent,
+    TaskCardComponent,
   ],
   imports: [
     BrowserModule,

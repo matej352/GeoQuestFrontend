@@ -2,16 +2,17 @@
     width: 800px;
     height: 800px;
     margin: 30px;
-  }
+
     
   .map-frame {
       border: 2px solid black;
       height: 90%;
+
+      div {
+        height: 100%;
+      }
   }
-    
-  #map {
-      height: 100%;
-  }
+}
 
 ::ng-deep {
     .popup-container {

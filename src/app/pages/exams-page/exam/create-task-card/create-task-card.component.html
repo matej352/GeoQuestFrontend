@@ -37,6 +37,7 @@
           <app-select-polygon-map
             [mapType]="selectedMapTypeOption"
             (onDrawnItemsChange)="drawnItemsChange($event)"
+            mapId="select_polygon"
           ></app-select-polygon-map>
         </div>
         <div class="right">
@@ -99,7 +100,7 @@
         <div class="left">
           <app-plain-map
             [mapType]="selectedMapTypeOption"
-            [taskType]="selectedTaskTypeOption"
+            mapId="mark_point"
           ></app-plain-map>
         </div>
         <div class="right">
