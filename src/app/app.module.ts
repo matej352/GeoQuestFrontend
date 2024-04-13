@@ -21,6 +21,7 @@ import { CreateTaskCardComponent } from './pages/exams-page/exam-create-page/cre
 import { PlainMapComponent } from './shared/plain-map/plain-map.component';
 import { TestMapComponent } from './shared/test-map/test-map.component';
 import { SelectPolygonMapComponent } from './shared/maps/select-polygon-map/select-polygon-map.component';
+import { TooltipComponent } from './shared/tooltip/tooltip.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { SelectPolygonMapComponent } from './shared/maps/select-polygon-map/sele
     PlainMapComponent,
     TestMapComponent,
     SelectPolygonMapComponent,
+    TooltipComponent,
   ],
   imports: [
     BrowserModule,

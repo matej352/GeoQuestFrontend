@@ -6,6 +6,74 @@
       <div class="add-student">
         <div class="button" (click)="onCreateExam()">Novi ispit</div>
       </div>
+      <div class="students-container">
+        <div class="board">
+          <ng-container *ngIf="tests$ | async as tests; else loading">
+            <table *ngIf="tests.length !== 0; else noTests">
+              <thead>
+                <tr>
+                  <th>Naslov</th>
+                  <th>Predmet</th>
+                  <th>Trajanje</th>
+                  <th>
+                    Invitation status
+                    <app-tooltip message="statusMessage"></app-tooltip>
+                  </th>
+                  <th>
+                    Progress
+                    <app-tooltip message="progressMessage"></app-tooltip>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let test of tests$ | async"
+                  [routerLink]="['exam', test.id]"
+                >
+                  <td class="username">
+                    <p>Naslov</p>
+                  </td>
+                  <td>
+                    <p>{{ test.subject }}</p>
+                  </td>
+                  <td>
+                    <p>{{ test.duration }}</p>
+                  </td>
+                  <td>
+                    <!--div
+                      *ngIf="student.status === 'accepted'"
+                      class="status accepted"
+                    >
+                      Accepted
+                    </div>
+                    <div
+                      *ngIf="student.status === 'rejected'"
+                      class="status rejected"
+                    >
+                      Rejected
+                    </div>
+                    <div
+                      *ngIf="student.status === 'pending'"
+                      class="status pending"
+                    >
+                      Pending
+                    </div-->
+                    bla
+                  </td>
+                  <td>
+                    <!--p>{{ getProgress(student.progress) }}</p-->
+                    bla 2
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <ng-template #noTests>
+              <div class="no-students">Trenutno nemate skice ispita</div>
+            </ng-template>
+          </ng-container>
+          <ng-template #loading> Loading </ng-template>
+        </div>
+      </div>
     </div>
   </div>
 </div>

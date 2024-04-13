@@ -29,6 +29,113 @@
                     color: #2e4258;
                 }
             }
+
+            .students-container {
+                flex: 3;
+                min-height: 430px;
+                position: relative;
+                background: linear-gradient(35deg, #840a9a, #9980aa);
+    
+                padding: 15px;
+                //min-height: 350px;
+    
+                .board {
+                    overflow-x: auto;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding-right: 10px;
+                  
+    
+                    .no-students {
+                        font-size: var(--font-size-h4);
+                        text-align: center;
+                        color: var(--secondary-color);
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+    
+                    table {
+                        display: grid;
+                        border-collapse: collapse;
+                        min-width: 100%;
+                        grid-template-columns:
+                            minmax(150px, 1fr) minmax(150px, 1.67fr) minmax(150px, 1.67fr) minmax(170px, 1.67fr) minmax(150px, 1.67fr);
+    
+                        max-height: 400px;
+    
+    
+    
+                        th {
+                            background-color: var(--gray-background-color);
+                            color: #2e4258;
+                        }
+    
+    
+                        tr td {
+                            background-color: var(--white-color);
+                            height: 60px;
+                            cursor: pointer;
+                        }
+    
+    
+    
+                        thead,
+                        tbody,
+                        tr {
+                            display: contents;
+                        }
+    
+                        th,
+                        td {
+                            padding: 15px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+    
+                        th {
+                            position: sticky;
+                            top: 0;
+    
+                        }
+    
+                        th app-tooltip {
+                            margin-left: 5px;
+                        }
+    
+                        th:last-child {
+                            border: 0;
+                        }
+    
+                        td {
+                            padding-top: 10px;
+                            padding-bottom: 10px;
+                            color: #747685;
+                        }
+    
+                        td.username {
+                            color: var(--primary-color);
+                        }
+    
+                        td.username:hover {
+                            font-weight: bold;
+                        }
+    
+                        tr:nth-child(even) td {
+                            background: #f8f6ff;
+                        }
+    
+                    }
+                }
+    
+    
+            }
         
         }
     }

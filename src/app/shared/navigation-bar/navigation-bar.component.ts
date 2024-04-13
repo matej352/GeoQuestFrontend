@@ -74,13 +74,13 @@ export class NavigationBarComponent implements OnInit {
         link: `/${
           this.currentUser?.role === ROLE_TEACHER ? 'teacher' : 'student'
         }/exams`,
-        text: 'Ispiti',
+        text: 'Skice ispita',
         role: [ROLE_TEACHER],
       },
       {
         id: 3,
         link: '/about-us',
-        text: 'About Us',
+        text: 'Ispiti',
         role: [ROLE_TEACHER],
       },
       {
