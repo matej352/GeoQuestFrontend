@@ -98,10 +98,10 @@
 
       <ng-container *ngSwitchCase="'mark_point'">
         <div class="left">
-          <app-plain-map
+          <app-mark-point-map
             [mapType]="selectedMapTypeOption"
             mapId="mark_point"
-          ></app-plain-map>
+          ></app-mark-point-map>
         </div>
         <div class="right">
           <form [formGroup]="taskForm" (ngSubmit)="submit()">

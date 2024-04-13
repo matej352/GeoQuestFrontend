@@ -32,11 +32,11 @@ const iconDefault = L.icon({
 L.Marker.prototype.options.icon = iconDefault;
 
 @Component({
-  selector: 'app-plain-map',
-  templateUrl: './plain-map.component.html',
-  styleUrls: ['./plain-map.component.scss'],
+  selector: 'app-mark-point-map',
+  templateUrl: './mark-point-map.component.html',
+  styleUrls: ['./mark-point-map.component.scss'],
 })
-export class PlainMapComponent implements OnInit, OnChanges, AfterViewInit {
+export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() mapType!: mapType;
   @Input() taskType!: taskType; //ovo onda ne treba
 

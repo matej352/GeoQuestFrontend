@@ -17,7 +17,7 @@ import { SubjectsPageComponent } from './pages/subjects-page/subjects-page.compo
 import { FilterBarComponent } from './shared/filter-bar/filter-bar.component';
 import { SubjectCardComponent } from './pages/subjects-page/subject-card/subject-card.component';
 import { CreateTaskCardComponent } from './pages/exams-page/exam/create-task-card/create-task-card.component';
-import { PlainMapComponent } from './shared/plain-map/plain-map.component';
+import { MarkPointMapComponent } from './shared/maps/mark-point-map/mark-point-map.component';
 import { TestMapComponent } from './shared/test-map/test-map.component';
 import { SelectPolygonMapComponent } from './shared/maps/select-polygon-map/select-polygon-map.component';
 import { TooltipComponent } from './shared/tooltip/tooltip.component';
@@ -38,7 +38,7 @@ import { TaskCardComponent } from './pages/exams-page/exam/task-card/task-card.c
     FilterBarComponent,
     SubjectCardComponent,
     CreateTaskCardComponent,
-    PlainMapComponent,
+    MarkPointMapComponent,
     TestMapComponent,
     SelectPolygonMapComponent,
     TooltipComponent,

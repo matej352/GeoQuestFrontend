@@ -43,10 +43,10 @@
 
       <ng-container *ngSwitchCase="TaskType.MarkPoint">
         <div class="left">
-          <app-plain-map
+          <app-mark-point-map
             mapType="satellite"
             [mapId]="task.id!.toString()"
-          ></app-plain-map>
+          ></app-mark-point-map>
         </div>
         <div class="right">
           <div class="form-container">

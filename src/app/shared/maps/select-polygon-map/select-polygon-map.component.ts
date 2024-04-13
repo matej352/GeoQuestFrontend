@@ -155,7 +155,7 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
       });
     }
 
-    // ovo nek npr bude case kad je contect VIEW --> teacher samo gleda svoje vec napravljene zadatke
+    // ovo nek npr bude case kad je context VIEW --> teacher samo gleda svoje vec napravljene zadatke
     else if (true) {
       this.answers.forEach((obj) => {
         // Parse the content to extract coordinates
