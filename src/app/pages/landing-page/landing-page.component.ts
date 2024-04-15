@@ -14,6 +14,7 @@ import { ROLE_STUDENT, ROLE_TEACHER } from 'src/app/constants/global-constants';
 import { RoleRouteParam } from 'src/app/guards/auth-guard.service';
 import { IAccount } from 'src/app/models/account';
 import { ILoginData } from 'src/app/models/login-data';
+import { IRegisterData } from 'src/app/models/register-data';
 import { AccountService } from 'src/app/services/account.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { UserProfileStoreService } from 'src/app/storage/user-profile-store.service';
@@ -34,6 +35,7 @@ export class LandingPageComponent implements OnInit {
   registerForm!: FormGroup;
 
   loginOpened = true;
+  isTeacherCheckboxChecked: boolean = false;
 
   constructor(
     private _authenticationService: AuthenticationService,
@@ -87,6 +89,7 @@ export class LandingPageComponent implements OnInit {
       confirmPassword: new FormControl('', {
         validators: [Validators.required, Validators.minLength(7)],
       }),
+      isTeacherCheckboxChecked: new FormControl(false),
     });
   }
 
@@ -119,7 +122,28 @@ export class LandingPageComponent implements OnInit {
       });
   }
 
-  register() {}
+  register() {
+    let data = {
+      firstName: this.registerForm.controls['firstName'].value,
+      lastName: this.registerForm.controls['lastName'].value,
+      email: this.registerForm.controls['email'].value,
+      password: this.registerForm.controls['password'].value,
+      confirmPassword: this.registerForm.controls['confirmPassword'].value,
+      role: this.registerForm.controls['isTeacherCheckboxChecked'].value
+        ? 0
+        : 1,
+    } as IRegisterData;
+
+    this._accountService
+      .registerAccount(data)
+      .pipe(
+        catchError((err) => {
+          console.log(err);
+          return EMPTY;
+        })
+      )
+      .subscribe((res) => (this.loginOpened = true));
+  }
 
   logout() {
     this._authenticationService
