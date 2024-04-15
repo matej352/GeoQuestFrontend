@@ -1,0 +1,24 @@
+<details class="custom-select" (click)="onOpen()">
+  <summary class="radios">
+    <span *ngIf="!selectedDropdownOptionId">Select...</span>
+    <input
+      type="radio"
+      name="item"
+      id="default"
+      [checked]="!selectedDropdownOptionId"
+    />
+    <input
+      *ngFor="let item of list$ | async"
+      type="radio"
+      [id]="item.id"
+      [title]="item.name"
+      name="item"
+      [checked]="selectedDropdownOptionId == item.id"
+    />
+  </summary>
+  <ul class="list">
+    <li *ngFor="let item of list$ | async">
+      <label [for]="item" (click)="onSelect(item.id)">{{ item.name }} </label>
+    </li>
+  </ul>
+</details>
