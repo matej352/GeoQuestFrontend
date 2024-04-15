@@ -3,6 +3,7 @@ import { TaskType } from '../enums/task-type';
 // TaskDto interface
 export interface ITaskDto {
   id?: number;
+  testId: number;
   question: string;
   answer?: string;
   type: TaskType;

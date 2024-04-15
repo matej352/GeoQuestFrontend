@@ -18,7 +18,7 @@
       <ng-template #loading>Loading</ng-template>
 
       <div *ngIf="createTaskOpened" class="task">
-        <app-create-task-card></app-create-task-card>
+        <app-create-task-card [testId]="testId"></app-create-task-card>
       </div>
     </div>
   </div>

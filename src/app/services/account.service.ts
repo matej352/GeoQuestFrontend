@@ -24,4 +24,13 @@ export class AccountService {
       withCredentials: true,
     });
   }
+
+  getStudentAccounts(subjectId: number): Observable<any> {
+    return this.http.get<any>(
+      `${this._apiURL}/Account/Students?subjectId=${subjectId}`,
+      {
+        withCredentials: true,
+      }
+    );
+  }
 }

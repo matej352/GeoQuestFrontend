@@ -9,11 +9,17 @@ import { LandingPageGuardService } from './guards/landing-page-guard.service';
 import { CurrentUserResolver } from './resolvers/current-user-resolver';
 import { SubjectsPageComponent } from './pages/subjects-page/subjects-page.component';
 import { ExamComponent } from './pages/exams-page/exam/exam.component';
+import { SubjectComponent } from './pages/subjects-page/subject/subject.component';
 
 const routes: Routes = [
   {
     path: ':role/home',
     component: QuestComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: ':role/subjects/subject/:subjectId',
+    component: SubjectComponent,
     canActivate: [AuthGuardService],
   },
   {

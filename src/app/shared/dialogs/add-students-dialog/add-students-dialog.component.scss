@@ -1,0 +1,48 @@
+.class-req-send-dialog {
+    .header {
+        display: flex;
+
+
+        justify-content: space-between;
+
+
+        h2 {
+            font-family: var(--primary-font-bold);
+            color: var(--black-color-2);
+        }
+
+        h3 {
+            color: var(--gray-color);
+        }
+
+        fa-icon {
+            color: var(--gray-color);
+            cursor: pointer;
+        }
+
+        fa-icon:hover {
+            color: var(--gray-color-darker);
+        }
+    }
+
+    .main {
+        padding: 24px;
+    }
+
+    .footer {
+        display: flex;
+        justify-content: flex-end;
+
+        .button-confirm {
+            border: 0;
+            opacity: 1;
+            color: #fff;
+            cursor: pointer;
+            font-size: var(--font-size-h5);
+            font-family: var(--secondary-font-bold);
+            padding: 10px;
+            border-radius: 10px;
+            background-color: var(--success-green-color);
+        }
+    }
+}

@@ -1,0 +1,66 @@
+<div class="outer-container">
+  <div class="students-row">
+    <mat-form-field class="students" appearance="fill">
+      <mat-label>Učenik</mat-label>
+      <input
+        type="text"
+        placeholder="Traži učenike..."
+        aria-label="Number"
+        matInput
+        [formControl]="studentsInputControl"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let student of filteredStudents$ | async"
+          [value]="student.firstName + ' ' + student.lastName"
+        >
+          {{ student.firstName }} {{ student.lastName }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <div class="student-add">
+      <div class="add accessibility" (click)="onAddStudent()">Dodaj</div>
+    </div>
+  </div>
+
+  <div *ngIf="selectedStudents.length != 0" class="count">
+    <p>Dodani učenici: {{ selectedStudents.length }}</p>
+  </div>
+  <div class="board">
+    <table>
+      <thead *ngIf="selectedStudents.length != 0">
+        <tr>
+          <td>Ime</td>
+          <td>Email</td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of selectedStudents">
+          <td class="people">
+            <img
+              src="./../../../../../assets/images/profileAvatar.png"
+              alt=""
+            />
+            <div class="people-de">
+              <h5>{{ user.firstName }} {{ user.lastName }}</h5>
+            </div>
+          </td>
+          <td class="people-des">
+            <h5>{{ user.email }}</h5>
+          </td>
+
+          <td class="remove">
+            <fa-icon
+              [icon]="removeIcon"
+              size="lg"
+              (click)="onRemove(user)"
+              title="Remove"
+            ></fa-icon>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<main class="class-req-send-dialog">
+  <div class="header">
+    <div>
+      <h2>Dodaj učenike</h2>
+    </div>
+    <div>
+      <fa-icon mat-dialog-close [icon]="closeIcon" class="fa-2x"></fa-icon>
+    </div>
+  </div>
+  <div class="main">
+    <app-students-invitation
+      [subjectId]="data.subjectId"
+      (onSelectedStudentsChange)="updateSelectedStudents($event)"
+    ></app-students-invitation>
+  </div>
+  <div class="footer">
+    <button class="button-confirm" (click)="confirmed()">Potvrdi</button>
+  </div>
+</main>

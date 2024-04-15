@@ -18,9 +18,28 @@ export class SubjectService {
     });
   }
 
+  getSubject(id: number): Observable<any> {
+    return this.http.get<any>(
+      `${this._apiURL}/Subject/Subject?subjectId=${id}`,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
   createSubject(data: ISubject): Observable<any> {
     return this.http.post<any>(`${this._apiURL}/Subject/Create`, data, {
       withCredentials: true,
     });
+  }
+
+  addStudents(subjectId: number, studentIds: number[]): Observable<any> {
+    return this.http.post<any>(
+      `${this._apiURL}/Subject/Students?subjectId=${subjectId}`,
+      studentIds,
+      {
+        withCredentials: true,
+      }
+    );
   }
 }

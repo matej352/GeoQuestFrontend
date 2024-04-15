@@ -10,6 +10,7 @@ import { TaskService } from 'src/app/services/task.service';
   styleUrls: ['./exam.component.scss'],
 })
 export class ExamComponent implements OnInit {
+  testId!: number;
   tasks$!: Observable<ITaskDto[]>;
 
   createTaskOpened = false;
@@ -22,10 +23,10 @@ export class ExamComponent implements OnInit {
   ngOnInit(): void {
     this._route.paramMap
       .pipe(
-        tap(
-          (res: ParamMap) =>
-            (this.tasks$ = this._taskService.getTasks(+res.get('testId')!))
-        )
+        tap((res: ParamMap) => {
+          this.testId = +res.get('testId')!;
+          this.tasks$ = this._taskService.getTasks(this.testId);
+        })
       )
       .subscribe();
   }

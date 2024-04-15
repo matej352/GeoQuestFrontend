@@ -1,0 +1,122 @@
+<app-header></app-header>
+
+<div class="subject">
+  <div class="subject-container">
+    <ng-container
+      *ngIf="subjectDetails$ | async as subjectDetails; else loading"
+    >
+      <div class="general-info-containers">
+        <div class="general-info-container padding-right" style="height: 495px">
+          <div class="rows-container">
+            <div class="title">
+              <h2>Predmet</h2>
+            </div>
+
+            <p>
+              <span>Naziv:</span>
+              <span>{{ subjectDetails.name }}</span>
+            </p>
+
+            <p>
+              <span>Opis:</span>
+              <span>{{ subjectDetails.description }}</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="general-info-container flex-2">
+          <div class="rows-container">
+            <div class="title">
+              <h2>Učenici</h2>
+            </div>
+            <div class="students-container">
+              <table
+                *ngIf="subjectDetails.students.length !== 0; else noStudents"
+              >
+                <thead>
+                  <tr>
+                    <th>Ime</th>
+                    <th>Prezime</th>
+                    <th>Email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let student of subjectDetails.students"
+                    [routerLink]="['student', student.id]"
+                  >
+                    <td class="username">
+                      <p>{{ student.firstName }}</p>
+                    </td>
+                    <td>
+                      <p>{{ student.lastName }}</p>
+                    </td>
+                    <td>
+                      <p>{{ student.email }}</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <ng-template #noStudents>
+                <div class="no-students">
+                  Trenutno na ovom predmetu nema učenika
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="students-container-actions">
+        <div class="add-student">
+          <div class="button" (click)="onAddStudents()">Dodaj učenike</div>
+        </div>
+      </div>
+
+      <div class="students-container-wrappper" style="position: relative">
+        <div class="filter-container">
+          <!--app-classroom-filter-bar
+            (optionClick)="onFilter($event)"
+            type="teacher-role-classroom-students"
+          ></app-classroom-filter-bar-->
+        </div>
+
+        <div class="tests-container">
+          <div class="board">
+            <table
+              *ngIf="
+                subjectDetails.testInstancesBase.length !== 0;
+                else noTests
+              "
+            >
+              <thead>
+                <tr>
+                  <th>Naziv</th>
+                  <th>Aktivan</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let test of subjectDetails.testInstancesBase"
+                  [routerLink]="['student', test.id]"
+                >
+                  <td class="username">
+                    <p>{{ test.testName }}</p>
+                  </td>
+                  <td>
+                    <p>{{ test.active }}</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <ng-template #noTests>
+              <div class="no-tests">Trenutno nema ispita za ovaj predmet</div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #loading>Loading</ng-template>
+  </div>
+</div>

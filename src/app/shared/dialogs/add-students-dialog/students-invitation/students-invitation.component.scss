@@ -1,0 +1,128 @@
+.outer-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .students-row {
+        margin-top: 0px;
+        display: flex;
+        width: 100%;
+
+        .students {
+            flex: 4;
+        }
+
+        .student-add {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            margin-left: 10px;
+
+            .add {
+                background-color: white;
+                padding: 10px;
+                width: min-content;
+                white-space: nowrap;
+                cursor: pointer;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #2e4258;
+                height: 45px;
+                width: 90px;
+            }
+
+
+
+            .accessibility {
+                pointer-events: none;
+                cursor: initial;
+                opacity: .7;
+            }
+        }
+
+    }
+
+    .count {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .board {
+        height: 300px; //should be mutable with passed props
+        width: 100%;
+        //background: white;
+        overflow: auto;
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+
+            thead tr td {
+                color: var(--secondary-color);
+                font-size: var(--subheading-font-size);
+                background: #f9fafb;
+                text-align: start;
+                padding: 15px;
+            }
+
+            thead tr {
+                border-bottom: 5px solid #eef0f3;
+            }
+
+            tr {
+                border-bottom: 3px solid #eef0f3;
+                background: white;
+
+                .people {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    text-align: start;
+                }
+
+                td {
+                    padding: 10px 15px;
+
+                    img {
+                        width: 60px;
+                        height: 60px;
+                        object-fit: cover;
+                        border-radius: 50%;
+                        margin-right: 15px;
+                    }
+
+                    h5 {
+                        color: var(--black-color);
+                        font-size: var(--font-size-h5);
+                        font-family: var(--primary-font-regular);
+                    }
+
+                    p {
+
+                        font-size: 13px;
+                        font-family: var(--primary-font-regular);
+                        color: #787d8d;
+                    }
+
+
+                }
+
+                .remove {
+
+                    fa-icon {
+                        cursor: pointer;
+                        float: right;
+                    }
+
+                    fa-icon:hover {
+                        color: var(--primary-color);
+                    }
+                }
+            }
+        }
+
+
+    }
+}

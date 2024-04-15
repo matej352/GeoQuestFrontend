@@ -26,6 +26,9 @@ import { TaskCardComponent } from './pages/exams-page/exam/task-card/task-card.c
 import { AddSubjectDialogComponent } from './shared/dialogs/add-subject-dialog/add-subject-dialog.component';
 import { AddExamDialogComponent } from './shared/dialogs/add-exam-dialog/add-exam-dialog.component';
 import { DropdownComponent } from './shared/dropdown/dropdown.component';
+import { SubjectComponent } from './pages/subjects-page/subject/subject.component';
+import { AddStudentsDialogComponent } from './shared/dialogs/add-students-dialog/add-students-dialog.component';
+import { StudentsInvitationComponent } from './shared/dialogs/add-students-dialog/students-invitation/students-invitation.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +53,9 @@ import { DropdownComponent } from './shared/dropdown/dropdown.component';
     AddSubjectDialogComponent,
     AddExamDialogComponent,
     DropdownComponent,
+    SubjectComponent,
+    AddStudentsDialogComponent,
+    StudentsInvitationComponent,
   ],
   imports: [
     BrowserModule,

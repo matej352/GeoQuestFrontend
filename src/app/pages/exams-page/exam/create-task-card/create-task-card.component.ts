@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TaskType } from 'src/app/enums/task-type';
 import { IOptionAnwser } from 'src/app/models/option-anwser';
@@ -12,6 +12,9 @@ import { SelectionType } from 'src/app/shared/filter-bar/selection-values';
   styleUrls: ['./create-task-card.component.scss'],
 })
 export class CreateTaskCardComponent implements OnInit {
+  @Input()
+  testId!: number;
+
   selection!: SelectionType;
   selection2!: SelectionType;
 
@@ -76,6 +79,7 @@ export class CreateTaskCardComponent implements OnInit {
     });
 
     let taskDto: ITaskDto = {
+      testId: this.testId,
       question: this.taskForm.get('question')?.value.editor,
       answer: this.taskForm.get('answer')?.value,
       type: this.getTaskType(),
