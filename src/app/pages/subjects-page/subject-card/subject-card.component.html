@@ -2,12 +2,10 @@
   <h2>
     {{ subject.name }}
   </h2>
-  <!--div> <span>Field of study:</span> {{classroom.fieldOfStudy}}</div>
-    <div><span>Grade:</span> {{classroom.grade}}</div>
-    <div style="flex: 1;"><span>Language:</span> {{classroom.language}}</div>
-    <div style="flex: 2;" ><span>Invited students:</span> {{classroom.students.length}}</div>
+  <div><span>Broj učenika: </span>6</div>
+  <div><span>Opis: </span> {{ subject.description }}</div>
 
-    <div class="date-container">
+  <!--div class="date-container">
         <div>
             <p><span>Opened until</span></p>
             <p>{{classroom.openedUntil | date:'mediumDate' }}</p>

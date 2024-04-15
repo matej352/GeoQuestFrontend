@@ -16,8 +16,8 @@
 
 ::ng-deep app-navigation-bar .navBar,
 ::ng-deep app-exams-page .exams-page-container,
-::ng-deep app-exam .exam-container
-
+::ng-deep app-exam .exam-container,
+::ng-deep app-subjects-page .subjects-page-container
 {
     width: var(--breakpoint-desktop);
 }
@@ -28,8 +28,8 @@
     // desktops, 1200px and lower
     ::ng-deep app-navigation-bar .navBar,
     ::ng-deep app-exams-page .exams-page-container,
-    ::ng-deep app-exam .exam-container
-
+    ::ng-deep app-exam .exam-container,
+    ::ng-deep app-subjects-page .subjects-page-container
     {
         width: 100%;
     }

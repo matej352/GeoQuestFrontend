@@ -1,0 +1,138 @@
+$gray-light: #f5f6f8;
+
+.class-req-send-dialog {
+
+    .header {
+        display: flex;
+        padding-bottom: 24px;
+        justify-content: space-between;
+ 
+
+        h2 {
+            font-family: var(--primary-font-bold);
+            color: var(--black-color-2);
+        }
+
+        h3 {
+            color: var(--gray-color);
+        }
+
+        fa-icon {
+            color: var(--gray-color);
+            cursor: pointer;
+        }
+
+        fa-icon:hover {
+            color: var(--gray-color-darker);
+        }
+    }
+
+    .main {
+        padding: 24px;
+    }
+
+    .footer {
+        display: flex;
+        justify-content: flex-end;
+
+
+        .button-confirm {
+            border: 0;
+            color: #fff;
+            cursor: pointer;
+            font-size: var(--font-size-h5);
+            font-family: var(--secondary-font-bold);
+            padding: 10px;
+            border-radius: 10px;
+            background-color: var(--success-green-color);
+        }
+    }
+}
+
+
+
+
+.form-container {
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+
+
+.form-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.form-group-column {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.form-group-column label {
+    height: 56px;
+}
+
+.form-group-column input {
+    width: 100%;
+}
+
+textarea {
+    width: 100%;
+    resize: none;
+    padding: 10px;
+    padding: 1em;
+    border: 0;
+    outline: none;
+    color: var(--black-color);
+    font-size: var(--font-size-h5);
+    font-family: var(--primary-font-regular);
+    min-width: 150px;
+}
+
+
+input {
+    flex: 4;
+    padding: 1em;
+    border: 0;
+    outline: none;
+    color: var(--black-color);
+    font-size: var(--font-size-h5);
+    font-family: var(--primary-font-regular);
+    min-width: 150px;
+}
+
+label {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $gray-light;
+}
+
+.submit {
+    display: block;
+    width: 100%;
+    background-color: var(--primary-color);
+    border: 0;
+    color: #fff;
+    cursor: pointer;
+    font-size: var(--font-size-h5);
+    font-family: var(--secondary-font-bold);
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.alert {
+    color: red;
+    margin-bottom: 20px;
+}

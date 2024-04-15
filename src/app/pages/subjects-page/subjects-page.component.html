@@ -1,28 +1,32 @@
 <app-header></app-header>
 
-<main>
-  <!--div class="filter-container">
-    <app-filter-bar
-      (optionClick)="onFilter($event)"
-      type="teacher-role-classroom"
-    ></app-filter-bar>
-  </div-->
+<div class="subjects-page">
+  <div class="subjects-page-container">
+    <!--div class="filter-container">
+      <app-filter-bar
+        (optionClick)="onFilter($event)"
+        type="teacher-role-classroom"
+      ></app-filter-bar>
+    </div-->
 
-  <div
-    class="grid-container-wrapper"
-    style="background: rgba(0, 0, 0, 0.08); padding: 20px; overflow: hidden"
-  >
-    <div *ngIf="subjects$ | async as subjects" class="grid-container">
-      <div class="grid-item" *ngFor="let subject of subjects">
-        <app-subject-card
-          [subject]="subject"
-          [routerLink]="['subject', subject.id]"
-        ></app-subject-card>
-      </div>
-      <div class="no-classrooms" *ngIf="subjects.length === 0">
-        Nema predmeta
+    <div class="add-subject">
+      <div class="button" (click)="onCreateSubject()">Novi predmet</div>
+    </div>
+    <div
+      class="grid-container-wrapper"
+      style="background: rgba(0, 0, 0, 0.08); padding: 20px; overflow: hidden"
+    >
+      <div *ngIf="subjects$ | async as subjects" class="grid-container">
+        <div class="grid-item" *ngFor="let subject of subjects">
+          <app-subject-card
+            [subject]="subject"
+            [routerLink]="['subject', subject.id]"
+          ></app-subject-card>
+        </div>
+        <div class="no-classrooms" *ngIf="subjects.length === 0">
+          Nema predmeta
+        </div>
       </div>
     </div>
   </div>
-</main>
-<app-test-map></app-test-map>
+</div>

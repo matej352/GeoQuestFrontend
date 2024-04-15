@@ -23,6 +23,8 @@ import { SelectPolygonMapComponent } from './shared/maps/select-polygon-map/sele
 import { TooltipComponent } from './shared/tooltip/tooltip.component';
 import { ExamComponent } from './pages/exams-page/exam/exam.component';
 import { TaskCardComponent } from './pages/exams-page/exam/task-card/task-card.component';
+import { AddSubjectDialogComponent } from './shared/dialogs/add-subject-dialog/add-subject-dialog.component';
+import { AddExamDialogComponent } from './shared/dialogs/add-exam-dialog/add-exam-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { TaskCardComponent } from './pages/exams-page/exam/task-card/task-card.c
     TooltipComponent,
     ExamComponent,
     TaskCardComponent,
+    AddSubjectDialogComponent,
+    AddExamDialogComponent,
   ],
   imports: [
     BrowserModule,

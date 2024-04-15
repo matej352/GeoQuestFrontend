@@ -3,7 +3,7 @@
     padding: var(--elements-space) var(--padding-size-0);
     height: auto;
     width: 100%;
-    background-color: var(--gray-background-color);
+    background: linear-gradient(184deg, #840a9a, #9980aa);
     display: flex;
     justify-content: center;
 
@@ -14,6 +14,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: flex-end;
+                padding-right: 25px;
                 //padding: 0 10px;
         
                 .button {
@@ -32,9 +33,8 @@
 
             .students-container {
                 flex: 3;
-                min-height: 430px;
+                min-height: 900px;
                 position: relative;
-                background: linear-gradient(35deg, #840a9a, #9980aa);
     
                 padding: 15px;
                 //min-height: 350px;

@@ -84,6 +84,7 @@ $goe-web-facebook-theme: mat.define-light-theme((color: (primary: $goe-web-faceb
     --secondary-color: #71176f;
     --red-color:  #dc143c;
     --green-color: #787d8d;
+    --success-green-color: #4BB543;
     /* ==================== */
     --app-background-color: #71176f;
     --bottom-navbar-background-color: #1b1b1b;
@@ -146,4 +147,8 @@ body {
     padding: var(--padding-size-0);
     margin: var(--margin-size-0);
     height: 100vh;
+}
+
+.mat-dialog-container {
+    background: var(--gray-background-color);
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ISubject } from 'src/app/models/subject';
+import { DialogOpenerService } from 'src/app/services/dialog-services/dialog-opener.service';
 import { SubjectService } from 'src/app/services/subject.service';
 
 @Component({
@@ -9,18 +10,33 @@ import { SubjectService } from 'src/app/services/subject.service';
   templateUrl: './subjects-page.component.html',
   styleUrls: ['./subjects-page.component.scss'],
 })
-export class SubjectsPageComponent implements OnInit {
+export class SubjectsPageComponent implements OnInit, OnDestroy {
   //private teacher!: IUser;
 
   subjects$!: Observable<ISubject[]>;
+  subscription!: Subscription;
   //allClassrooms$!: Observable<IClassroom[]>;
 
-  constructor(private subjectService: SubjectService) {}
+  constructor(
+    private _subjectService: SubjectService,
+    private _dialogOpenerService: DialogOpenerService
+  ) {
+    this.subscription = this._dialogOpenerService.addSubjectDialogResult$
+      .asObservable()
+      .subscribe((result) => {
+        if (result.created) {
+          this.subjects$ = this._subjectService.getSubjects();
+        }
+      });
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   ngOnInit(): void {
     //this.allClassrooms$ = this.getClassrooms(this.teacher.id);
     //this.classrooms$ = this.allClassrooms$;
-    this.subjects$ = this.subjectService.getSubjects();
+    this.subjects$ = this._subjectService.getSubjects();
   }
 
   /*getClassrooms(id: number): Observable<IClassroom[]> {
@@ -92,4 +108,8 @@ export class SubjectsPageComponent implements OnInit {
   //#endregion
 
   */
+
+  onCreateSubject() {
+    this._dialogOpenerService.openAddSubjectDialog();
+  }
 }
