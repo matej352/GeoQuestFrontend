@@ -10,7 +10,7 @@ export class HeaderComponent implements OnInit {
   @Input() highlitedText: string = '';
   @Input() text2: string = '';
 
-  @Input() height: string = '50px';
+  @Input() height: string = '100px';
 
   constructor() {}
 

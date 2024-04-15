@@ -2,11 +2,11 @@ $gray-light: #f5f6f8;
 
 main {
     padding: 20px;
-    background-color: rgb(210, 205, 196);
 
     .filters-container {
         display: flex;
         gap: 30px;
+        margin-bottom: 15px;
         
             .filter-item {
             

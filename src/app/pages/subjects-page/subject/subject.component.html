@@ -2,6 +2,14 @@
 
 <div class="subject">
   <div class="subject-container">
+    <div class="back-container">
+      <fa-icon
+        [icon]="back"
+        class="fa-2x back"
+        title="Nazad"
+        routerLink="/teacher/subjects"
+      ></fa-icon>
+    </div>
     <ng-container
       *ngIf="subjectDetails$ | async as subjectDetails; else loading"
     >

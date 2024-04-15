@@ -15,20 +15,13 @@
                   <th>Naslov</th>
                   <th>Predmet</th>
                   <th>Trajanje</th>
-                  <th>
-                    Invitation status
-                    <app-tooltip message="statusMessage"></app-tooltip>
-                  </th>
-                  <th>
-                    Progress
-                    <app-tooltip message="progressMessage"></app-tooltip>
-                  </th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let test of tests" [routerLink]="['exam', test.id]">
-                  <td class="username">
-                    <p>Naslov</p>
+                <tr *ngFor="let test of tests">
+                  <td class="username" [routerLink]="['exam', test.id]">
+                    <p>{{ test.name }}</p>
                   </td>
                   <td>
                     <p>{{ test.subject }}</p>
@@ -55,11 +48,10 @@
                     >
                       Pending
                     </div-->
-                    bla
-                  </td>
-                  <td>
-                    <!--p>{{ getProgress(student.progress) }}</p-->
-                    bla 2
+                    <button class="button-publish" (click)="onPublish()">
+                      Objavi
+                    </button>
+                    <app-tooltip message="statusMessage"></app-tooltip>
                   </td>
                 </tr>
               </tbody>

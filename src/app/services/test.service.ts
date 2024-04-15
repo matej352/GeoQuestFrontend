@@ -19,6 +19,12 @@ export class TestService {
     });
   }
 
+  getTest(testId: number): Observable<any> {
+    return this.http.get<any>(`${this._apiURL}/Test/Test?testId=${testId}`, {
+      withCredentials: true,
+    });
+  }
+
   createTest(data: ICreateTest): Observable<any> {
     return this.http.post<any>(`${this._apiURL}/Test/Create`, data, {
       withCredentials: true,

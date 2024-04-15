@@ -36,4 +36,6 @@ export class ExamsPageComponent implements OnInit {
   onCreateExam() {
     this._dialogOpenerService.openAddExamDialog();
   }
+
+  onPublish() {}
 }

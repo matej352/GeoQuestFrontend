@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { Observable, Subscription, tap } from 'rxjs';
 import { ISubject } from 'src/app/models/subject';
 import { ISubjectDetailsDto } from 'src/app/models/subject-details';
@@ -12,6 +13,9 @@ import { SubjectService } from 'src/app/services/subject.service';
   styleUrls: ['./subject.component.scss'],
 })
 export class SubjectComponent implements OnInit, OnDestroy {
+  //icons
+  public back = faArrowAltCircleLeft;
+
   subjectId!: number;
   subjectName!: string;
 

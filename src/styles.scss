@@ -130,7 +130,7 @@ $goe-web-facebook-theme: mat.define-light-theme((color: (primary: $goe-web-faceb
     --small-heading-font-size: 32px;
     --subheading-font-size: 22px;
     --paragraph-font-size: 16px;
-    --elements-space: 125px;
+    --elements-space: 75px;
 }
 
 * {
@@ -147,6 +147,7 @@ body {
     padding: var(--padding-size-0);
     margin: var(--margin-size-0);
     height: 100vh;
+    background-color: #f2f2f2;
 }
 
 .mat-dialog-container {

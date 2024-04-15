@@ -1,8 +1,24 @@
 <app-header></app-header>
-
 <div class="exam">
   <div class="exam-container">
-    <div class="general-info">Ovdje opis ispita</div>
+    <div class="back-container">
+      <fa-icon
+        [icon]="back"
+        class="fa-2x back"
+        title="Nazad"
+        routerLink="/teacher/exams"
+      ></fa-icon>
+    </div>
+    <div class="general-info">
+      <ng-container *ngIf="test$ | async as test; else loading">
+        <h2>
+          {{ test.name }}
+        </h2>
+        <div><span>Opis: </span>{{ test.description }}</div>
+        <div><span>Trajanje: </span> {{ test.duration }}</div></ng-container
+      >
+      <ng-template #loading> Loading</ng-template>
+    </div>
 
     <div class="tasks-container">
       <ng-container *ngIf="tasks$ | async as tasks; else loading">
@@ -12,16 +28,25 @@
             [task]="task"
           ></app-task-card>
         </ng-container>
-        <ng-template #noTasks>Nema zadataka</ng-template></ng-container
+        <ng-template #noTasks>
+          <div *ngIf="!createTaskOpened" class="noTask">
+            <p>Nema zadataka</p>
+          </div>
+        </ng-template></ng-container
       >
 
       <ng-template #loading>Loading</ng-template>
 
-      <div *ngIf="createTaskOpened" class="task">
+      <div *ngIf="createTaskOpened" class="task" id="newTask">
         <app-create-task-card [testId]="testId"></app-create-task-card>
       </div>
     </div>
   </div>
 
-  <div class="add-task" (click)="createTask()">Dodaj zadatak</div>
+  <app-button
+    *ngIf="!createTaskOpened"
+    class="add-task"
+    title="Stvori zadatak"
+    (click)="createTask()"
+  ></app-button>
 </div>
