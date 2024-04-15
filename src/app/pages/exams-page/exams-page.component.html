@@ -26,10 +26,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  *ngFor="let test of tests$ | async"
-                  [routerLink]="['exam', test.id]"
-                >
+                <tr *ngFor="let test of tests" [routerLink]="['exam', test.id]">
                   <td class="username">
                     <p>Naslov</p>
                   </td>
