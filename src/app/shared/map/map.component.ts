@@ -108,6 +108,8 @@ export class MapComponent implements OnInit, AfterViewInit {
     }
 
     tiles.addTo(this.map);
+
+    L.marker([50.5, 30.5]).addTo(this.map);
   }
 
   private highlightFeature(e: L.LeafletMouseEvent) {

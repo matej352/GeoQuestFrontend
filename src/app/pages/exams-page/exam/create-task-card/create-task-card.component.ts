@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TaskType } from 'src/app/enums/task-type';
 import { IOptionAnwser } from 'src/app/models/option-anwser';
@@ -15,10 +15,14 @@ export class CreateTaskCardComponent implements OnInit {
   @Input()
   testId!: number;
 
+  @Output()
+  taskCreatedSuccessfully: EventEmitter<void> = new EventEmitter();
+
   selection!: SelectionType;
   selection2!: SelectionType;
 
   drawnItems!: IOptionAnwser[];
+  markedPoint!: number[];
 
   //form
   taskForm!: FormGroup;
@@ -68,7 +72,12 @@ export class CreateTaskCardComponent implements OnInit {
     console.log(this.drawnItems);
   }
 
-  submit() {
+  markedPointChanged(point: any) {
+    this.markedPoint = point;
+    console.log(this.markedPoint);
+  }
+
+  submitSelectPolygon() {
     let optionAnswers = [] as IOptionAnswerDto[];
 
     this.drawnItems.forEach((optionAnswer) => {
@@ -93,6 +102,24 @@ export class CreateTaskCardComponent implements OnInit {
 
     this._taskService.createTask(taskDto).subscribe((res) => console.log(res));
   }
+
+  submitMarkPoint() {
+    let taskDto: ITaskDto = {
+      testId: this.testId,
+      question: this.taskForm.get('question')?.value.editor,
+      answer: this.markedPoint.toString(),
+      type: this.getTaskType(),
+    };
+
+    console.log(taskDto);
+
+    this._taskService.createTask(taskDto).subscribe((res) => {
+      console.log(res);
+      this.taskCreatedSuccessfully.emit();
+    });
+  }
+
+  submitNonMap() {}
 
   getTaskType(): TaskType {
     switch (this.selectedTaskTypeOption) {

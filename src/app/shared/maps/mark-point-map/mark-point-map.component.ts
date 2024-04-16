@@ -1,9 +1,11 @@
 import {
   AfterViewInit,
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 import * as L from 'leaflet';
@@ -38,10 +40,15 @@ L.Marker.prototype.options.icon = iconDefault;
 })
 export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() mapType!: mapType;
-  @Input() taskType!: taskType; //ovo onda ne treba
 
   @Input()
   mapId!: string;
+
+  @Input()
+  answer!: string;
+
+  @Output()
+  onPointMarked: EventEmitter<any> = new EventEmitter();
 
   map!: L.Map;
   marker: L.Marker | null = null;
@@ -53,21 +60,19 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
     if (changes['mapType'] && !changes['mapType'].firstChange) {
       this.updateMapTiles();
     }
-
-    //vidjet jel ti ovo zapravo treba
-    /*if (changes['taskType'] && !changes['taskType'].firstChange) {
-      this.updateMapListeners();
-    }*/
   }
 
-  ngOnInit(): void {
-    // Map initialization moved to ngOnInit to ensure it's only done once
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.initializeMap();
-    //this.updateMapListeners();
-    this.initializeClickListener();
+
+    if (this.mapId === 'mark_point') {
+      this.initializeClickListener();
+    } else {
+      const [lat, lng] = this.answer.split(',').map(Number);
+      L.marker([lat, lng]).addTo(this.map);
+    }
   }
 
   private initializeClickListener() {
@@ -87,6 +92,8 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
     // Add a marker at the clicked location
     this.marker = L.marker([lat, lng]).addTo(this.map);
 
+    this.onPointMarked.emit([lat, lng]);
+
     // Do whatever you need with the coordinates (lat, lng)
     console.log(`Clicked at: ${lat}, ${lng}`);
   }
@@ -98,23 +105,6 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
     });
     this.updateMapTiles(); // Ensure tiles are added when the map initializes
   }
-
-  /*private updateMapListeners() {
-    // ### First clear map from event listeners, markers, polygons
-    if (this.marker) {
-      this.map.removeLayer(this.marker);
-    }
-    this.map.off();
-    // ###
-
-    switch (this.taskType) {
-      case 'mark_point':
-        this.initializeClickListener();
-
-        break;
-      default:
-    }
-  } */
 
   private updateMapTiles(): void {
     if (this.map && this.tileLayer) {

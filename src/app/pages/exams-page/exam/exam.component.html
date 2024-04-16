@@ -24,8 +24,10 @@
       <ng-container *ngIf="tasks$ | async as tasks; else loading">
         <ng-container *ngIf="tasks.length; else noTasks">
           <app-task-card
-            *ngFor="let task of tasks"
+            *ngFor="let task of tasks; let index = index"
             [task]="task"
+            [class]="'task' + task.id"
+            [index]="index"
           ></app-task-card>
         </ng-container>
         <ng-template #noTasks>
@@ -38,7 +40,10 @@
       <ng-template #loading>Loading</ng-template>
 
       <div *ngIf="createTaskOpened" class="task" id="newTask">
-        <app-create-task-card [testId]="testId"></app-create-task-card>
+        <app-create-task-card
+          [testId]="testId"
+          (taskCreatedSuccessfully)="onTaskCreated()"
+        ></app-create-task-card>
       </div>
     </div>
   </div>

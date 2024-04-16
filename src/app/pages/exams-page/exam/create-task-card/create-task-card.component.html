@@ -41,7 +41,7 @@
           ></app-select-polygon-map>
         </div>
         <div class="right">
-          <form [formGroup]="taskForm" (ngSubmit)="submit()">
+          <form [formGroup]="taskForm" (ngSubmit)="submitSelectPolygon()">
             <div class="form-container">
               <div class="form-group-column">
                 <label for="question"> Tekst zadatka </label>
@@ -66,7 +66,7 @@
           <!--app-test-map></app-test-map-->
         </div>
         <div class="right">
-          <form [formGroup]="taskForm" (ngSubmit)="submit()">
+          <form [formGroup]="taskForm" (ngSubmit)="submitNonMap()">
             <div class="form-container">
               <div class="form-group-column">
                 <label for="question"> Tekst zadatka </label>
@@ -101,10 +101,11 @@
           <app-mark-point-map
             [mapType]="selectedMapTypeOption"
             mapId="mark_point"
+            (onPointMarked)="markedPointChanged($event)"
           ></app-mark-point-map>
         </div>
         <div class="right">
-          <form [formGroup]="taskForm" (ngSubmit)="submit()">
+          <form [formGroup]="taskForm" (ngSubmit)="submitMarkPoint()">
             <div class="form-container">
               <div class="form-group-column">
                 <label for="question"> Tekst zadatka </label>

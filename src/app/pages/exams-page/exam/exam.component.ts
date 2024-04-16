@@ -50,4 +50,23 @@ export class ExamComponent implements OnInit {
       });
     }, 1);
   }
+
+  onTaskCreated() {
+    this.createTaskOpened = false;
+    this.tasks$ = this._taskService.getTasks(this.testId).pipe(
+      tap((tasks: ITaskDto[]) => {
+        setTimeout(() => {
+          let elementId = tasks.at(tasks.length - 1)?.id;
+          if (elementId) {
+            let el = document.getElementsByClassName(
+              'task' + elementId.toString()
+            )[0];
+            el?.scrollIntoView({
+              behavior: 'smooth',
+            });
+          }
+        }, 10);
+      })
+    );
+  }
 }
