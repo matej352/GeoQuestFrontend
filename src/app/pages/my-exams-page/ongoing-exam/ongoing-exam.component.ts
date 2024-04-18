@@ -1,6 +1,9 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Observable, of, tap } from 'rxjs';
 import { DeactivateComponent } from 'src/app/guards/leave-ongoing-exam.guard';
 import { DialogOpenerService } from 'src/app/services/dialog-services/dialog-opener.service';
+import { ConfirmLeaveOngoingExamDialogComponent } from 'src/app/shared/dialogs/confirm-leave-ongoing-exam-dialog/confirm-leave-ongoing-exam-dialog.component';
 
 @Component({
   selector: 'app-ongoing-exam',
@@ -16,7 +19,12 @@ export class OngoingExamComponent
   timerInterval: any;
   testInProgress: boolean = true;
 
-  constructor(private _dialog: DialogOpenerService) {}
+  dialogOpened = false;
+
+  constructor(
+    private _dialog: DialogOpenerService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.startTimer();
@@ -47,20 +55,25 @@ export class OngoingExamComponent
     return num < 10 ? '0' + num : num.toString();
   }
 
-  @HostListener('window:beforeunload', ['$event'])
-  beforeunloadHandler() {
-    alert('By refreshing this page you may lost all data.');
-  }
+  canDeactivate(): Observable<boolean> {
+    if (!this.dialogOpened) {
+      this.dialogOpened = true;
+      const dialogRef = this.dialog.open(
+        ConfirmLeaveOngoingExamDialogComponent,
+        {
+          width: '250px',
+        }
+      );
 
-  canDeactivate(): boolean {
-    if (
-      confirm(
-        'Napuštanjem ovog prozora Vaš ispit će se automatski predati sa trenutno popunjenim odgovorima'
-      )
-    ) {
-      return true;
+      return dialogRef.afterClosed().pipe(
+        tap((trueOrFlase: boolean) => {
+          if (trueOrFlase == false) {
+            this.dialogOpened = false;
+          }
+        })
+      );
     } else {
-      return false;
+      return of(true);
     }
   }
 
