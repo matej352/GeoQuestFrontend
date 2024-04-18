@@ -22,7 +22,7 @@ import { TestMapComponent } from './shared/test-map/test-map.component';
 import { SelectPolygonMapComponent } from './shared/maps/select-polygon-map/select-polygon-map.component';
 import { TooltipComponent } from './shared/tooltip/tooltip.component';
 import { ExamComponent } from './pages/exams-page/exam/exam.component';
-import { TaskCardComponent } from './pages/exams-page/exam/task-card/task-card.component';
+import { TaskCardComponent } from './shared/task-card/task-card.component';
 import { AddSubjectDialogComponent } from './shared/dialogs/add-subject-dialog/add-subject-dialog.component';
 import { AddExamDialogComponent } from './shared/dialogs/add-exam-dialog/add-exam-dialog.component';
 import { DropdownComponent } from './shared/dropdown/dropdown.component';
