@@ -47,6 +47,8 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
   @Input()
   answer!: string;
 
+  studentAnswerMarker: L.Marker | null = null;
+
   @Input()
   mode = 'draft_exam_preview';
 
@@ -80,7 +82,7 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
       this.initializeClickListener();
       if (this.answer) {
         const [lat, lng] = this.answer.split(',').map(Number);
-        L.marker([lat, lng]).addTo(this.map);
+        this.studentAnswerMarker = L.marker([lat, lng]).addTo(this.map);
       }
       console.log('Mapa MARK POINT --> student rjesava zadatak');
     }
@@ -104,6 +106,10 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
     // Remove previous marker if exists
     if (this.marker) {
       this.map.removeLayer(this.marker);
+    }
+
+    if (this.studentAnswerMarker && this.mode === 'solving') {
+      this.map.removeLayer(this.studentAnswerMarker);
     }
 
     // Add a marker at the clicked location

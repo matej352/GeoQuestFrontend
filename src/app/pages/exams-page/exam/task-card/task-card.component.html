@@ -55,6 +55,7 @@
             [mapId]="task.id!.toString()"
             [answer]="task.answer!"
             [mode]="mode"
+            (onPointMarked)="onMarkPointMapStudentAnswer($event)"
           ></app-mark-point-map>
         </div>
         <div class="right">
@@ -62,7 +63,7 @@
           <div class="form-container">
             <div class="form-group">
               <label for="question-type"> Tip zadatka </label>
-              <div class="question-type">Odaberi točku na karti</div>
+              <div class="question-type">Označi točkom na karti</div>
             </div>
             <div class="form-group-column">
               <label for="question"> Tekst zadatka </label>

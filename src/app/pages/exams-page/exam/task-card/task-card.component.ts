@@ -1,7 +1,10 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { EMPTY, catchError } from 'rxjs';
 import { TaskType } from 'src/app/enums/task-type';
 import { ITaskDto } from 'src/app/models/taskDto';
+import { ITaskInstanceAnswer } from 'src/app/models/taskInstanceAnswerDto';
 import { ITaskInstanceDto } from 'src/app/models/taskInstanceDto';
+import { TaskInstanceService } from 'src/app/services/task-instance.service';
 
 @Component({
   selector: 'app-task-card',
@@ -20,9 +23,32 @@ export class TaskCardComponent implements OnInit, AfterViewInit {
   @Input()
   index!: number;
 
-  constructor() {}
+  @Input()
+  testInstanceId!: number | null;
+
+  constructor(private _taskInstanceService: TaskInstanceService) {}
 
   ngOnInit(): void {}
+
+  onMarkPointMapStudentAnswer(point: any) {
+    if (this.mode === 'solving') {
+      let answer = {
+        testInstanceId: this.testInstanceId,
+        testTaskInstanceId: this.task.id,
+        answer: point.toString(),
+      } as ITaskInstanceAnswer;
+
+      this._taskInstanceService
+        .saveAnswer(answer)
+        .pipe(
+          catchError((err) => {
+            console.log(err);
+            return EMPTY;
+          })
+        )
+        .subscribe();
+    }
+  }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
