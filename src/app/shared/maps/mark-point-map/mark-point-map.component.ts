@@ -9,14 +9,13 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import * as L from 'leaflet';
-import {
-  mapType,
-  taskType,
-} from 'src/app/pages/exams-page/exam/create-task-card/create-task-card.component';
+
 import { MarkerService } from 'src/app/services/map-services/marker.service';
 import { ShapeService } from 'src/app/services/map-services/shape.service';
 
 import 'leaflet-draw'; // Import Leaflet.Draw
+import { TaskViewMode } from 'src/app/enums/task-view-mode';
+import { mapType } from 'src/app/types/types';
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
@@ -50,7 +49,7 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
   studentAnswerMarker: L.Marker | null = null;
 
   @Input()
-  mode = 'draft_exam_preview';
+  mode = TaskViewMode.DraftExamPreview;
 
   @Output()
   onPointMarked: EventEmitter<any> = new EventEmitter();
@@ -78,7 +77,7 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
       console.log('Mapa MARK POINT --> radi se novi zadatak');
     }
     //slucaj da student rjesava zadatak
-    else if (this.mode === 'solving') {
+    else if (this.mode === TaskViewMode.Solving) {
       this.initializeClickListener();
       if (this.answer) {
         const [lat, lng] = this.answer.split(',').map(Number);
@@ -87,7 +86,7 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
       console.log('Mapa MARK POINT --> student rjesava zadatak');
     }
     //slucaj da ucitelj gleda skicu ispita sa pripadnim zadacima
-    else if (this.mode === 'draft_exam_preview') {
+    else if (this.mode === TaskViewMode.DraftExamPreview) {
       const [lat, lng] = this.answer.split(',').map(Number);
       L.marker([lat, lng]).addTo(this.map);
       console.log('Mapa MARK POINT --> ucitelj gleda skicu ispita ');
@@ -108,7 +107,7 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
       this.map.removeLayer(this.marker);
     }
 
-    if (this.studentAnswerMarker && this.mode === 'solving') {
+    if (this.studentAnswerMarker && this.mode === TaskViewMode.Solving) {
       this.map.removeLayer(this.studentAnswerMarker);
     }
 

@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { EMPTY, catchError } from 'rxjs';
 import { TaskType } from 'src/app/enums/task-type';
+import { TaskViewMode } from 'src/app/enums/task-view-mode';
 import { ITaskDto } from 'src/app/models/taskDto';
 import { ITaskInstanceAnswer } from 'src/app/models/taskInstanceAnswerDto';
 import { ITaskInstanceDto } from 'src/app/models/taskInstanceDto';
@@ -18,7 +19,7 @@ export class TaskCardComponent implements OnInit, AfterViewInit {
   task!: ITaskDto | ITaskInstanceDto;
 
   @Input()
-  mode = 'draft_exam_preview';
+  mode = TaskViewMode.DraftExamPreview;
 
   @Input()
   index!: number;
@@ -31,7 +32,7 @@ export class TaskCardComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   onMarkPointMapStudentAnswer(point: any) {
-    if (this.mode === 'solving') {
+    if (this.mode === TaskViewMode.Solving) {
       let answer = {
         testInstanceId: this.testInstanceId,
         testTaskInstanceId: this.task.id,

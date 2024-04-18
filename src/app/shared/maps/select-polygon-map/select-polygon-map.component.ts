@@ -9,11 +9,11 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import * as L from 'leaflet';
+import { TaskViewMode } from 'src/app/enums/task-view-mode';
 import { IOptionAnwser } from 'src/app/models/option-anwser';
 import { IOptionAnswerDto } from 'src/app/models/taskDto';
 import { ITaskInstanceOptionAnswerDto } from 'src/app/models/taskInstanceDto';
-import { mapType } from 'src/app/pages/exams-page/exam/create-task-card/create-task-card.component';
-import { mapContextType } from 'src/app/types/map-context-type';
+import { mapType } from 'src/app/types/types';
 
 @Component({
   selector: 'app-select-polygon-map',
@@ -30,7 +30,7 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
   answers!: IOptionAnswerDto[] | ITaskInstanceOptionAnswerDto[]; // if type is IOptionAnswerDto --> map opened in view mode, if type is ITaskInstanceOptionAnswerDto --> map opened in solving mode
 
   @Input()
-  mode = 'draft_exam_preview';
+  mode = TaskViewMode.DraftExamPreview;
 
   private map!: L.Map;
   tileLayer!: L.TileLayer; // Store the current tile layer
@@ -165,13 +165,13 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
     }
 
     //slucaj da student rjesava zadatak
-    else if (this.mode === 'solving') {
+    else if (this.mode === TaskViewMode.Solving) {
       console.log('Mapa SELECT POLYGON --> student rjesava zadatak');
       this.initializeMapForSolving();
     }
 
     //slucaj da ucitelj gleda skicu ispita sa pripadnim zadacima
-    else if (this.mode === 'draft_exam_preview') {
+    else if (this.mode === TaskViewMode.DraftExamPreview) {
       console.log('Mapa SELECT POLYGON --> ucitelj gleda skicu ispita');
 
       this.answers.forEach((obj) => {

@@ -2,6 +2,7 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable, of, switchMap, tap } from 'rxjs';
+import { TaskViewMode } from 'src/app/enums/task-view-mode';
 import { DeactivateComponent } from 'src/app/guards/leave-ongoing-exam.guard';
 import { IAccount } from 'src/app/models/account';
 import { ITaskInstanceDto } from 'src/app/models/taskInstanceDto';
@@ -32,6 +33,8 @@ export class OngoingExamComponent
   currentUser!: IAccount | null;
 
   tasks$!: Observable<ITaskInstanceDto[]>;
+
+  taskViewMode = TaskViewMode;
 
   constructor(
     private _dialog: DialogOpenerService,

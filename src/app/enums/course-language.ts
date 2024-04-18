@@ -1,5 +1,5 @@
 export enum Language {
-    English = "English",
-    German = "German",
-    Croatian = "Croatian"
+  English = 'English',
+  German = 'German',
+  Croatian = 'Croatian',
 }

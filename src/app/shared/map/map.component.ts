@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import * as L from 'leaflet';
-import { mapType } from 'src/app/pages/exams-page/exam/create-task-card/create-task-card.component';
 import { MarkerService } from 'src/app/services/map-services/marker.service';
 import { ShapeService } from 'src/app/services/map-services/shape.service';
+import { mapType } from 'src/app/types/types';
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';

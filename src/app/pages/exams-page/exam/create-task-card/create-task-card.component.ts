@@ -5,6 +5,7 @@ import { IOptionAnwser } from 'src/app/models/option-anwser';
 import { IOptionAnswerDto, ITaskDto } from 'src/app/models/taskDto';
 import { TaskService } from 'src/app/services/task.service';
 import { SelectionType } from 'src/app/shared/filter-bar/selection-values';
+import { mapType, taskType } from 'src/app/types/types';
 
 @Component({
   selector: 'app-create-task-card',
@@ -136,15 +137,7 @@ export class CreateTaskCardComponent implements OnInit {
         return TaskType.SelectPolygon;
 
       case 'non_map':
-        return TaskType.SelectPolygon;
+        return TaskType.NonMap;
     }
   }
 }
-
-export type mapType = 'normal' | 'blind' | 'satellite';
-export type taskType =
-  | 'mark_point'
-  | 'mark_polygon'
-  | 'select_point'
-  | 'select_polygon'
-  | 'non_map';
