@@ -5,16 +5,13 @@
   <div class="ongoing-exam-container">
     <div class="tasks-container">
       <ng-container *ngIf="tasks$ | async as tasks; else loading">
-        <!--app-task-card
+        <app-task-card
           *ngFor="let task of tasks; let index = index"
           [task]="task"
           [class]="'task' + task.id"
           [index]="index"
-        ></app-task-card-->
-        <div *ngFor="let task of tasks; let index = index">
-          {{ index + 1 }}. zadatak
-          <p>{{ task.question }}</p>
-        </div>
+          mode="solving"
+        ></app-task-card>
       </ng-container>
 
       <ng-template #loading>Loading</ng-template>

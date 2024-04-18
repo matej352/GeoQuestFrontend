@@ -11,6 +11,7 @@ import {
 import * as L from 'leaflet';
 import { IOptionAnwser } from 'src/app/models/option-anwser';
 import { IOptionAnswerDto } from 'src/app/models/taskDto';
+import { ITaskInstanceOptionAnswerDto } from 'src/app/models/taskInstanceDto';
 import { mapType } from 'src/app/pages/exams-page/exam/create-task-card/create-task-card.component';
 import { mapContextType } from 'src/app/types/map-context-type';
 
@@ -26,11 +27,17 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
   mapId!: string;
 
   @Input()
-  answers!: IOptionAnswerDto[];
+  answers!: IOptionAnswerDto[] | ITaskInstanceOptionAnswerDto[]; // if type is IOptionAnswerDto --> map opened in view mode, if type is ITaskInstanceOptionAnswerDto --> map opened in solving mode
+
+  @Input()
+  mode = 'draft_exam_preview';
 
   private map!: L.Map;
   tileLayer!: L.TileLayer; // Store the current tile layer
   drawnItems = new L.FeatureGroup();
+
+  selectedPolygonId: number | null = null;
+  selectedPolygon: L.Polygon | null = null;
 
   @Output()
   onDrawnItemsChange: EventEmitter<any> = new EventEmitter();
@@ -61,8 +68,10 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
 
     // FeatureGroup is to store editable layers
 
-    // slučaj kad se ova karta koristi u CREATE mode-u (unutar create task card komponente)
+    //slucaj da ucitelj radi novi zadatak
     if (this.mapId === 'select_polygon') {
+      console.log('Mapa SELECT POLYGON --> radi se novi zadatak');
+
       this.map.addLayer(this.drawnItems);
 
       var drawControl = new L.Control.Draw({
@@ -155,8 +164,16 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
       });
     }
 
-    // ovo nek npr bude case kad je context VIEW --> teacher samo gleda svoje vec napravljene zadatke
-    else if (true) {
+    //slucaj da student rjesava zadatak
+    else if (this.mode === 'solving') {
+      console.log('Mapa SELECT POLYGON --> student rjesava zadatak');
+      this.initializeMapForSolving();
+    }
+
+    //slucaj da ucitelj gleda skicu ispita sa pripadnim zadacima
+    else if (this.mode === 'draft_exam_preview') {
+      console.log('Mapa SELECT POLYGON --> ucitelj gleda skicu ispita');
+
       this.answers.forEach((obj) => {
         // Parse the content to extract coordinates
         const coordinates = JSON.parse(obj.content);
@@ -254,6 +271,79 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
 
     this.onDrawnItemsChange.emit(items);
     //console.log(items);
+  }
+
+  initializeMapForSolving() {
+    this.answers.forEach((obj) => {
+      // Parse the content to extract coordinates
+      const coordinates = JSON.parse(obj.content);
+
+      // Create an array of LatLng objects
+      const latLngs = coordinates.map((coord: { lat: number; lng: number }) =>
+        L.latLng(coord.lat, coord.lng)
+      );
+
+      // Create polygon
+      const polygon = L.polygon(latLngs);
+
+      // Add polygon to map
+      polygon.addTo(this.map);
+
+      polygon.on('mouseover', () => this.onPolygonHover(polygon));
+      polygon.on('mouseout', () => this.onPolygonMouseOut(polygon));
+      polygon.on('click', () =>
+        this.onPolygonClick((obj as ITaskInstanceOptionAnswerDto).id, polygon)
+      );
+    });
+  }
+
+  onPolygonHover(polygon: L.Polygon): void {
+    if (!this.selectedPolygon || this.selectedPolygon !== polygon) {
+      polygon.setStyle({
+        fillColor: 'lightblue', // or any other color to indicate hover
+      });
+    }
+  }
+
+  onPolygonMouseOut(polygon: L.Polygon): void {
+    if (!this.selectedPolygon || this.selectedPolygon !== polygon) {
+      this.resetFeature(polygon);
+    }
+  }
+
+  onPolygonClick(id: number, polygon: L.Polygon): void {
+    if (this.selectedPolygon && this.selectedPolygon !== polygon) {
+      this.resetPolygonStyle(this.selectedPolygon);
+    }
+
+    this.selectedPolygonId = id;
+    console.log('Clicked polygon ID:', id);
+    this.selectedPolygon = polygon;
+    this.highlightPolygon(polygon);
+  }
+
+  private highlightPolygon(polygon: L.Polygon): void {
+    polygon.setStyle({
+      fillColor: 'orange',
+      color: 'orange',
+    });
+  }
+
+  private resetPolygonStyle(polygon: L.Polygon): void {
+    polygon.setStyle({
+      fillColor: 'rgb(51, 136, 255)', // or whatever your default fill color is
+      color: '#3388ff',
+    });
+  }
+
+  private resetFeature(polygon: L.Polygon): void {
+    polygon.setStyle({
+      weight: 3,
+      opacity: 1,
+      color: '#3388ff',
+      fillOpacity: 0.2,
+      fillColor: 'rgb(51, 136, 255)',
+    });
   }
 }
 

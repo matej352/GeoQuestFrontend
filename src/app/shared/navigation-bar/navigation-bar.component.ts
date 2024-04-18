@@ -29,7 +29,7 @@ export class NavigationBarComponent implements OnInit {
     this._router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: any) => {
-        if (event.url.endsWith('ongoing-exam')) {
+        if (event.url.includes('ongoing-exam')) {
           this.ongoingExamOpened = true;
         } else {
           this.ongoingExamOpened = false;

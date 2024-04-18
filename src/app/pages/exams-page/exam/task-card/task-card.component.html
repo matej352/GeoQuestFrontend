@@ -8,6 +8,7 @@
             context="view"
             [mapId]="task.id!.toString()"
             [answers]="task.options!.optionAnswers"
+            [mode]="mode"
           ></app-select-polygon-map>
         </div>
         <div class="right">
@@ -53,6 +54,7 @@
             mapType="satellite"
             [mapId]="task.id!.toString()"
             [answer]="task.answer!"
+            [mode]="mode"
           ></app-mark-point-map>
         </div>
         <div class="right">

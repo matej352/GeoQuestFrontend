@@ -47,6 +47,9 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
   @Input()
   answer!: string;
 
+  @Input()
+  mode = 'draft_exam_preview';
+
   @Output()
   onPointMarked: EventEmitter<any> = new EventEmitter();
 
@@ -67,11 +70,25 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
   ngAfterViewInit(): void {
     this.initializeMap();
 
+    //slucaj da ucitelj radi novi zadatak
     if (this.mapId === 'mark_point') {
       this.initializeClickListener();
-    } else {
+      console.log('Mapa MARK POINT --> radi se novi zadatak');
+    }
+    //slucaj da student rjesava zadatak
+    else if (this.mode === 'solving') {
+      this.initializeClickListener();
+      if (this.answer) {
+        const [lat, lng] = this.answer.split(',').map(Number);
+        L.marker([lat, lng]).addTo(this.map);
+      }
+      console.log('Mapa MARK POINT --> student rjesava zadatak');
+    }
+    //slucaj da ucitelj gleda skicu ispita sa pripadnim zadacima
+    else if (this.mode === 'draft_exam_preview') {
       const [lat, lng] = this.answer.split(',').map(Number);
       L.marker([lat, lng]).addTo(this.map);
+      console.log('Mapa MARK POINT --> ucitelj gleda skicu ispita ');
     }
   }
 

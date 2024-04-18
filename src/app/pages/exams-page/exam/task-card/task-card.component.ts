@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { TaskType } from 'src/app/enums/task-type';
 import { ITaskDto } from 'src/app/models/taskDto';
+import { ITaskInstanceDto } from 'src/app/models/taskInstanceDto';
 
 @Component({
   selector: 'app-task-card',
@@ -11,7 +12,10 @@ export class TaskCardComponent implements OnInit, AfterViewInit {
   TaskType = TaskType;
 
   @Input()
-  task!: ITaskDto;
+  task!: ITaskDto | ITaskInstanceDto;
+
+  @Input()
+  mode = 'draft_exam_preview';
 
   @Input()
   index!: number;
