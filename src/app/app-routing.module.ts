@@ -10,6 +10,9 @@ import { CurrentUserResolver } from './resolvers/current-user-resolver';
 import { SubjectsPageComponent } from './pages/subjects-page/subjects-page.component';
 import { ExamComponent } from './pages/exams-page/exam/exam.component';
 import { SubjectComponent } from './pages/subjects-page/subject/subject.component';
+import { MyExamsPageComponent } from './pages/my-exams-page/my-exams-page.component';
+import { OngoingExamComponent } from './pages/my-exams-page/ongoing-exam/ongoing-exam.component';
+import { LeaveOngoingExamGuard } from './guards/leave-ongoing-exam.guard';
 
 const routes: Routes = [
   {
@@ -39,8 +42,19 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
   },
   {
+    path: ':role/ongoing-exam',
+    component: OngoingExamComponent,
+    canActivate: [AuthGuardService],
+    canDeactivate: [LeaveOngoingExamGuard],
+  },
+  {
     path: ':role/exams',
     component: ExamsPageComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: ':role/my-exams',
+    component: MyExamsPageComponent,
     canActivate: [AuthGuardService],
   },
 ];

@@ -2,7 +2,7 @@
   <div class="leftNavBar">
     <a routerLink="/">GeoQuest</a>
   </div>
-  <div class="middleNavBar">
+  <div *ngIf="!ongoingExamOpened" class="middleNavBar">
     <ul *ngIf="currentUser$ | async as user">
       <li *ngFor="let item of navigationItems">
         <a *ngIf="item.role.includes(user.role)" routerLink="{{ item.link }}">{{

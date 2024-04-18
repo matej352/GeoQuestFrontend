@@ -29,6 +29,9 @@ import { DropdownComponent } from './shared/dropdown/dropdown.component';
 import { SubjectComponent } from './pages/subjects-page/subject/subject.component';
 import { AddStudentsDialogComponent } from './shared/dialogs/add-students-dialog/add-students-dialog.component';
 import { StudentsInvitationComponent } from './shared/dialogs/add-students-dialog/students-invitation/students-invitation.component';
+import { MyExamsPageComponent } from './pages/my-exams-page/my-exams-page.component';
+import { OngoingExamComponent } from './pages/my-exams-page/ongoing-exam/ongoing-exam.component';
+import { ConfirmLeaveOngoingExamDialogComponent } from './shared/dialogs/confirm-leave-ongoing-exam-dialog/confirm-leave-ongoing-exam-dialog.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +59,9 @@ import { StudentsInvitationComponent } from './shared/dialogs/add-students-dialo
     SubjectComponent,
     AddStudentsDialogComponent,
     StudentsInvitationComponent,
+    MyExamsPageComponent,
+    OngoingExamComponent,
+    ConfirmLeaveOngoingExamDialogComponent,
   ],
   imports: [
     BrowserModule,

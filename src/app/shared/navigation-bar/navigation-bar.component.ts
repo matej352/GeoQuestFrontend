@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { INavBarData } from './navbar-constants';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { UserProfileStoreService } from 'src/app/storage/user-profile-store.service';
 import { IAccount } from 'src/app/models/account';
-import { EMPTY, Observable, catchError, tap } from 'rxjs';
+import { EMPTY, Observable, catchError, filter, tap } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ROLE_STUDENT, ROLE_TEACHER } from 'src/app/constants/global-constants';
@@ -18,12 +18,24 @@ export class NavigationBarComponent implements OnInit {
   currentUser$!: Observable<IAccount | null>;
   currentUser!: IAccount | null;
 
+  ongoingExamOpened = false;
+
   constructor(
     private _router: Router,
     private _userProfileStore: UserProfileStoreService,
     private _authenticationService: AuthenticationService,
     private _cookieService: CookieService
-  ) {}
+  ) {
+    this._router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: any) => {
+        if (event.url.endsWith('ongoing-exam')) {
+          this.ongoingExamOpened = true;
+        } else {
+          this.ongoingExamOpened = false;
+        }
+      });
+  }
 
   ngOnInit(): void {
     this.currentUser$ = this._userProfileStore.getAccountData().pipe(
@@ -84,27 +96,15 @@ export class NavigationBarComponent implements OnInit {
         role: [ROLE_TEACHER],
       },
       {
-        id: 4,
-        link: '/support-us',
-        text: 'Support Us',
-        role: [ROLE_TEACHER],
-      },
-      {
-        id: 5,
-        link: '/faq',
-        text: 'FAQ',
-        role: [ROLE_TEACHER],
-      },
-      {
         id: 6,
-        link: '/media',
-        text: 'Media',
-        role: [ROLE_TEACHER],
+        link: '/student/previous-exams',
+        text: 'Prethodni ispiti',
+        role: [ROLE_STUDENT],
       },
       {
         id: 7,
-        link: '/blog/page/1',
-        text: 'Blog',
+        link: '/student/my-exams',
+        text: 'Moji ispiti',
         role: [ROLE_STUDENT],
       },
     ];
