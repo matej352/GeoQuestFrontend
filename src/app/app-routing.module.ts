@@ -42,7 +42,7 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
   },
   {
-    path: ':role/ongoing-exam',
+    path: ':role/ongoing-exam/:testInstanceId',
     component: OngoingExamComponent,
     canActivate: [AuthGuardService],
     canDeactivate: [LeaveOngoingExamGuard],

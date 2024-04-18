@@ -1,9 +1,14 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, of, tap } from 'rxjs';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Observable, of, switchMap, tap } from 'rxjs';
 import { DeactivateComponent } from 'src/app/guards/leave-ongoing-exam.guard';
+import { IAccount } from 'src/app/models/account';
+import { ITaskInstanceDto } from 'src/app/models/taskInstanceDto';
 import { DialogOpenerService } from 'src/app/services/dialog-services/dialog-opener.service';
+import { TaskInstanceService } from 'src/app/services/task-instance.service';
 import { ConfirmLeaveOngoingExamDialogComponent } from 'src/app/shared/dialogs/confirm-leave-ongoing-exam-dialog/confirm-leave-ongoing-exam-dialog.component';
+import { UserProfileStoreService } from 'src/app/storage/user-profile-store.service';
 
 @Component({
   selector: 'app-ongoing-exam',
@@ -19,12 +24,45 @@ export class OngoingExamComponent
   timerInterval: any;
   testInProgress: boolean = true;
 
+  testInstanceId!: number;
+
   dialogOpened = false;
+
+  currentUser$!: Observable<IAccount | null>;
+  currentUser!: IAccount | null;
+
+  tasks$!: Observable<ITaskInstanceDto[]>;
 
   constructor(
     private _dialog: DialogOpenerService,
-    private dialog: MatDialog
-  ) {}
+    private dialog: MatDialog,
+    private _route: ActivatedRoute,
+    private _taskInstanceService: TaskInstanceService,
+    private _userProfileStore: UserProfileStoreService
+  ) {
+    this._route.paramMap
+      .pipe(
+        tap((res: ParamMap) => {
+          this.testInstanceId = +res.get('testInstanceId')!;
+          this.tasks$ = this._taskInstanceService.getTaskInstances(
+            this.testInstanceId
+          );
+
+          /*this.subjectDetails$ = this._subjectService
+            .getSubject(this.subjectId)
+            .pipe(tap((subject) => (this.subjectName = subject.name)));*/
+        })
+        /*switchMap((res) => {
+          this.currentUser$ = this._userProfileStore.getAccountData().pipe(
+            tap((user: IAccount | null) => {
+              this.currentUser = user;
+              this.navigationItems = this.getNavigtionItems();
+            })
+          );
+        }) */
+      )
+      .subscribe();
+  }
 
   ngOnInit(): void {
     this.startTimer();

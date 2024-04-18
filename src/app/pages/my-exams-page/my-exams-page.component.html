@@ -37,7 +37,7 @@
                   <td>
                     <button
                       class="button-publish"
-                      routerLink="/student/ongoing-exam"
+                      [routerLink]="['/student', 'ongoing-exam', test.id]"
                     >
                       Pokreni
                     </button>
