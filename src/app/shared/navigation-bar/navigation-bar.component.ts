@@ -67,7 +67,14 @@ export class NavigationBarComponent implements OnInit {
         console.log(res);
         this._userProfileStore.setAccountData(null);
         this._router.navigate(['landing']);
-        this._cookieService.deleteAll();
+
+        this._cookieService.delete(
+          'GeoQuestCookie',
+          '/',
+          'localhost',
+          false,
+          'Lax'
+        );
       });
   }
 
