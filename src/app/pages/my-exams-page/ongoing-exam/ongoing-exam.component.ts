@@ -176,7 +176,8 @@ export class OngoingExamComponent
       const dialogRef = this.dialog.open(
         ConfirmLeaveOngoingExamDialogComponent,
         {
-          width: '250px',
+          width: '900px',
+          disableClose: true,
         }
       );
 
