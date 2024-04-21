@@ -13,6 +13,7 @@ import { ITest } from 'src/app/models/test';
 import { ICreateTest } from 'src/app/models/test-create';
 import { SubjectService } from 'src/app/services/subject.service';
 import { TestService } from 'src/app/services/test.service';
+import { ValidatorsStoreService } from 'src/app/validators/validator-store.service';
 
 @Component({
   selector: 'app-add-exam-dialog',
@@ -35,7 +36,8 @@ export class AddExamDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<AddExamDialogComponent>,
     private _subjectService: SubjectService,
     private _testService: TestService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private validatorsStoreService: ValidatorsStoreService
   ) {}
 
   ngOnInit(): void {
@@ -53,7 +55,10 @@ export class AddExamDialogComponent implements OnInit {
         validators: [Validators.required],
       }),
       duration: new FormControl('', {
-        validators: [Validators.required],
+        validators: [
+          Validators.required,
+          this.validatorsStoreService.durationValidator(),
+        ],
       }),
       subjectId: new FormControl('', {
         validators: [Validators.required],
@@ -79,7 +84,7 @@ export class AddExamDialogComponent implements OnInit {
     let data = {
       name: this.form.controls['name'].value,
       description: this.form.controls['description'].value,
-      duration: this.form.controls['duration'].value,
+      duration: this.form.controls['duration'].value + ':00',
       subjectId: this.form.controls['subjectId'].value,
     } as ICreateTest;
 

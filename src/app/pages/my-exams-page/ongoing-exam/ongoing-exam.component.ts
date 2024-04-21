@@ -1,13 +1,32 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable, of, switchMap, tap } from 'rxjs';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  ParamMap,
+  Router,
+} from '@angular/router';
+import {
+  EMPTY,
+  Observable,
+  catchError,
+  filter,
+  of,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { TaskViewMode } from 'src/app/enums/task-view-mode';
 import { DeactivateComponent } from 'src/app/guards/leave-ongoing-exam.guard';
 import { IAccount } from 'src/app/models/account';
 import { ITaskInstanceDto } from 'src/app/models/taskInstanceDto';
+import { ITestInstanceDetails } from 'src/app/models/test-instance-details';
+import {
+  ITestInstanceFinish,
+  IUpdateElapsedTime,
+} from 'src/app/models/test-instance-finish';
 import { DialogOpenerService } from 'src/app/services/dialog-services/dialog-opener.service';
 import { TaskInstanceService } from 'src/app/services/task-instance.service';
+import { TestInstanceService } from 'src/app/services/test-instance.service';
 import { ConfirmLeaveOngoingExamDialogComponent } from 'src/app/shared/dialogs/confirm-leave-ongoing-exam-dialog/confirm-leave-ongoing-exam-dialog.component';
 import { UserProfileStoreService } from 'src/app/storage/user-profile-store.service';
 
@@ -19,7 +38,7 @@ import { UserProfileStoreService } from 'src/app/storage/user-profile-store.serv
 export class OngoingExamComponent
   implements OnInit, OnDestroy, DeactivateComponent
 {
-  remainingTime: number = 15 * 60; // 15 minutes in seconds
+  remainingTime!: number;
   formattedTime: string = '';
 
   timerInterval: any;
@@ -28,11 +47,14 @@ export class OngoingExamComponent
   testInstanceId!: number;
 
   dialogOpened = false;
+  testAlreadyFinished = false;
+  loading = true;
 
   currentUser$!: Observable<IAccount | null>;
   currentUser!: IAccount | null;
 
-  tasks$!: Observable<ITaskInstanceDto[]>;
+  tasks!: ITaskInstanceDto[];
+  testInstance!: ITestInstanceDetails;
 
   taskViewMode = TaskViewMode;
 
@@ -41,38 +63,78 @@ export class OngoingExamComponent
     private dialog: MatDialog,
     private _route: ActivatedRoute,
     private _taskInstanceService: TaskInstanceService,
-    private _userProfileStore: UserProfileStoreService
+    private _testInstanceService: TestInstanceService,
+    private _userProfileStore: UserProfileStoreService,
+    private _router: Router
   ) {
     this._route.paramMap
       .pipe(
-        tap((res: ParamMap) => {
+        switchMap((res: ParamMap) => {
           this.testInstanceId = +res.get('testInstanceId')!;
-          this.tasks$ = this._taskInstanceService.getTaskInstances(
-            this.testInstanceId
-          );
+          return this._testInstanceService
+            .getTestInstance(this.testInstanceId)
+            .pipe(
+              tap((testInstance: ITestInstanceDetails) => {
+                this.testInstance = testInstance;
+                console.log(testInstance);
 
-          /*this.subjectDetails$ = this._subjectService
-            .getSubject(this.subjectId)
-            .pipe(tap((subject) => (this.subjectName = subject.name)));*/
+                if (!testInstance.started) {
+                  this.startTestInstance();
+                  this.remainingTime = this.getSecondsFromDuration(
+                    testInstance.duration
+                  );
+                } else {
+                  this.remainingTime =
+                    this.getSecondsFromDuration(testInstance.duration) -
+                    this.getSecondsFromDuration(testInstance.elapsedTime);
+                }
+
+                this.startTimer();
+              }),
+              switchMap((testInstance: ITestInstanceDetails) => {
+                return this._taskInstanceService.getTaskInstances(
+                  testInstance.id
+                );
+              }),
+              catchError((err) => {
+                console.log(err);
+                // Handle error here, e.g., open a snackbar and reroute
+                this.testAlreadyFinished = true;
+                this._router.navigateByUrl('/student/my-exams');
+                return EMPTY; // Return an empty observable to continue the stream
+              })
+            );
         })
-        /*switchMap((res) => {
-          this.currentUser$ = this._userProfileStore.getAccountData().pipe(
-            tap((user: IAccount | null) => {
-              this.currentUser = user;
-              this.navigationItems = this.getNavigtionItems();
-            })
-          );
-        }) */
       )
-      .subscribe();
+      .subscribe((tasks: any) => {
+        this.tasks = tasks;
+        this.loading = false;
+      });
   }
 
-  ngOnInit(): void {
-    this.startTimer();
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     clearInterval(this.timerInterval);
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeUnloadHandler(event: Event) {
+    //that means exam is not properly submitted (either refresh is clicked or browser back and 'yes' in dialog)
+    if (this.testInProgress) {
+      let updateElapsedTimeData = {
+        id: this.testInstanceId,
+        elapsedTime: this.formatTimeSpanDuration(
+          this.getSecondsFromDuration(this.testInstance.duration) -
+            this.remainingTime
+        ), //proteklo vrijeme = test duration - remaining time
+      } as IUpdateElapsedTime;
+
+      this._testInstanceService
+        .updateElapsedTime(updateElapsedTimeData)
+
+        .subscribe();
+    }
   }
 
   startTimer(): void {
@@ -96,8 +158,20 @@ export class OngoingExamComponent
     return num < 10 ? '0' + num : num.toString();
   }
 
+  startTestInstance() {
+    this._testInstanceService
+      .startTestInstance(this.testInstanceId)
+      .pipe(
+        catchError((err) => {
+          console.log(err);
+          return EMPTY;
+        })
+      )
+      .subscribe();
+  }
+
   canDeactivate(): Observable<boolean> {
-    if (!this.dialogOpened) {
+    if (!this.dialogOpened && !this.testAlreadyFinished) {
       this.dialogOpened = true;
       const dialogRef = this.dialog.open(
         ConfirmLeaveOngoingExamDialogComponent,
@@ -110,6 +184,18 @@ export class OngoingExamComponent
         tap((trueOrFlase: boolean) => {
           if (trueOrFlase == false) {
             this.dialogOpened = false;
+          } else {
+            let finishData = {
+              id: this.testInstanceId,
+              elapsedTime: this.formatTimeSpanDuration(
+                this.getSecondsFromDuration(this.testInstance.duration) -
+                  this.remainingTime
+              ), //proteklo vrijeme = test duration - remaining time
+            } as ITestInstanceFinish;
+
+            this._testInstanceService
+              .finishTestInstance(finishData)
+              .subscribe();
           }
         })
       );
@@ -122,5 +208,27 @@ export class OngoingExamComponent
   submitTest(): void {
     this.testInProgress = false;
     // Logic to submit the test
+  }
+
+  getSecondsFromDuration(durationString: string) {
+    const [hours, minutes, seconds] = durationString.split(':');
+    const totalSeconds =
+      parseInt(hours, 10) * 3600 +
+      parseInt(minutes, 10) * 60 +
+      parseInt(seconds, 10);
+    return totalSeconds;
+  }
+
+  formatTimeSpanDuration(seconds: number) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+
+    const formattedHours = hours < 10 ? '0' + hours : hours;
+    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+    const formattedSeconds =
+      remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds;
+
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
   }
 }

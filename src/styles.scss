@@ -1,6 +1,6 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -12,144 +12,149 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $goe-web-facebook-primary: mat.define-palette(mat.$indigo-palette);
-$goe-web-facebook-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$goe-web-facebook-accent: mat.define-palette(
+  mat.$pink-palette,
+  A200,
+  A100,
+  A400
+);
 
 // The warn palette is optional (defaults to red).
 $goe-web-facebook-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$goe-web-facebook-theme: mat.define-light-theme((color: (primary: $goe-web-facebook-primary,
-                accent: $goe-web-facebook-accent,
-                warn: $goe-web-facebook-warn,
-            )));
+$goe-web-facebook-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $goe-web-facebook-primary,
+      accent: $goe-web-facebook-accent,
+      warn: $goe-web-facebook-warn,
+    ),
+  )
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include mat.all-component-themes($goe-web-facebook-theme);
 
-
-
 //for WYSIWYG editor
 @import "~quill/dist/quill.core.css";
 @import "~quill/dist/quill.bubble.css";
 @import "~quill/dist/quill.snow.css";
 
-
-
-
 @font-face {
-    font-family: "poppins-regular";
-    src: url("./assets/fonts/Poppins/Poppins-Regular.ttf");
+  font-family: "poppins-regular";
+  src: url("./assets/fonts/Poppins/Poppins-Regular.ttf");
 }
 
 @font-face {
-    font-family: "poppins-bold";
-    src: url("./assets/fonts/Poppins/Poppins-Bold.ttf");
+  font-family: "poppins-bold";
+  src: url("./assets/fonts/Poppins/Poppins-Bold.ttf");
 }
 
 @font-face {
-    font-family: "poppins-black";
-    src: url("./assets/fonts/Poppins/Poppins-Black.ttf");
+  font-family: "poppins-black";
+  src: url("./assets/fonts/Poppins/Poppins-Black.ttf");
 }
 
 @font-face {
-    font-family: "montserrat-thin";
-    src: url("./assets/fonts/Montserrat/Montserrat-Thin.ttf");
+  font-family: "montserrat-thin";
+  src: url("./assets/fonts/Montserrat/Montserrat-Thin.ttf");
 }
 
 @font-face {
-    font-family: "montserrat-regular";
-    src: url("./assets/fonts/Montserrat/Montserrat-Regular.ttf");
+  font-family: "montserrat-regular";
+  src: url("./assets/fonts/Montserrat/Montserrat-Regular.ttf");
 }
 
 @font-face {
-    font-family: "montserrat-bold";
-    src: url("./assets/fonts/Montserrat/Montserrat-Bold.ttf");
+  font-family: "montserrat-bold";
+  src: url("./assets/fonts/Montserrat/Montserrat-Bold.ttf");
 }
 
 @font-face {
-    font-family: "montserrat-medium";
-    src: url("./assets/fonts/Montserrat/Montserrat-Medium.ttf");
+  font-family: "montserrat-medium";
+  src: url("./assets/fonts/Montserrat/Montserrat-Medium.ttf");
 }
 
 :root {
-    /* ===== Colors ===== */
-    --black-color: #181818;
-    --white-color: #ffffff;
-    --gray-color: #808080;
-    --gray-background-color: #f2f2f2;
-    --primary-color: #f69533;
-    --secondary-color: #71176f;
-    --red-color:  #dc143c;
-    --green-color: #787d8d;
-    --success-green-color: #4BB543;
-    /* ==================== */
-    --app-background-color: #71176f;
-    --bottom-navbar-background-color: #1b1b1b;
-    --footer-background-color: #1b1b1b;
-    /* ===== Fonts ===== */
-    --primary-font-thin: poppins-thin;
-    --primary-font-regular: poppins-regular;
-    --primary-font-bold: poppins-bold;
-    --primary-font-black: poppins-black;
-    --secondary-font-thin: montserrat-thin;
-    --secondary-font-regular: montserrat-regular;
-    --secondary-font-bold: montserrat-bold;
-    --secondary-font-medium: montserrat-medium;
-    /* ===== Fonts-sizes ===== */
-    --font-size-h1: 48px;
-    --font-size-h2: 40px;
-    --font-size-h3: 32px;
-    --font-size-h4: 24px;
-    --font-size-h5: 16px;
-    --font-size-h6: 8px;
-    --font-size-p: 22px;
-    /* ===== Margins ===== */
-    --margin-size-0: 0px;
-    --margin-size-1: 4px;
-    --margin-size-2: 8px;
-    --margin-size-3: 16px;
-    --margin-size-4: 24px;
-    --margin-size-5: 48px;
-    /* ===== Paddings ===== */
-    --padding-size-0: 0px;
-    --padding-size-1: 4px;
-    --padding-size-2: 8px;
-    --padding-size-3: 16px;
-    --padding-size-4: 24px;
-    --padding-size-5: 48px;
-    /* ===== Breakpoints ===== */
-    --breakpoint-desktop: 1300px;
-    --breakpoint-laptop: 1024px;
-    --breakpoint-tablet: 768px;
-    --breakpoint-phone: 480px;
-    /* ===== Others ===== */
-    --heading-font-size: 38px;
-    --small-heading-font-size: 32px;
-    --subheading-font-size: 22px;
-    --paragraph-font-size: 16px;
-    --elements-space: 75px;
+  /* ===== Colors ===== */
+  --black-color: #181818;
+  --white-color: #ffffff;
+  --gray-color: #808080;
+  --gray-background-color: #f2f2f2;
+  --primary-color: #f69533;
+  --secondary-color: #71176f;
+  --red-color: #dc143c;
+  --green-color: #787d8d;
+  --success-green-color: #4bb543;
+  /* ==================== */
+  --app-background-color: #71176f;
+  --bottom-navbar-background-color: #1b1b1b;
+  --footer-background-color: #1b1b1b;
+  /* ===== Fonts ===== */
+  --primary-font-thin: poppins-thin;
+  --primary-font-regular: poppins-regular;
+  --primary-font-bold: poppins-bold;
+  --primary-font-black: poppins-black;
+  --secondary-font-thin: montserrat-thin;
+  --secondary-font-regular: montserrat-regular;
+  --secondary-font-bold: montserrat-bold;
+  --secondary-font-medium: montserrat-medium;
+  /* ===== Fonts-sizes ===== */
+  --font-size-h1: 48px;
+  --font-size-h2: 40px;
+  --font-size-h3: 32px;
+  --font-size-h4: 24px;
+  --font-size-h5: 16px;
+  --font-size-h6: 8px;
+  --font-size-p: 22px;
+  /* ===== Margins ===== */
+  --margin-size-0: 0px;
+  --margin-size-1: 4px;
+  --margin-size-2: 8px;
+  --margin-size-3: 16px;
+  --margin-size-4: 24px;
+  --margin-size-5: 48px;
+  /* ===== Paddings ===== */
+  --padding-size-0: 0px;
+  --padding-size-1: 4px;
+  --padding-size-2: 8px;
+  --padding-size-3: 16px;
+  --padding-size-4: 24px;
+  --padding-size-5: 48px;
+  /* ===== Breakpoints ===== */
+  --breakpoint-desktop: 1300px;
+  --breakpoint-laptop: 1024px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-phone: 480px;
+  /* ===== Others ===== */
+  --heading-font-size: 38px;
+  --small-heading-font-size: 32px;
+  --subheading-font-size: 22px;
+  --paragraph-font-size: 16px;
+  --elements-space: 75px;
 }
 
 * {
-    margin: var(--margin-size-0);
-    padding: var(--padding-size-0);
-    box-sizing: border-box;
-    font-family: var(--primary-font-regular);
+  margin: var(--margin-size-0);
+  padding: var(--padding-size-0);
+  box-sizing: border-box;
+  font-family: var(--primary-font-regular);
 }
 
 body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--padding-size-0);
-    margin: var(--margin-size-0);
-    height: 100vh;
-    background-color: #f2f2f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-size-0);
+  margin: var(--margin-size-0);
+  height: 100vh;
+  background-color: #f2f2f2;
 }
 
 .mat-dialog-container {
-    background: var(--gray-background-color);
+  background: var(--gray-background-color);
 }

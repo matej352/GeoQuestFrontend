@@ -37,7 +37,7 @@
         </div>
 
         <div class="form-group">
-          <label for="duration"> Trajanje </label>
+          <label for="duration"> Trajanje (HH:mm)</label>
           <input type="text" formControlName="duration" />
         </div>
         <div
@@ -45,6 +45,12 @@
           class="alert"
         >
           Trajnje je obavezno
+        </div>
+        <div
+          *ngIf="form.get('duration')?.errors?.['invalidDuration'] && form.get('duration')?.touched"
+          class="alert"
+        >
+          Ispravan format je HH:mm
         </div>
         <div class="form-group">
           <label for="description"> Opis </label>

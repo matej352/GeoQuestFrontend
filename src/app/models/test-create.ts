@@ -1,6 +1,6 @@
 export interface ICreateTest {
   name: string;
   description: string;
-  duration: number;
+  duration: string;
   subjectId: number;
 }
