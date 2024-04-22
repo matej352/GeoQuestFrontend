@@ -1,0 +1,255 @@
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import * as L from 'leaflet';
+import { TaskViewMode } from 'src/app/enums/task-view-mode';
+import { mapType } from 'src/app/types/types';
+
+@Component({
+  selector: 'app-mark-polygon-map',
+  templateUrl: './mark-polygon-map.component.html',
+  styleUrls: ['./mark-polygon-map.component.scss'],
+})
+export class MarkPolygonMapComponent
+  implements OnInit, OnChanges, AfterViewInit
+{
+  private polygonDrawn: boolean = false;
+
+  @Input() mapType!: mapType;
+
+  @Input()
+  mapId!: string;
+
+  // kad se koristi u TaskViewMode.Solving onda je to odgovor ucenika, kad se koristi u  TaskViewMode.DraftExamPreview onda je to tocan odg kojeg je oznacio ucitelj
+  @Input()
+  answer!: string;
+
+  studentAnswerPolygon: L.Polygon | null = null;
+
+  @Input()
+  mode = TaskViewMode.DraftExamPreview;
+
+  @Output()
+  onPolygonMarked: EventEmitter<any> = new EventEmitter();
+
+  map!: L.Map;
+  marker: L.Marker | null = null;
+  tileLayer!: L.TileLayer; // Store the current tile layer
+
+  drawnItem = new L.FeatureGroup();
+  drawControl!: L.Control.Draw;
+
+  constructor() {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['mapType'] && !changes['mapType'].firstChange) {
+      this.updateMapTiles();
+    }
+  }
+
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+    this.map = L.map(this.mapId, {
+      center: [44.5, 16],
+      zoom: 8,
+    });
+
+    this.map.addLayer(this.drawnItem);
+
+    this.updateMapTiles(); // Ensure tiles are added when the map initializes
+
+    //slucaj da ucitelj radi novi zadatak
+    if (this.mapId === 'mark_polygon') {
+      this.initializeMap();
+      console.log('Mapa MARK POLYGON --> radi se novi zadatak');
+    }
+    //slucaj da student rjesava zadatak
+    else if (this.mode === TaskViewMode.Solving) {
+      this.initializeMap();
+      if (this.answer) {
+        const coordinates = JSON.parse(this.answer);
+        const latLngs = coordinates.map((coord: { lat: number; lng: number }) =>
+          L.latLng(coord.lat, coord.lng)
+        );
+        this.studentAnswerPolygon = L.polygon(latLngs);
+
+        const polygonLayer = this.studentAnswerPolygon.addTo(this.map);
+
+        // Disable drawing controls
+        this.map.removeControl(this.drawControl);
+
+        // Create a delete button for the polygon
+        const deleteButton = L.DomUtil.create('button', 'delete-button');
+        deleteButton.innerHTML = 'Delete';
+        deleteButton.addEventListener('click', () => {
+          this.map.removeLayer(polygonLayer); // Delete the polygon when the delete button is clicked
+          this.map.addControl(this.drawControl);
+          setTimeout(() => {
+            this.emitDrawnItemChange();
+          }, 100);
+        });
+
+        // Create a popup and bind it to the polygon layer
+        polygonLayer.bindPopup(deleteButton);
+      }
+      console.log('Mapa MARK POLYGON --> student rjesava zadatak');
+    }
+    //slucaj da ucitelj gleda skicu ispita sa pripadnim zadacima
+    else if (this.mode === TaskViewMode.DraftExamPreview) {
+      const coordinates = JSON.parse(this.answer);
+      const latLngs = coordinates.map((coord: { lat: number; lng: number }) =>
+        L.latLng(coord.lat, coord.lng)
+      );
+      L.polygon(latLngs).addTo(this.map);
+
+      console.log('Mapa MARK POLYGON --> ucitelj gleda skicu ispita ');
+    }
+  }
+
+  private initializeMap(): void {
+    this.drawControl = new L.Control.Draw({
+      draw: {
+        polygon: {
+          allowIntersection: true,
+          showArea: true,
+        },
+        marker: false, // Disable other drawing tools
+        circle: {},
+        circlemarker: false,
+        polyline: false,
+        rectangle: false,
+      },
+      edit: {
+        featureGroup: this.drawnItem, // Enable editing of drawn polygons
+        remove: false,
+      },
+    });
+    this.map.addControl(this.drawControl);
+
+    if (!this.polygonDrawn) {
+      this.map.on(L.Draw.Event.CREATED, (event: any) => {
+        //console.log(event);
+        const layer = event.layer;
+
+        (layer as CustomLayer).properties = {
+          // Add your custom properties here
+          name: 'My Polygon',
+          description: 'This is a drawn polygon',
+        };
+
+        setTimeout(() => {
+          this.emitDrawnItemChange();
+        }, 100);
+
+        // Create a delete button for the polygon
+        const deleteButton = L.DomUtil.create('button', 'delete-button');
+        deleteButton.innerHTML = 'Delete';
+        deleteButton.addEventListener('click', () => {
+          this.deletePolygon(layer, this.drawnItem); // Delete the polygon when the delete button is clicked
+          this.polygonDrawn = false; // Reset flag after deleting polygon
+
+          // Re-enable drawing controls
+          this.map.addControl(this.drawControl);
+        });
+
+        // Add the delete button to the polygon
+        layer.bindPopup(deleteButton);
+
+        this.drawnItem.addLayer(layer);
+
+        this.polygonDrawn = true; // Set flag to true after drawing the first polygon
+
+        // Disable drawing controls
+        this.map.removeControl(this.drawControl);
+      });
+
+      this.drawnItem.on('click', (event: any) => {
+        //console.log(event.layer.properties); // Access the custom properties
+      });
+    }
+  }
+
+  private updateMapTiles(): void {
+    if (this.map && this.tileLayer) {
+      this.map.removeLayer(this.tileLayer); // Remove the previous tile layer
+    }
+
+    switch (this.mapType) {
+      case 'blind':
+        this.tileLayer = L.tileLayer(
+          'https://tile.openstreetmap.bzh/br/{z}/{x}/{y}.png',
+          {
+            maxZoom: 8,
+            minZoom: 8,
+            attribution:
+              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles courtesy of <a href="http://www.openstreetmap.bzh/" target="_blank">Breton OpenStreetMap Team</a>',
+            bounds: [
+              [46.2, 12],
+              [42, 20],
+            ],
+          }
+        );
+        break;
+      case 'satellite':
+        this.tileLayer = L.tileLayer(
+          'http://{s}.google.com/vt?lyrs=s&x={x}&y={y}&z={z}',
+          {
+            maxZoom: 20,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+          }
+        );
+        break;
+      default:
+        this.tileLayer = L.tileLayer(
+          'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+          {
+            maxZoom: 18,
+            minZoom: 3,
+            attribution:
+              '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+          }
+        );
+    }
+
+    this.tileLayer.addTo(this.map);
+  }
+
+  deletePolygon(layer: L.Layer, drawnItems: any): void {
+    drawnItems.removeLayer(layer); // Remove the layer from the FeatureGroup
+  }
+
+  emitDrawnItemChange() {
+    const layer = Object.values((this.drawnItem as any)._layers)[0]; // Assuming there's only one layer
+
+    let polygon: { lat: any; lng: any }[] = [];
+
+    if (!layer) {
+      this.onPolygonMarked.emit('');
+    } else {
+      // Access coordinates (_latlngs) of the layer
+      const latlngs = (layer as any)._latlngs[0];
+      latlngs.forEach((pair: { lat: any; lng: any }) => {
+        polygon.push({
+          lat: pair.lat,
+          lng: pair.lng,
+        });
+      });
+
+      this.onPolygonMarked.emit(JSON.stringify(polygon));
+    }
+  }
+}
+
+export interface CustomLayer extends L.Layer {
+  properties: {
+    [key: string]: any; // Define any properties you want to add to the layer
+  };
+}

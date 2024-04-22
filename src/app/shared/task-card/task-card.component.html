@@ -27,6 +27,31 @@
           </div>
         </div>
       </ng-container>
+      <ng-container *ngSwitchCase="TaskType.MarkPolygon">
+        <div class="left">
+          <app-mark-polygon-map
+            mapType="normal"
+            context="view"
+            [mapId]="task.id!.toString()"
+            [answer]="task.answer!"
+            [mode]="mode"
+            (onPolygonMarked)="onMarkPolygonMapStudentAnswer($event)"
+          ></app-mark-polygon-map>
+        </div>
+        <div class="right">
+          <div class="task-index">{{ index + 1 }}. zadatak</div>
+          <div class="form-container">
+            <div class="form-group">
+              <label for="question-type"> Tip zadatka </label>
+              <div class="question-type">Označi na karti</div>
+            </div>
+            <div class="form-group-column">
+              <label for="question"> Tekst zadatka </label>
+              <div class="question" [innerHTML]="task.question"></div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
       <ng-container *ngSwitchCase="TaskType.NonMap">
         <div class="left">
           <!--app-test-map></app-test-map-->

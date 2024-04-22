@@ -23,6 +23,7 @@ export class CreateTaskCardComponent implements OnInit {
   selection2!: SelectionType;
 
   drawnItems!: IOptionAnwser[];
+  markedPolygon!: string;
   markedPoint!: number[];
 
   //form
@@ -73,6 +74,11 @@ export class CreateTaskCardComponent implements OnInit {
     console.log(this.drawnItems);
   }
 
+  drawnItemChange(markedPolygon: string) {
+    this.markedPolygon = markedPolygon;
+    console.log(this.markedPolygon);
+  }
+
   markedPointChanged(point: any) {
     this.markedPoint = point;
     console.log(this.markedPoint);
@@ -112,6 +118,22 @@ export class CreateTaskCardComponent implements OnInit {
       testId: this.testId,
       question: this.taskForm.get('question')?.value.editor,
       answer: this.markedPoint.toString(),
+      type: this.getTaskType(),
+    };
+
+    console.log(taskDto);
+
+    this._taskService.createTask(taskDto).subscribe((res) => {
+      console.log(res);
+      this.taskCreatedSuccessfully.emit();
+    });
+  }
+
+  submitMarkPolygon() {
+    let taskDto: ITaskDto = {
+      testId: this.testId,
+      question: this.taskForm.get('question')?.value.editor,
+      answer: this.markedPolygon,
       type: this.getTaskType(),
     };
 

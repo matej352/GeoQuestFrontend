@@ -51,6 +51,26 @@ export class TaskCardComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onMarkPolygonMapStudentAnswer(polygon: string) {
+    if (this.mode === TaskViewMode.Solving) {
+      let answer = {
+        testInstanceId: this.testInstanceId,
+        testTaskInstanceId: this.task.id,
+        answer: polygon,
+      } as ITaskInstanceAnswer;
+
+      this._taskInstanceService
+        .saveAnswer(answer)
+        .pipe(
+          catchError((err) => {
+            console.log(err);
+            return EMPTY;
+          })
+        )
+        .subscribe();
+    }
+  }
+
   onSelectPolygonMapStudentAnswer(optionId: number) {
     if (this.mode === TaskViewMode.Solving) {
       let answer = {

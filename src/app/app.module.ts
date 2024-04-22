@@ -34,6 +34,7 @@ import { OngoingExamComponent } from './pages/my-exams-page/ongoing-exam/ongoing
 import { ConfirmLeaveOngoingExamDialogComponent } from './shared/dialogs/confirm-leave-ongoing-exam-dialog/confirm-leave-ongoing-exam-dialog.component';
 import { PreviousExamsPageComponent } from './pages/previous-exams-page/previous-exams-page.component';
 import { PreviousExamComponent } from './pages/previous-exams-page/previous-exam/previous-exam.component';
+import { MarkPolygonMapComponent } from './shared/maps/mark-polygon-map/mark-polygon-map.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { PreviousExamComponent } from './pages/previous-exams-page/previous-exam
     ConfirmLeaveOngoingExamDialogComponent,
     PreviousExamsPageComponent,
     PreviousExamComponent,
+    MarkPolygonMapComponent,
   ],
   imports: [
     BrowserModule,
