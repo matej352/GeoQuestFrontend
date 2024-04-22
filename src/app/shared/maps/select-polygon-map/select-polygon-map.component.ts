@@ -29,6 +29,10 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
   @Input()
   answers!: IOptionAnswerDto[] | ITaskInstanceOptionAnswerDto[]; // if type is IOptionAnswerDto --> map opened in view mode, if type is ITaskInstanceOptionAnswerDto --> map opened in solving mode
 
+  // ovo je answer studenta kad je exam ongoing
+  @Input()
+  answer!: number;
+
   @Input()
   mode = TaskViewMode.DraftExamPreview;
 
@@ -41,6 +45,9 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
 
   @Output()
   onDrawnItemsChange: EventEmitter<any> = new EventEmitter();
+
+  @Output()
+  onPolygonSelected: EventEmitter<number> = new EventEmitter();
 
   constructor() {}
 
@@ -102,7 +109,7 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
           // Add your custom properties here
           name: 'My Polygon',
           description: 'This is a drawn polygon',
-          isCorrect: 'false',
+          isCorrect: false,
         };
 
         setTimeout(() => {
@@ -294,6 +301,12 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
       polygon.on('click', () =>
         this.onPolygonClick((obj as ITaskInstanceOptionAnswerDto).id, polygon)
       );
+
+      if (this.answer) {
+        if ((obj as ITaskInstanceOptionAnswerDto).id === this.answer) {
+          polygon.fireEvent('click');
+        }
+      }
     });
   }
 
@@ -314,10 +327,12 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
   onPolygonClick(id: number, polygon: L.Polygon): void {
     if (this.selectedPolygon && this.selectedPolygon !== polygon) {
       this.resetPolygonStyle(this.selectedPolygon);
+
+      //emit selectedPolygonId
+      this.onPolygonSelected.emit(id);
     }
 
     this.selectedPolygonId = id;
-    console.log('Clicked polygon ID:', id);
     this.selectedPolygon = polygon;
     this.highlightPolygon(polygon);
   }

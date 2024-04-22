@@ -1,0 +1,65 @@
+<app-header></app-header>
+
+<div class="exams-page">
+  <div class="exams-page-container">
+    <div class="students-container-actions">
+      <div class="students-container">
+        <div class="board">
+          <ng-container *ngIf="tests$ | async as tests; else loading">
+            <table *ngIf="tests.length !== 0; else noTests">
+              <thead>
+                <tr>
+                  <th>Naslov</th>
+                  <th>Opis</th>
+                  <th>Predmet</th>
+                  <th>Trajanje</th>
+                  <th>Učitelj</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let test of tests">
+                  <td class="username" [routerLink]="['exam', test.id]">
+                    <p>{{ test.name }}</p>
+                  </td>
+                  <td>
+                    <p>{{ test.description }}</p>
+                  </td>
+                  <td>
+                    <p>{{ test.subject }}</p>
+                  </td>
+                  <td>
+                    <p>{{ test.duration }}</p>
+                  </td>
+                  <td>
+                    <p>{{ test.teacherName }}</p>
+                  </td>
+                  <td>
+                    <button
+                      class="button-publish"
+                      [routerLink]="[
+                        '/student',
+                        'previous-exams',
+                        'exam',
+                        test.id
+                      ]"
+                    >
+                      Detalji
+                    </button>
+                    <app-tooltip message="statusMessage"></app-tooltip>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <ng-template #noTests>
+              <div class="no-students">Nemate prethodnih ispita</div>
+            </ng-template>
+          </ng-container>
+          <ng-template #loading>
+            <div class="loading-container">Loading</div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -48,6 +48,7 @@ export class OngoingExamComponent
 
   dialogOpened = false;
   testAlreadyFinished = false;
+  properTestSubmition = false;
   loading = true;
 
   currentUser$!: Observable<IAccount | null>;
@@ -171,7 +172,11 @@ export class OngoingExamComponent
   }
 
   canDeactivate(): Observable<boolean> {
-    if (!this.dialogOpened && !this.testAlreadyFinished) {
+    if (
+      !this.dialogOpened &&
+      !this.testAlreadyFinished &&
+      !this.properTestSubmition
+    ) {
       this.dialogOpened = true;
       const dialogRef = this.dialog.open(
         ConfirmLeaveOngoingExamDialogComponent,
@@ -186,17 +191,7 @@ export class OngoingExamComponent
           if (trueOrFlase == false) {
             this.dialogOpened = false;
           } else {
-            let finishData = {
-              id: this.testInstanceId,
-              elapsedTime: this.formatTimeSpanDuration(
-                this.getSecondsFromDuration(this.testInstance.duration) -
-                  this.remainingTime
-              ), //proteklo vrijeme = test duration - remaining time
-            } as ITestInstanceFinish;
-
-            this._testInstanceService
-              .finishTestInstance(finishData)
-              .subscribe();
+            this.submitTest();
           }
         })
       );
@@ -208,7 +203,19 @@ export class OngoingExamComponent
   // Method to handle test submission
   submitTest(): void {
     this.testInProgress = false;
-    // Logic to submit the test
+    this.properTestSubmition = true;
+
+    let finishData = {
+      id: this.testInstanceId,
+      elapsedTime: this.formatTimeSpanDuration(
+        this.getSecondsFromDuration(this.testInstance.duration) -
+          this.remainingTime
+      ), //proteklo vrijeme = test duration - remaining time
+    } as ITestInstanceFinish;
+
+    this._testInstanceService.finishTestInstance(finishData).subscribe(() => {
+      this._router.navigateByUrl('/student/previous-exams');
+    });
   }
 
   getSecondsFromDuration(durationString: string) {

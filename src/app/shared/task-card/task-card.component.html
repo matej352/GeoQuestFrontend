@@ -8,7 +8,9 @@
             context="view"
             [mapId]="task.id!.toString()"
             [answers]="task.options!.optionAnswers"
+            [answer]="+task.answer!"
             [mode]="mode"
+            (onPolygonSelected)="onSelectPolygonMapStudentAnswer($event)"
           ></app-select-polygon-map>
         </div>
         <div class="right">

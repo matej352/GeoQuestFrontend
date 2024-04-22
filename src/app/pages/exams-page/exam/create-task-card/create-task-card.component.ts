@@ -84,7 +84,7 @@ export class CreateTaskCardComponent implements OnInit {
     this.drawnItems.forEach((optionAnswer) => {
       optionAnswers.push({
         content: JSON.stringify(optionAnswer.coordinates),
-        correct: true,
+        correct: optionAnswer.properties.isCorrect,
       });
     });
 
@@ -101,7 +101,10 @@ export class CreateTaskCardComponent implements OnInit {
 
     console.log(taskDto);
 
-    this._taskService.createTask(taskDto).subscribe((res) => console.log(res));
+    this._taskService.createTask(taskDto).subscribe((res) => {
+      console.log(res);
+      this.taskCreatedSuccessfully.emit();
+    });
   }
 
   submitMarkPoint() {

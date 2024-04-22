@@ -32,6 +32,8 @@ import { StudentsInvitationComponent } from './shared/dialogs/add-students-dialo
 import { MyExamsPageComponent } from './pages/my-exams-page/my-exams-page.component';
 import { OngoingExamComponent } from './pages/my-exams-page/ongoing-exam/ongoing-exam.component';
 import { ConfirmLeaveOngoingExamDialogComponent } from './shared/dialogs/confirm-leave-ongoing-exam-dialog/confirm-leave-ongoing-exam-dialog.component';
+import { PreviousExamsPageComponent } from './pages/previous-exams-page/previous-exams-page.component';
+import { PreviousExamComponent } from './pages/previous-exams-page/previous-exam/previous-exam.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +64,8 @@ import { ConfirmLeaveOngoingExamDialogComponent } from './shared/dialogs/confirm
     MyExamsPageComponent,
     OngoingExamComponent,
     ConfirmLeaveOngoingExamDialogComponent,
+    PreviousExamsPageComponent,
+    PreviousExamComponent,
   ],
   imports: [
     BrowserModule,

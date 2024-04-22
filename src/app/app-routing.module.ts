@@ -13,6 +13,8 @@ import { SubjectComponent } from './pages/subjects-page/subject/subject.componen
 import { MyExamsPageComponent } from './pages/my-exams-page/my-exams-page.component';
 import { OngoingExamComponent } from './pages/my-exams-page/ongoing-exam/ongoing-exam.component';
 import { LeaveOngoingExamGuard } from './guards/leave-ongoing-exam.guard';
+import { PreviousExamsPageComponent } from './pages/previous-exams-page/previous-exams-page.component';
+import { PreviousExamComponent } from './pages/previous-exams-page/previous-exam/previous-exam.component';
 
 const routes: Routes = [
   {
@@ -55,6 +57,16 @@ const routes: Routes = [
   {
     path: ':role/my-exams',
     component: MyExamsPageComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: ':role/previous-exams/exam/:testId',
+    component: PreviousExamComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: ':role/previous-exams',
+    component: PreviousExamsPageComponent,
     canActivate: [AuthGuardService],
   },
 ];
