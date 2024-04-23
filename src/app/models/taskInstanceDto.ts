@@ -3,7 +3,8 @@ import { TaskType } from '../enums/task-type';
 export interface ITaskInstanceDto {
   id: number;
   question: string;
-  answer: string;
+  answer?: string;
+  nonMapPoint?: string;
   type: TaskType;
   options?: ITaskInstanceOptionsDto;
   testInstanceId: number;

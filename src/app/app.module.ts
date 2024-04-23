@@ -35,6 +35,7 @@ import { ConfirmLeaveOngoingExamDialogComponent } from './shared/dialogs/confirm
 import { PreviousExamsPageComponent } from './pages/previous-exams-page/previous-exams-page.component';
 import { PreviousExamComponent } from './pages/previous-exams-page/previous-exam/previous-exam.component';
 import { MarkPolygonMapComponent } from './shared/maps/mark-polygon-map/mark-polygon-map.component';
+import { NonMapMapComponent } from './shared/maps/non-map-map/non-map-map.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { MarkPolygonMapComponent } from './shared/maps/mark-polygon-map/mark-pol
     PreviousExamsPageComponent,
     PreviousExamComponent,
     MarkPolygonMapComponent,
+    NonMapMapComponent,
   ],
   imports: [
     BrowserModule,

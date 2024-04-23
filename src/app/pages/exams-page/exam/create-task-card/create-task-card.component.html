@@ -92,31 +92,29 @@
       </ng-container>
       <ng-container *ngSwitchCase="'non_map'">
         <div class="left">
-          <!--app-test-map></app-test-map-->
+          <app-non-map-map
+            [mapType]="selectedMapTypeOption"
+            (onPointMarked)="markedPointChanged($event)"
+            mapId="non_map"
+          ></app-non-map-map>
         </div>
         <div class="right">
           <form [formGroup]="taskForm" (ngSubmit)="submitNonMap()">
             <div class="form-container">
               <div class="form-group-column">
                 <label for="question"> Tekst zadatka </label>
-                <textarea
-                  formControlName="question"
-                  cols="30"
-                  rows="2"
-                ></textarea>
-              </div>
-
-              <div class="form-group-column">
-                <label for="answer"> Answer </label>
                 <app-quill-editor
-                  formControlName="answer"
-                  errorMessage="Answer"
+                  formControlName="question"
+                  errorMessage="Tekst zadatka"
                 ></app-quill-editor>
+              </div>
+              <div>
+                Označite točku na karti gdje će učenik upisivati odgovor
               </div>
               <input
                 class="submit"
                 type="submit"
-                value="Create"
+                value="Stvori"
                 [disabled]="!taskForm.valid"
                 [ngClass]="{ disabled: !taskForm.valid }"
               />

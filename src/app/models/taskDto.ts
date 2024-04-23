@@ -6,6 +6,7 @@ export interface ITaskDto {
   testId: number;
   question: string;
   answer?: string;
+  nonMapPoint?: string;
   type: TaskType;
   options?: IOptionsDto;
 }

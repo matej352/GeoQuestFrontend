@@ -64,7 +64,7 @@ export class CreateTaskCardComponent implements OnInit {
   }
 
   onSelect() {
-    console.log(this.selection.selectedOption);
+    console.log(this.selection2.selectedOption);
     this.selectedMapTypeOption = this.selection.selectedOption as mapType;
     this.selectedTaskTypeOption = this.selection2.selectedOption as taskType;
   }
@@ -97,7 +97,7 @@ export class CreateTaskCardComponent implements OnInit {
     let taskDto: ITaskDto = {
       testId: this.testId,
       question: this.taskForm.get('question')?.value.editor,
-      answer: this.taskForm.get('answer')?.value,
+      //answer: this.taskForm.get('answer')?.value,
       type: this.getTaskType(),
       options: {
         singleSelect: true,
@@ -145,7 +145,22 @@ export class CreateTaskCardComponent implements OnInit {
     });
   }
 
-  submitNonMap() {}
+  submitNonMap() {
+    let taskDto: ITaskDto = {
+      testId: this.testId,
+      question: this.taskForm.get('question')?.value.editor,
+      //answer: this.markedPoint.toString(),
+      nonMapPoint: this.markedPoint.toString(),
+      type: this.getTaskType(),
+    };
+
+    console.log(taskDto);
+
+    this._taskService.createTask(taskDto).subscribe((res) => {
+      console.log(res);
+      this.taskCreatedSuccessfully.emit();
+    });
+  }
 
   getTaskType(): TaskType {
     switch (this.selectedTaskTypeOption) {

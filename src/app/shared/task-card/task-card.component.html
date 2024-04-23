@@ -31,7 +31,6 @@
         <div class="left">
           <app-mark-polygon-map
             mapType="normal"
-            context="view"
             [mapId]="task.id!.toString()"
             [answer]="task.answer!"
             [mode]="mode"
@@ -54,22 +53,26 @@
       </ng-container>
       <ng-container *ngSwitchCase="TaskType.NonMap">
         <div class="left">
-          <!--app-test-map></app-test-map-->
+          <app-non-map-map
+            mapType="satellite"
+            [mapId]="task.id!.toString()"
+            [answer]="task.answer!"
+            [nonMapPoint]="task.nonMapPoint!"
+            [mode]="mode"
+            (onPointMarked)="onMarkPointMapStudentAnswer($event)"
+            (onAnswerSaved)="onNonMapMapStudentAnswer($event)"
+          ></app-non-map-map>
         </div>
         <div class="right">
           <div class="task-index">{{ index + 1 }}. zadatak</div>
           <div class="form-container">
             <div class="form-group">
               <label for="question-type"> Tip zadatka </label>
-              <div class="question-type">Obično pitanje</div>
+              <div class="question-type">Označi na karti</div>
             </div>
             <div class="form-group-column">
               <label for="question"> Tekst zadatka </label>
               <div class="question" [innerHTML]="task.question"></div>
-            </div>
-
-            <div class="form-group-column">
-              <label for="answer"> Answer </label>
             </div>
           </div>
         </div>

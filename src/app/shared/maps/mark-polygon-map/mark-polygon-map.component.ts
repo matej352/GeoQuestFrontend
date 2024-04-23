@@ -151,7 +151,7 @@ export class MarkPolygonMapComponent
 
         // Create a delete button for the polygon
         const deleteButton = L.DomUtil.create('button', 'delete-button');
-        deleteButton.innerHTML = 'Delete';
+        deleteButton.innerHTML = 'Obriši';
         deleteButton.addEventListener('click', () => {
           this.deletePolygon(layer, this.drawnItem); // Delete the polygon when the delete button is clicked
           this.polygonDrawn = false; // Reset flag after deleting polygon

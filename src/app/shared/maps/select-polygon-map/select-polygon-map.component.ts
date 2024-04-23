@@ -327,10 +327,10 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
   onPolygonClick(id: number, polygon: L.Polygon): void {
     if (this.selectedPolygon && this.selectedPolygon !== polygon) {
       this.resetPolygonStyle(this.selectedPolygon);
-
-      //emit selectedPolygonId
-      this.onPolygonSelected.emit(id);
     }
+
+    //emit selectedPolygonId
+    this.onPolygonSelected.emit(id);
 
     this.selectedPolygonId = id;
     this.selectedPolygon = polygon;
