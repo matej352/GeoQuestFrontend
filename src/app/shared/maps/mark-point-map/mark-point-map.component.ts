@@ -46,6 +46,9 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
   @Input()
   answer!: string;
 
+  @Input()
+  correctAnswer!: string; //used when TaskViewMode.Result
+
   studentAnswerMarker: L.Marker | null = null;
 
   @Input()
@@ -90,6 +93,35 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
       const [lat, lng] = this.answer.split(',').map(Number);
       L.marker([lat, lng]).addTo(this.map);
       console.log('Mapa MARK POINT --> ucitelj gleda skicu ispita ');
+    }
+    //slucaj da ucitelj/ucenik gleda rezultat ispita sa pripadnim zadacima (ucitelj gleda i moze jos ocjeniti, student samo gleda)
+    else if (this.mode === TaskViewMode.Result) {
+      var [lat, lng] = this.answer.split(',').map(Number);
+
+      const studentAnswer = L.marker([lat, lng]).addTo(this.map);
+      studentAnswer.bindPopup('Vaš odgovor');
+      studentAnswer.on('click', () => {
+        studentAnswer.openPopup();
+      });
+
+      [lat, lng] = this.correctAnswer.split(',').map(Number);
+
+      const correctAnswer = L.marker([lat, lng], {
+        icon: L.icon({
+          iconUrl: 'assets/marker-correct-icon.png',
+          iconSize: [29, 39], // Default Leaflet icon size
+          iconAnchor: [12, 41], // Default Leaflet icon anchor
+          popupAnchor: [1, -34], // Default Leaflet popup anchor
+        }),
+      }).addTo(this.map);
+      correctAnswer.bindPopup('Točan odgovor');
+      correctAnswer.on('click', () => {
+        correctAnswer.openPopup();
+      });
+
+      console.log(
+        'Mapa MARK POINT --> ucitelj/student gledaju rezultat ispita'
+      );
     }
   }
 

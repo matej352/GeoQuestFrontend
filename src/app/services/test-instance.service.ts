@@ -30,6 +30,15 @@ export class TestInstanceService {
     );
   }
 
+  getTestInstanceResult(testInstanceId: number): Observable<any> {
+    return this.http.get<any>(
+      `${this._apiURL}/TestInstance/TestInstance/Result?testInstanceId=${testInstanceId}`,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
   getTestInstance(testInstanceId: number): Observable<any> {
     return this.http.get<any>(
       `${this._apiURL}/TestInstance/TestInstance?testInstanceId=${testInstanceId}`,

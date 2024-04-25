@@ -1,0 +1,43 @@
+<main>
+  <div class="configuration-container">
+    <ng-container [ngSwitch]="task.type">
+      <ng-container *ngSwitchCase="TaskType.MarkPoint">
+        <div class="left">
+          <app-mark-point-map
+            mapType="satellite"
+            [mapId]="task.id!.toString()"
+            [answer]="task.studentAnswer!"
+            [correctAnswer]="task.correctAnswer!"
+            [mode]="mode"
+          ></app-mark-point-map>
+        </div>
+        <div class="right">
+          <div class="header-container">
+            <div class="task-index">{{ index + 1 }}. zadatak</div>
+            <ng-container *ngIf="task.isCorrect; else incorrect">
+              <div class="correctness true">
+                Točno <fa-icon [icon]="correctTrue"></fa-icon>
+              </div>
+            </ng-container>
+            <ng-template #incorrect>
+              <div class="correctness false">
+                Netočno <fa-icon [icon]="correctFalse"></fa-icon>
+              </div>
+            </ng-template>
+          </div>
+
+          <div class="form-container">
+            <div class="form-group">
+              <label for="question-type"> Tip zadatka </label>
+              <div class="question-type">Označi točkom na karti</div>
+            </div>
+            <div class="form-group-column">
+              <label for="question"> Tekst zadatka </label>
+              <div class="question" [innerHTML]="task.question"></div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</main>

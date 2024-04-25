@@ -1,1 +1,32 @@
-<p>previous-exam works!</p>
+<app-header></app-header>
+<div class="previous-exam">
+  <div class="previous-exam-container">
+    <div class="back-container">
+      <fa-icon
+        [icon]="back"
+        class="fa-2x back"
+        title="Nazad"
+        routerLink="/student/previous-exams"
+      ></fa-icon>
+    </div>
+    <ng-container *ngIf="loading; else loaded">
+      <div>Loading</div>
+    </ng-container>
+    <ng-template #loaded>
+      <div class="general-info">
+        <h2></h2>
+        <div><span>Opis: </span></div>
+        <div><span>Trajanje: </span></div>
+      </div>
+
+      <div class="tasks-container">
+        <app-task-result-card
+          *ngFor="let task of testInstanceResult.testTasks; let index = index"
+          [task]="task"
+          [class]="'task' + task.id"
+          [index]="index"
+        ></app-task-result-card>
+      </div>
+    </ng-template>
+  </div>
+</div>
