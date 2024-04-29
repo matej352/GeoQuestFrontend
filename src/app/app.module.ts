@@ -37,6 +37,7 @@ import { PreviousExamComponent } from './pages/previous-exams-page/previous-exam
 import { MarkPolygonMapComponent } from './shared/maps/mark-polygon-map/mark-polygon-map.component';
 import { NonMapMapComponent } from './shared/maps/non-map-map/non-map-map.component';
 import { TaskResultCardComponent } from './shared/task-result-card/task-result-card.component';
+import { SelectPointMapComponent } from './shared/maps/select-point-map/select-point-map.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { TaskResultCardComponent } from './shared/task-result-card/task-result-c
     MarkPolygonMapComponent,
     NonMapMapComponent,
     TaskResultCardComponent,
+    SelectPointMapComponent,
   ],
   imports: [
     BrowserModule,

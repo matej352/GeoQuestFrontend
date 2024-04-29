@@ -41,13 +41,48 @@
           ></app-select-polygon-map>
         </div>
         <div class="right">
-          <form [formGroup]="taskForm" (ngSubmit)="submitSelectPolygon()">
+          <form
+            [formGroup]="taskForm"
+            (ngSubmit)="submitSelectPolygonOrPoint()"
+          >
             <div class="form-container">
               <div class="form-group-column">
                 <label for="question"> Tekst zadatka </label>
                 <app-quill-editor
                   formControlName="question"
                   errorMessage="Tekst zadatka"
+                ></app-quill-editor>
+              </div>
+              <input
+                class="submit"
+                type="submit"
+                value="Stvori"
+                [disabled]="!taskForm.valid"
+                [ngClass]="{ disabled: !taskForm.valid }"
+              />
+            </div>
+          </form>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'select_point'">
+        <div class="left">
+          <app-select-point-map
+            [mapType]="selectedMapTypeOption"
+            mapId="select_point"
+            (onDrawnItemsChange)="drawnItemsChange($event)"
+          ></app-select-point-map>
+        </div>
+        <div class="right">
+          <form
+            [formGroup]="taskForm"
+            (ngSubmit)="submitSelectPolygonOrPoint()"
+          >
+            <div class="form-container">
+              <div class="form-group-column">
+                <label for="question"> Tekst zadatka </label>
+                <app-quill-editor
+                  formControlName="question"
+                  errorMessage="Answer"
                 ></app-quill-editor>
               </div>
               <input

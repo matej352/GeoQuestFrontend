@@ -84,7 +84,7 @@ export class CreateTaskCardComponent implements OnInit {
     console.log(this.markedPoint);
   }
 
-  submitSelectPolygon() {
+  submitSelectPolygonOrPoint() {
     let optionAnswers = [] as IOptionAnswerDto[];
 
     this.drawnItems.forEach((optionAnswer) => {

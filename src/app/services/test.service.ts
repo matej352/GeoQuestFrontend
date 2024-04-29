@@ -30,4 +30,10 @@ export class TestService {
       withCredentials: true,
     });
   }
+
+  publishTest(testId: number): Observable<any> {
+    return this.http.post<any>(`${this._apiURL}/Test/Publish`, testId, {
+      withCredentials: true,
+    });
+  }
 }

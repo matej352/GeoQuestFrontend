@@ -1,12 +1,12 @@
 export interface IOptionAnwser {
   properties: IProperty;
   type: string;
-  coordinates: ICoordinate[];
+  coordinates: ICoordinate | ICoordinate[];
 }
 
-interface ICoordinate {
+export interface ICoordinate {
   lat: number;
-  lng: number[];
+  lng: number;
 }
 
 interface IProperty {

@@ -228,6 +228,7 @@ export class MarkPolygonMapComponent
 
   deletePolygon(layer: L.Layer, drawnItems: any): void {
     drawnItems.removeLayer(layer); // Remove the layer from the FeatureGroup
+    this.emitDrawnItemChange();
   }
 
   emitDrawnItemChange() {

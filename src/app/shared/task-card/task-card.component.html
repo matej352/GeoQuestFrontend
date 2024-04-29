@@ -26,6 +26,31 @@
           </div>
         </div>
       </ng-container>
+      <ng-container *ngSwitchCase="TaskType.SelectPoint">
+        <div class="left">
+          <app-select-point-map
+            mapType="normal"
+            [mapId]="task.id!.toString()"
+            [answers]="task.options!.optionAnswers"
+            [answer]="+task.answer!"
+            [mode]="mode"
+            (onPointSelected)="onSelectPointMapStudentAnswer($event)"
+          ></app-select-point-map>
+        </div>
+        <div class="right">
+          <div class="task-index">{{ index + 1 }}. zadatak</div>
+          <div class="form-container">
+            <div class="form-group">
+              <label for="question-type"> Tip zadatka </label>
+              <div class="question-type">Odaberi točan odgovor na karti</div>
+            </div>
+            <div class="form-group-column">
+              <label for="question"> Tekst zadatka </label>
+              <div class="question" [innerHTML]="task.question"></div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
       <ng-container *ngSwitchCase="TaskType.MarkPolygon">
         <div class="left">
           <app-mark-polygon-map

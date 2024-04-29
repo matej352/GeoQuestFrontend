@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { EMPTY, Observable, Subscription, catchError } from 'rxjs';
 import { ITest } from 'src/app/models/test';
 import { DialogOpenerService } from 'src/app/services/dialog-services/dialog-opener.service';
 import { TestService } from 'src/app/services/test.service';
@@ -37,5 +37,15 @@ export class ExamsPageComponent implements OnInit {
     this._dialogOpenerService.openAddExamDialog();
   }
 
-  onPublish() {}
+  onPublish(testId: number) {
+    this._testService
+      .publishTest(testId)
+      .pipe(
+        catchError((err) => {
+          console.log(err);
+          return EMPTY;
+        })
+      )
+      .subscribe();
+  }
 }

@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import * as L from 'leaflet';
 import { TaskViewMode } from 'src/app/enums/task-view-mode';
-import { IOptionAnwser } from 'src/app/models/option-anwser';
+import { ICoordinate, IOptionAnwser } from 'src/app/models/option-anwser';
 import { IOptionAnswerDto } from 'src/app/models/taskDto';
 import { ITaskInstanceOptionAnswerDto } from 'src/app/models/taskInstanceDto';
 import { ITestTaskOptionAnswerResult } from 'src/app/models/test-instance-result';
@@ -36,7 +36,7 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
 
   // ovo je answer studenta kad je exam ongoing
   @Input()
-  answer!: number;
+  answer!: number | null;
 
   @Input()
   correctAnswer!: number; //used when TaskViewMode.Result
@@ -262,6 +262,7 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
           polygon.on('click', () => {
             polygon.openPopup();
           });
+          polygon.openPopup();
         }
 
         // Add polygon to map
@@ -341,7 +342,7 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
       // Access coordinates (_latlngs) of the layer
       const latlngs = (layer as any)._latlngs[0];
       latlngs.forEach((pair: { lat: any; lng: any }) => {
-        item.coordinates.push({
+        (item.coordinates as ICoordinate[]).push({
           lat: pair.lat,
           lng: pair.lng,
         });
@@ -405,7 +406,10 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
     }
 
     //emit selectedPolygonId
-    this.onPolygonSelected.emit(id);
+    if (!this.answer) {
+      this.onPolygonSelected.emit(id);
+    }
+    this.answer = null;
 
     this.selectedPolygonId = id;
     this.selectedPolygon = polygon;

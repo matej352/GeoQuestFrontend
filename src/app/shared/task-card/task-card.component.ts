@@ -91,6 +91,26 @@ export class TaskCardComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onSelectPointMapStudentAnswer(optionId: number) {
+    if (this.mode === TaskViewMode.Solving) {
+      let answer = {
+        testInstanceId: this.testInstanceId,
+        testTaskInstanceId: this.task.id,
+        answer: optionId.toString(),
+      } as ITaskInstanceAnswer;
+
+      this._taskInstanceService
+        .saveAnswer(answer)
+        .pipe(
+          catchError((err) => {
+            console.log(err);
+            return EMPTY;
+          })
+        )
+        .subscribe();
+    }
+  }
+
   onNonMapMapStudentAnswer(studentAnswer: string) {
     if (this.mode === TaskViewMode.Solving) {
       let answer = {
