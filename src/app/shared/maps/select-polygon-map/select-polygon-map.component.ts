@@ -13,6 +13,7 @@ import { TaskViewMode } from 'src/app/enums/task-view-mode';
 import { IOptionAnwser } from 'src/app/models/option-anwser';
 import { IOptionAnswerDto } from 'src/app/models/taskDto';
 import { ITaskInstanceOptionAnswerDto } from 'src/app/models/taskInstanceDto';
+import { ITestTaskOptionAnswerResult } from 'src/app/models/test-instance-result';
 import { mapType } from 'src/app/types/types';
 
 @Component({
@@ -26,12 +27,19 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
   @Input()
   mapId!: string;
 
+  // if type is IOptionAnswerDto --> map opened in view mode, if type is ITaskInstanceOptionAnswerDto --> map opened in solving mode, if type is ITestTaskOptionAnswerResult --> map opened in result mode
   @Input()
-  answers!: IOptionAnswerDto[] | ITaskInstanceOptionAnswerDto[]; // if type is IOptionAnswerDto --> map opened in view mode, if type is ITaskInstanceOptionAnswerDto --> map opened in solving mode
+  answers!:
+    | IOptionAnswerDto[]
+    | ITaskInstanceOptionAnswerDto[]
+    | ITestTaskOptionAnswerResult[];
 
   // ovo je answer studenta kad je exam ongoing
   @Input()
   answer!: number;
+
+  @Input()
+  correctAnswer!: number; //used when TaskViewMode.Result
 
   @Input()
   mode = TaskViewMode.DraftExamPreview;
@@ -196,6 +204,73 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
         // Add polygon to map
         polygon.addTo(this.map);
       });
+    } else if (this.mode === TaskViewMode.Result) {
+      let studentAnsweredCorrectly = false;
+
+      if (this.answer === this.correctAnswer) {
+        studentAnsweredCorrectly = true;
+      }
+
+      this.answers.forEach((obj) => {
+        // Parse the content to extract coordinates
+        const coordinates = JSON.parse(obj.content);
+
+        // Create an array of LatLng objects
+        const latLngs = coordinates.map((coord: { lat: number; lng: number }) =>
+          L.latLng(coord.lat, coord.lng)
+        );
+
+        // Create polygon
+        const polygon = L.polygon(latLngs);
+
+        if (
+          studentAnsweredCorrectly &&
+          (obj as ITestTaskOptionAnswerResult).correct
+        ) {
+          polygon.bindPopup('Točan odgovor');
+          polygon.setStyle({
+            fillColor: 'green',
+            color: 'green',
+            fillOpacity: 0.4,
+          });
+          polygon.on('click', () => {
+            polygon.openPopup();
+          });
+        } else if (
+          !studentAnsweredCorrectly &&
+          (obj as ITestTaskOptionAnswerResult).correct
+        ) {
+          polygon.bindPopup('Točan odgovor');
+          polygon.setStyle({
+            fillColor: 'green',
+            color: 'green',
+            fillOpacity: 0.4,
+          });
+          polygon.on('click', () => {
+            polygon.openPopup();
+          });
+        } else if (
+          !studentAnsweredCorrectly &&
+          (obj as ITestTaskOptionAnswerResult).id === this.answer
+        ) {
+          polygon.bindPopup('Vaš odgovor');
+          polygon.setStyle({
+            fillColor: 'red',
+            color: 'red',
+            fillOpacity: 0.4,
+          });
+          polygon.on('click', () => {
+            polygon.openPopup();
+          });
+        }
+
+        // Add polygon to map
+        polygon.addTo(this.map);
+      });
+
+      console.log(
+        'Mapa SELECT POLYGON --> ucitelj/student gledaju rezultat ispita'
+      );
     }
   }
 

@@ -14,6 +14,7 @@ export interface ITestTaskResult {
   options: ITestTaskOptionsResult;
   studentAnswer: string;
   checked: boolean;
+  nonMapPoint?: string; //ovo ima samo non-map task
   isCorrect: boolean;
 }
 

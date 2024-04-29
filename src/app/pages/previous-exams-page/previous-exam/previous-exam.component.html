@@ -21,6 +21,7 @@
 
       <div class="tasks-container">
         <app-task-result-card
+          [currentUser]="currentUser$ | async"
           *ngFor="let task of testInstanceResult.testTasks; let index = index"
           [task]="task"
           [class]="'task' + task.id"

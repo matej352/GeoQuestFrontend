@@ -111,6 +111,10 @@ export class MarkPolygonMapComponent
       L.polygon(latLngs).addTo(this.map);
 
       console.log('Mapa MARK POLYGON --> ucitelj gleda skicu ispita ');
+    } else if (this.mode === TaskViewMode.Result) {
+      console.log(
+        'Mapa MARK POINT --> ucitelj/student gledaju rezultat ispita'
+      );
     }
   }
 

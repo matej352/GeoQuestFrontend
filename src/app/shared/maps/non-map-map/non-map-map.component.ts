@@ -127,6 +127,32 @@ export class NonMapMapComponent implements OnInit, OnChanges, AfterViewInit {
       const [lat, lng] = this.nonMapPoint.split(',').map(Number);
       L.marker([lat, lng]).addTo(this.map);
       console.log('Mapa NON MAP --> ucitelj gleda skicu ispita ');
+    } else if (this.mode === TaskViewMode.Result) {
+      const [lat, lng] = this.nonMapPoint.split(',').map(Number);
+      const marker = L.marker([lat, lng]).addTo(this.map);
+
+      // Create the popup content
+      const popupContent = `
+                          <div class="popup-content">
+                            <label for="answer">Odgovor:</label>
+                            <div id="answer-non-map"></div>
+                          </div>
+                            `;
+
+      // Bind the popup to the marker
+      marker.bindPopup(popupContent);
+
+      // Listen for the marker popupopen event to update input value
+      marker.on('popupopen', () => {
+        // Update the input value with the stored value
+        (
+          document.getElementById('answer-non-map') as HTMLTextAreaElement
+        ).innerHTML = this.answer;
+      });
+
+      marker.openPopup();
+
+      console.log('Mapa NON MAP --> ucitelj/student gledaju rezultat ispita ');
     }
   }
 

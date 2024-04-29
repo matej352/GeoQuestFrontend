@@ -109,7 +109,7 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
       const correctAnswer = L.marker([lat, lng], {
         icon: L.icon({
           iconUrl: 'assets/marker-correct-icon.png',
-          iconSize: [29, 39], // Default Leaflet icon size
+          iconSize: [25, 39], // Default Leaflet icon size
           iconAnchor: [12, 41], // Default Leaflet icon anchor
           popupAnchor: [1, -34], // Default Leaflet popup anchor
         }),

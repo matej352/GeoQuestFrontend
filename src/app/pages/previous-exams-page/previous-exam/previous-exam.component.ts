@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { faArrowAltCircleLeft } from '@fortawesome/free-regular-svg-icons';
-import { EMPTY, catchError, switchMap } from 'rxjs';
+import { EMPTY, Observable, catchError, switchMap, tap } from 'rxjs';
+import { IAccount } from 'src/app/models/account';
 import { ITestInstanceResult } from 'src/app/models/test-instance-result';
 import { TestInstanceService } from 'src/app/services/test-instance.service';
+import { UserProfileStoreService } from 'src/app/storage/user-profile-store.service';
 
 @Component({
   selector: 'app-previous-exam',
@@ -18,13 +20,25 @@ export class PreviousExamComponent implements OnInit {
   testInstanceResult!: ITestInstanceResult;
   loading = true;
 
+  currentUser$!: Observable<IAccount | null>;
+  currentUser!: IAccount | null;
+
   constructor(
     private _route: ActivatedRoute,
     //private _taskInstanceService: TaskInstanceService,
-    private _testInstanceService: TestInstanceService //private _userProfileStore: UserProfileStoreService, //private _router: Router
+    private _testInstanceService: TestInstanceService,
+    private _userProfileStore: UserProfileStoreService //private _router: Router
   ) {}
 
   ngOnInit(): void {
+    this.currentUser$ = this._userProfileStore
+      .getAccountData()
+      .pipe
+      /*tap((user: IAccount | null) => {
+        this.currentUser = user;
+      }) */
+      ();
+
     this._route.paramMap
       .pipe(
         switchMap((res: ParamMap) => {

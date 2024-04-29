@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ITaskInstanceAnswer } from '../models/taskInstanceAnswerDto';
+import { ITaskInstanceGradeDto } from '../models/taskInstanceGradeDto';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +26,16 @@ export class TaskInstanceService {
     return this.http.post<any>(
       `${this._apiURL}/TestTaskInstance/SaveAnswer`,
       answer,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  gradeTaskInstance(grade: ITaskInstanceGradeDto): Observable<any> {
+    return this.http.post<any>(
+      `${this._apiURL}/TestTaskInstance/Grade`,
+      grade,
       {
         withCredentials: true,
       }
