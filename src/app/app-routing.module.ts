@@ -58,12 +58,12 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
   },
   {
-    path: ':role/exams/exam/:testId/instance/testInstanceId',
+    path: ':role/exams/exam/:testId/instance/:testInstanceId',
     component: ExamInstanceComponent,
     canActivate: [AuthGuardService],
   },
   {
-    path: ':role/exams/exam/:testId',
+    path: ':role/exams/exam/:testInstanceBaseId',
     component: ExamOverviewComponent,
     canActivate: [AuthGuardService],
   },

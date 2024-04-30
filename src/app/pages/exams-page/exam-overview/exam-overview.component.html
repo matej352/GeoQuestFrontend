@@ -1,1 +1,53 @@
-<p>exam-overview works!</p>
+<app-header></app-header>
+
+<div class="exam-overview">
+  <div class="exam-overview-container">
+    <div class="overview">
+      <p>ante</p>
+    </div>
+    <div class="board">
+      <ng-container *ngIf="test$ | async as test; else loading">
+        <table *ngIf="test.testInstances.length; else noTests">
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>Proteklo vrijeme</th>
+              <th>Bodovi</th>
+              <th>Riješeno</th>
+              <th>Ispravljeno</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let test of test.testInstances">
+              <td class="username" [routerLink]="['instance', test.id]">
+                <p>{{ test.student }}</p>
+              </td>
+              <td>
+                <p>{{ test.elapsedTime }}</p>
+              </td>
+              <td>
+                <p>{{ test.points }}</p>
+              </td>
+              <td>
+                <p>{{ test.finished ? "da" : "ne" }}</p>
+              </td>
+              <td>
+                <p>{{ test.checked ? "da" : "ne" }}</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <ng-template #noTests>
+          <div class="no-students">
+            Nema instanci ispita, to se ne bi smjelo nikad dogodit, takav se
+            test nije smio publishat (znaci da se publishao iako nije bilo ni
+            jednog studenta na predmetu)
+          </div>
+        </ng-template>
+      </ng-container>
+      <ng-template #loading>
+        <div class="loading-container">Loading</div>
+      </ng-template>
+    </div>
+  </div>
+</div>

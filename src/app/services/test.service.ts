@@ -25,6 +25,15 @@ export class TestService {
     });
   }
 
+  getPublishedTestOverview(testInstanceBaseId: number): Observable<any> {
+    return this.http.get<any>(
+      `${this._apiURL}/Test/Test/Published/Overview?testInstanceBaseId=${testInstanceBaseId}`,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
   getTest(testId: number): Observable<any> {
     return this.http.get<any>(`${this._apiURL}/Test/Test?testId=${testId}`, {
       withCredentials: true,
