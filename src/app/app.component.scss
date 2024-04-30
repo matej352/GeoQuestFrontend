@@ -16,6 +16,8 @@
 
 ::ng-deep app-navigation-bar .navBar,
 ::ng-deep app-exams-page .exams-page-container,
+::ng-deep app-draft-exams-page .draft-exams-page-container,
+::ng-deep app-draft-exam .draft-exam-container,
 ::ng-deep app-exam .exam-container,
 ::ng-deep app-subjects-page .subjects-page-container,
 ::ng-deep app-subject .subject-container,
@@ -28,6 +30,8 @@
   // desktops, 1200px and lower
   ::ng-deep app-navigation-bar .navBar,
   ::ng-deep app-exams-page .exams-page-container,
+  ::ng-deep app-draft-exams-page .draft-exams-page-container,
+  ::ng-deep app-draft-exam .draft-exam-container,
   ::ng-deep app-exam .exam-container,
   ::ng-deep app-subjects-page .subjects-page-container,
   ::ng-deep app-subject .subject-container,

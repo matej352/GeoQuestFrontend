@@ -8,11 +8,11 @@ import { TaskService } from 'src/app/services/task.service';
 import { TestService } from 'src/app/services/test.service';
 
 @Component({
-  selector: 'app-exam',
-  templateUrl: './exam.component.html',
-  styleUrls: ['./exam.component.scss'],
+  selector: 'app-draft-exam',
+  templateUrl: './draft-exam.component.html',
+  styleUrls: ['./draft-exam.component.scss'],
 })
-export class ExamComponent implements OnInit {
+export class DraftExamComponent implements OnInit {
   //icons
   public back = faArrowAltCircleLeft;
 

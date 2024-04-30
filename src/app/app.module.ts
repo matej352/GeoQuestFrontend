@@ -8,7 +8,6 @@ import { QuestComponent } from './pages/quest/quest.component';
 import { MapComponent } from './shared/map/map.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
-import { ExamsPageComponent } from './pages/exams-page/exams-page.component';
 import { CookieService } from 'ngx-cookie-service';
 import { NavigationBarComponent } from './shared/navigation-bar/navigation-bar.component';
 import { SharedModule } from './modules/shared.module';
@@ -16,12 +15,10 @@ import { LandingPageComponent } from './pages/landing-page/landing-page.componen
 import { SubjectsPageComponent } from './pages/subjects-page/subjects-page.component';
 import { FilterBarComponent } from './shared/filter-bar/filter-bar.component';
 import { SubjectCardComponent } from './pages/subjects-page/subject-card/subject-card.component';
-import { CreateTaskCardComponent } from './pages/exams-page/exam/create-task-card/create-task-card.component';
 import { MarkPointMapComponent } from './shared/maps/mark-point-map/mark-point-map.component';
 import { TestMapComponent } from './shared/test-map/test-map.component';
 import { SelectPolygonMapComponent } from './shared/maps/select-polygon-map/select-polygon-map.component';
 import { TooltipComponent } from './shared/tooltip/tooltip.component';
-import { ExamComponent } from './pages/exams-page/exam/exam.component';
 import { TaskCardComponent } from './shared/task-card/task-card.component';
 import { AddSubjectDialogComponent } from './shared/dialogs/add-subject-dialog/add-subject-dialog.component';
 import { AddExamDialogComponent } from './shared/dialogs/add-exam-dialog/add-exam-dialog.component';
@@ -38,6 +35,12 @@ import { MarkPolygonMapComponent } from './shared/maps/mark-polygon-map/mark-pol
 import { NonMapMapComponent } from './shared/maps/non-map-map/non-map-map.component';
 import { TaskResultCardComponent } from './shared/task-result-card/task-result-card.component';
 import { SelectPointMapComponent } from './shared/maps/select-point-map/select-point-map.component';
+import { DraftExamsPageComponent } from './pages/draft-exams-page/draft-exams-page.component';
+import { DraftExamComponent } from './pages/draft-exams-page/draft-exam/draft-exam.component';
+import { CreateTaskCardComponent } from './pages/draft-exams-page/draft-exam/create-task-card/create-task-card.component';
+import { ExamsPageComponent } from './pages/exams-page/exams-page.component';
+import { ExamOverviewComponent } from './pages/exams-page/exam-overview/exam-overview.component';
+import { ExamInstanceComponent } from './pages/exams-page/exam-overview/exam-instance/exam-instance.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,8 @@ import { SelectPointMapComponent } from './shared/maps/select-point-map/select-p
     MapComponent,
     HomeComponent,
     LoginPageComponent,
-    ExamsPageComponent,
+    DraftExamsPageComponent,
+    DraftExamComponent,
     NavigationBarComponent,
     LandingPageComponent,
     SubjectsPageComponent,
@@ -57,7 +61,6 @@ import { SelectPointMapComponent } from './shared/maps/select-point-map/select-p
     TestMapComponent,
     SelectPolygonMapComponent,
     TooltipComponent,
-    ExamComponent,
     TaskCardComponent,
     AddSubjectDialogComponent,
     AddExamDialogComponent,
@@ -74,6 +77,9 @@ import { SelectPointMapComponent } from './shared/maps/select-point-map/select-p
     NonMapMapComponent,
     TaskResultCardComponent,
     SelectPointMapComponent,
+    ExamsPageComponent,
+    ExamOverviewComponent,
+    ExamInstanceComponent,
   ],
   imports: [
     BrowserModule,

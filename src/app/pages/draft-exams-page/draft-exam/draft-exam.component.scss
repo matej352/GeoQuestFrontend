@@ -1,0 +1,63 @@
+.draft-exam {
+  padding: var(--elements-space) var(--padding-size-0);
+  height: auto;
+  width: 100%;
+  background-color: var(--gray-background-color);
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  &-container {
+    .back-container {
+      margin-bottom: 10px;
+      .back {
+        margin-right: 10px;
+        margin-top: 10px;
+        cursor: pointer;
+        color: var(--primary-color);
+      }
+    }
+
+    .general-info {
+      padding: 10px;
+      width: 100%;
+      font-size: var(--paragraph-font-size);
+      background: white;
+      height: 200px;
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+        0 2px 10px 0 rgba(0, 0, 0, 0.12);
+
+      h2 {
+        margin-bottom: 5px;
+        color: var(--primary-color);
+      }
+
+      span {
+        color: #747685;
+      }
+    }
+
+    .tasks-container {
+      .task {
+        font-size: var(--paragraph-font-size);
+        background: white;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+          0 2px 10px 0 rgba(0, 0, 0, 0.12);
+        margin: 20px 0;
+      }
+
+      .noTask {
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+
+  .add-task {
+    position: fixed;
+    z-index: 10;
+    right: 50px;
+  }
+}

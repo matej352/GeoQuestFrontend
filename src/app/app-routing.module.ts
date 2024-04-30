@@ -2,19 +2,22 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { QuestComponent } from './pages/quest/quest.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
-import { ExamsPageComponent } from './pages/exams-page/exams-page.component';
+import { DraftExamsPageComponent } from './pages/draft-exams-page/draft-exams-page.component';
 import { AuthGuardService } from './guards/auth-guard.service';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { LandingPageGuardService } from './guards/landing-page-guard.service';
 import { CurrentUserResolver } from './resolvers/current-user-resolver';
 import { SubjectsPageComponent } from './pages/subjects-page/subjects-page.component';
-import { ExamComponent } from './pages/exams-page/exam/exam.component';
 import { SubjectComponent } from './pages/subjects-page/subject/subject.component';
 import { MyExamsPageComponent } from './pages/my-exams-page/my-exams-page.component';
 import { OngoingExamComponent } from './pages/my-exams-page/ongoing-exam/ongoing-exam.component';
 import { LeaveOngoingExamGuard } from './guards/leave-ongoing-exam.guard';
 import { PreviousExamsPageComponent } from './pages/previous-exams-page/previous-exams-page.component';
 import { PreviousExamComponent } from './pages/previous-exams-page/previous-exam/previous-exam.component';
+import { DraftExamComponent } from './pages/draft-exams-page/draft-exam/draft-exam.component';
+import { ExamsPageComponent } from './pages/exams-page/exams-page.component';
+import { ExamOverviewComponent } from './pages/exams-page/exam-overview/exam-overview.component';
+import { ExamInstanceComponent } from './pages/exams-page/exam-overview/exam-instance/exam-instance.component';
 
 const routes: Routes = [
   {
@@ -39,8 +42,8 @@ const routes: Routes = [
   },
   { path: '', pathMatch: 'full', redirectTo: 'landing' },
   {
-    path: ':role/exams/exam/:testId',
-    component: ExamComponent,
+    path: ':role/draft-exams/exam/:testId',
+    component: DraftExamComponent,
     canActivate: [AuthGuardService],
   },
   {
@@ -48,6 +51,21 @@ const routes: Routes = [
     component: OngoingExamComponent,
     canActivate: [AuthGuardService],
     canDeactivate: [LeaveOngoingExamGuard],
+  },
+  {
+    path: ':role/draft-exams',
+    component: DraftExamsPageComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: ':role/exams/exam/:testId/instance/testInstanceId',
+    component: ExamInstanceComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: ':role/exams/exam/:testId',
+    component: ExamOverviewComponent,
+    canActivate: [AuthGuardService],
   },
   {
     path: ':role/exams',
