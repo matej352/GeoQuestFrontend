@@ -1,1 +1,70 @@
-<p>exams-page works!</p>
+<app-header></app-header>
+
+<div class="exams-page">
+  <div class="exams-page-container">
+    <div class="board">
+      <ng-container *ngIf="tests$ | async as tests; else loading">
+        <table *ngIf="tests.length !== 0; else noTests">
+          <thead>
+            <tr>
+              <th>Naslov</th>
+              <th>Opis</th>
+              <th>Predmet</th>
+              <th>Trajanje</th>
+              <th>Napredak</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let test of tests">
+              <td class="username" [routerLink]="['exam', test.id]">
+                <p>{{ test.name }}</p>
+              </td>
+              <td>
+                <p>{{ test.description }}</p>
+              </td>
+              <td>
+                <p>{{ test.subject }}</p>
+              </td>
+              <td>
+                <p>{{ test.duration }}</p>
+              </td>
+              <td>
+                <p>
+                  {{
+                    (test.finishedInstanceCount / test.instanceCount) * 100 +
+                      "%"
+                  }}
+                </p>
+                <app-tooltip
+                  [message]="
+                    'Ispit je završilo ' +
+                    test.finishedInstanceCount +
+                    '/' +
+                    test.instanceCount +
+                    ' učenika'
+                  "
+                ></app-tooltip>
+              </td>
+              <td>
+                <ng-container *ngIf="test.active; else testClosed">
+                  <button class="button-close">Zatvori</button>
+                  <app-tooltip message="statusMessage"></app-tooltip
+                ></ng-container>
+                <ng-template #testClosed>
+                  <span>Završen</span>
+                </ng-template>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <ng-template #noTests>
+          <div class="no-students">Nemate ispite</div>
+        </ng-template>
+      </ng-container>
+      <ng-template #loading>
+        <div class="loading-container">Loading</div>
+      </ng-template>
+    </div>
+  </div>
+</div>

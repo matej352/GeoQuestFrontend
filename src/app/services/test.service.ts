@@ -19,6 +19,12 @@ export class TestService {
     });
   }
 
+  getPublishedTests(): Observable<any> {
+    return this.http.get<any>(`${this._apiURL}/Test/Tests/Published`, {
+      withCredentials: true,
+    });
+  }
+
   getTest(testId: number): Observable<any> {
     return this.http.get<any>(`${this._apiURL}/Test/Test?testId=${testId}`, {
       withCredentials: true,
