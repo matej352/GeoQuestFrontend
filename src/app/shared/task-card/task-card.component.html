@@ -4,12 +4,16 @@
       <ng-container *ngSwitchCase="TaskType.SelectPolygon">
         <div class="left">
           <app-select-polygon-map
-            mapType="normal"
+            [mapType]="getMapType(task.mapType)"
             [mapId]="task.id!.toString()"
             [answers]="task.options!.optionAnswers"
             [answer]="+task.answer!"
             [mode]="mode"
             (onPolygonSelected)="onSelectPolygonMapStudentAnswer($event)"
+            [config]="{
+              mapCenter: task.mapCenter,
+              mapZoomLevel: task.mapZoomLevel
+            }"
           ></app-select-polygon-map>
         </div>
         <div class="right">
@@ -29,12 +33,16 @@
       <ng-container *ngSwitchCase="TaskType.SelectPoint">
         <div class="left">
           <app-select-point-map
-            mapType="normal"
+            [mapType]="getMapType(task.mapType)"
             [mapId]="task.id!.toString()"
             [answers]="task.options!.optionAnswers"
             [answer]="+task.answer!"
             [mode]="mode"
             (onPointSelected)="onSelectPointMapStudentAnswer($event)"
+            [config]="{
+              mapCenter: task.mapCenter,
+              mapZoomLevel: task.mapZoomLevel
+            }"
           ></app-select-point-map>
         </div>
         <div class="right">
@@ -54,11 +62,15 @@
       <ng-container *ngSwitchCase="TaskType.MarkPolygon">
         <div class="left">
           <app-mark-polygon-map
-            mapType="normal"
+            [mapType]="getMapType(task.mapType)"
             [mapId]="task.id!.toString()"
             [answer]="task.answer!"
             [mode]="mode"
             (onPolygonMarked)="onMarkPolygonMapStudentAnswer($event)"
+            [config]="{
+              mapCenter: task.mapCenter,
+              mapZoomLevel: task.mapZoomLevel
+            }"
           ></app-mark-polygon-map>
         </div>
         <div class="right">
@@ -78,13 +90,17 @@
       <ng-container *ngSwitchCase="TaskType.NonMap">
         <div class="left">
           <app-non-map-map
-            mapType="satellite"
+            [mapType]="getMapType(task.mapType)"
             [mapId]="task.id!.toString()"
             [answer]="task.answer!"
             [nonMapPoint]="task.nonMapPoint!"
             [mode]="mode"
             (onPointMarked)="onMarkPointMapStudentAnswer($event)"
             (onAnswerSaved)="onNonMapMapStudentAnswer($event)"
+            [config]="{
+              mapCenter: task.mapCenter,
+              mapZoomLevel: task.mapZoomLevel
+            }"
           ></app-non-map-map>
         </div>
         <div class="right">
@@ -105,11 +121,15 @@
       <ng-container *ngSwitchCase="TaskType.MarkPoint">
         <div class="left">
           <app-mark-point-map
-            mapType="satellite"
+            [mapType]="getMapType(task.mapType)"
             [mapId]="task.id!.toString()"
             [answer]="task.answer!"
             [mode]="mode"
             (onPointMarked)="onMarkPointMapStudentAnswer($event)"
+            [config]="{
+              mapCenter: task.mapCenter,
+              mapZoomLevel: task.mapZoomLevel
+            }"
           ></app-mark-point-map>
         </div>
         <div class="right">

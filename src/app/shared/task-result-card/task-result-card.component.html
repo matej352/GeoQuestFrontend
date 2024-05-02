@@ -4,11 +4,15 @@
       <ng-container *ngSwitchCase="TaskType.MarkPoint">
         <div class="left">
           <app-mark-point-map
-            mapType="satellite"
+            [mapType]="getMapType(task.mapType)"
             [mapId]="task.id!.toString()"
             [answer]="task.studentAnswer!"
             [correctAnswer]="task.correctAnswer!"
             [mode]="mode"
+            [config]="{
+              mapCenter: task.mapCenter,
+              mapZoomLevel: task.mapZoomLevel
+            }"
           ></app-mark-point-map>
         </div>
         <div class="right">
@@ -41,12 +45,16 @@
       <ng-container *ngSwitchCase="TaskType.SelectPolygon">
         <div class="left">
           <app-select-polygon-map
-            mapType="satellite"
+            [mapType]="getMapType(task.mapType)"
             [mapId]="task.id!.toString()"
             [answers]="task.options!.optionAnswers"
             [answer]="+task.studentAnswer!"
             [correctAnswer]="+task.correctAnswer!"
             [mode]="mode"
+            [config]="{
+              mapCenter: task.mapCenter,
+              mapZoomLevel: task.mapZoomLevel
+            }"
           ></app-select-polygon-map>
         </div>
         <div class="right">
@@ -79,12 +87,16 @@
       <ng-container *ngSwitchCase="TaskType.SelectPoint">
         <div class="left">
           <app-select-point-map
-            mapType="satellite"
+            [mapType]="getMapType(task.mapType)"
             [mapId]="task.id!.toString()"
             [answers]="task.options!.optionAnswers"
             [answer]="+task.studentAnswer!"
             [correctAnswer]="+task.correctAnswer!"
             [mode]="mode"
+            [config]="{
+              mapCenter: task.mapCenter,
+              mapZoomLevel: task.mapZoomLevel
+            }"
           ></app-select-point-map>
         </div>
         <div class="right">
@@ -114,14 +126,60 @@
           </div>
         </div>
       </ng-container>
+      <!--ng-container *ngSwitchCase="TaskType.MarkPolygon">
+        <div class="left">
+          <app-mark-polygon-map
+            [mapType]="getMapType(task.mapType)"
+            [mapId]="task.id!.toString()"
+            [answers]="task.options!.optionAnswers"
+            [answer]="+task.studentAnswer!"
+            [correctAnswer]="+task.correctAnswer!"
+            [mode]="mode"
+            [config]="{
+              mapCenter: task.mapCenter,
+              mapZoomLevel: task.mapZoomLevel
+            }"
+          ></app-mark-polygon-map>
+        </div>
+        <div class="right">
+          <div class="header-container">
+            <div class="task-index">{{ index + 1 }}. zadatak</div>
+            <ng-container *ngIf="task.isCorrect; else incorrect">
+              <div class="correctness true">
+                Točno <fa-icon [icon]="correctTrue"></fa-icon>
+              </div>
+            </ng-container>
+            <ng-template #incorrect>
+              <div class="correctness false">
+                Netočno <fa-icon [icon]="correctFalse"></fa-icon>
+              </div>
+            </ng-template>
+          </div>
+
+          <div class="form-container">
+            <div class="form-group">
+              <label for="question-type"> Tip zadatka </label>
+              <div class="question-type">Označi na karti</div>
+            </div>
+            <div class="form-group-column">
+              <label for="question"> Tekst zadatka </label>
+              <div class="question" [innerHTML]="task.question"></div>
+            </div>
+          </div>
+        </div>
+      </ng-container-->
       <ng-container *ngSwitchCase="TaskType.NonMap">
         <div class="left">
           <app-non-map-map
-            mapType="satellite"
+            [mapType]="getMapType(task.mapType)"
             [mapId]="task.id!.toString()"
             [answer]="task.studentAnswer!"
             [nonMapPoint]="task.nonMapPoint!"
             [mode]="mode"
+            [config]="{
+              mapCenter: task.mapCenter,
+              mapZoomLevel: task.mapZoomLevel
+            }"
           ></app-non-map-map>
         </div>
         <div class="right">

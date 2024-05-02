@@ -16,6 +16,7 @@ import { ShapeService } from 'src/app/services/map-services/shape.service';
 import 'leaflet-draw'; // Import Leaflet.Draw
 import { TaskViewMode } from 'src/app/enums/task-view-mode';
 import { mapType } from 'src/app/types/types';
+import { IMapConfig } from 'src/app/models/map-config';
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
@@ -39,6 +40,7 @@ L.Marker.prototype.options.icon = iconDefault;
 })
 export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() mapType!: mapType;
+  @Input() config!: IMapConfig;
 
   @Input()
   mapId!: string;
@@ -153,10 +155,22 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   private initializeMap(): void {
-    this.map = L.map(this.mapId, {
-      center: [44.5, 16],
-      zoom: 8,
-    });
+    if (this.config) {
+      const [latitude, longitude] = this.config.mapCenter
+        .split(',')
+        .map((coord) => parseFloat(coord));
+
+      this.map = L.map(this.mapId, {
+        center: [latitude, longitude],
+        zoom: this.config.mapZoomLevel,
+      });
+    } else {
+      this.map = L.map(this.mapId, {
+        center: [44.5, 16],
+        zoom: 8,
+      });
+    }
+
     this.updateMapTiles(); // Ensure tiles are added when the map initializes
   }
 
@@ -170,14 +184,10 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
         this.tileLayer = L.tileLayer(
           'https://tile.openstreetmap.bzh/br/{z}/{x}/{y}.png',
           {
-            maxZoom: 8,
-            minZoom: 8,
+            maxZoom: 20,
+            minZoom: 2,
             attribution:
               '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles courtesy of <a href="http://www.openstreetmap.bzh/" target="_blank">Breton OpenStreetMap Team</a>',
-            bounds: [
-              [46.2, 12],
-              [42, 20],
-            ],
           }
         );
         break;
@@ -186,6 +196,7 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
           'http://{s}.google.com/vt?lyrs=s&x={x}&y={y}&z={z}',
           {
             maxZoom: 20,
+            minZoom: 2,
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
           }
         );
@@ -195,7 +206,7 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
           'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
           {
             maxZoom: 18,
-            minZoom: 3,
+            minZoom: 2,
             attribution:
               '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
           }
@@ -203,5 +214,14 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
     }
 
     this.tileLayer.addTo(this.map);
+  }
+
+  getMapCenter(): string {
+    let center = this.map.getCenter();
+    return `${center.lat},${center.lng}`;
+  }
+
+  getZoomLevel(): number {
+    return this.map.getZoom();
   }
 }

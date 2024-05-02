@@ -43,7 +43,7 @@
         <div class="right">
           <form
             [formGroup]="taskForm"
-            (ngSubmit)="submitSelectPolygonOrPoint()"
+            (ngSubmit)="submitSelectPolygonOrPoint('polygon')"
           >
             <div class="form-container">
               <div class="form-group-column">
@@ -75,7 +75,7 @@
         <div class="right">
           <form
             [formGroup]="taskForm"
-            (ngSubmit)="submitSelectPolygonOrPoint()"
+            (ngSubmit)="submitSelectPolygonOrPoint('point')"
           >
             <div class="form-container">
               <div class="form-group-column">

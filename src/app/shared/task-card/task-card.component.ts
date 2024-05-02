@@ -1,11 +1,13 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { EMPTY, catchError } from 'rxjs';
+import { MapType } from 'src/app/enums/map-type';
 import { TaskType } from 'src/app/enums/task-type';
 import { TaskViewMode } from 'src/app/enums/task-view-mode';
 import { ITaskDto } from 'src/app/models/taskDto';
 import { ITaskInstanceAnswer } from 'src/app/models/taskInstanceAnswerDto';
 import { ITaskInstanceDto } from 'src/app/models/taskInstanceDto';
 import { TaskInstanceService } from 'src/app/services/task-instance.service';
+import { mapType } from 'src/app/types/types';
 
 @Component({
   selector: 'app-task-card',
@@ -168,4 +170,20 @@ export class TaskCardComponent implements OnInit, AfterViewInit {
   }
 
   //#endregion
+
+  getMapType(mapType: MapType): mapType {
+    switch (mapType) {
+      case MapType.Normal:
+        return 'normal';
+
+      case MapType.Blind:
+        return 'blind';
+
+      case MapType.Satellite:
+        return 'satellite';
+
+      default:
+        return 'normal';
+    }
+  }
 }

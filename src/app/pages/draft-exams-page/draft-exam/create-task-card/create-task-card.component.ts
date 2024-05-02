@@ -1,10 +1,23 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MapType } from 'src/app/enums/map-type';
 import { TaskType } from 'src/app/enums/task-type';
 import { IOptionAnwser } from 'src/app/models/option-anwser';
 import { IOptionAnswerDto, ITaskDto } from 'src/app/models/taskDto';
 import { TaskService } from 'src/app/services/task.service';
 import { SelectionType } from 'src/app/shared/filter-bar/selection-values';
+import { MarkPointMapComponent } from 'src/app/shared/maps/mark-point-map/mark-point-map.component';
+import { MarkPolygonMapComponent } from 'src/app/shared/maps/mark-polygon-map/mark-polygon-map.component';
+import { NonMapMapComponent } from 'src/app/shared/maps/non-map-map/non-map-map.component';
+import { SelectPointMapComponent } from 'src/app/shared/maps/select-point-map/select-point-map.component';
+import { SelectPolygonMapComponent } from 'src/app/shared/maps/select-polygon-map/select-polygon-map.component';
 import { mapType, taskType } from 'src/app/types/types';
 
 @Component({
@@ -13,6 +26,16 @@ import { mapType, taskType } from 'src/app/types/types';
   styleUrls: ['./create-task-card.component.scss'],
 })
 export class CreateTaskCardComponent implements OnInit {
+  @ViewChild(SelectPolygonMapComponent)
+  selectPolygonMapComponent!: SelectPolygonMapComponent;
+  @ViewChild(SelectPointMapComponent)
+  selectPointMapComponent!: SelectPointMapComponent;
+  @ViewChild(MarkPolygonMapComponent)
+  markPolygonMapComponent!: MarkPolygonMapComponent;
+  @ViewChild(MarkPointMapComponent)
+  markPointMapComponent!: MarkPointMapComponent;
+  @ViewChild(NonMapMapComponent) nonMapMapComponent!: NonMapMapComponent;
+
   @Input()
   testId!: number;
 
@@ -84,7 +107,7 @@ export class CreateTaskCardComponent implements OnInit {
     console.log(this.markedPoint);
   }
 
-  submitSelectPolygonOrPoint() {
+  submitSelectPolygonOrPoint(polygonOrPoint: string) {
     let optionAnswers = [] as IOptionAnswerDto[];
 
     this.drawnItems.forEach((optionAnswer) => {
@@ -96,6 +119,15 @@ export class CreateTaskCardComponent implements OnInit {
 
     let taskDto: ITaskDto = {
       testId: this.testId,
+      mapCenter:
+        polygonOrPoint == 'polygon'
+          ? this.selectPolygonMapComponent.getMapCenter()
+          : this.selectPointMapComponent.getMapCenter(),
+      mapZoomLevel:
+        polygonOrPoint == 'polygon'
+          ? this.selectPolygonMapComponent.getZoomLevel()
+          : this.selectPointMapComponent.getZoomLevel(),
+      mapType: this.getMapType(),
       question: this.taskForm.get('question')?.value.editor,
       //answer: this.taskForm.get('answer')?.value,
       type: this.getTaskType(),
@@ -116,6 +148,9 @@ export class CreateTaskCardComponent implements OnInit {
   submitMarkPoint() {
     let taskDto: ITaskDto = {
       testId: this.testId,
+      mapCenter: this.markPointMapComponent.getMapCenter(),
+      mapZoomLevel: this.markPointMapComponent.getZoomLevel(),
+      mapType: this.getMapType(),
       question: this.taskForm.get('question')?.value.editor,
       answer: this.markedPoint.toString(),
       type: this.getTaskType(),
@@ -132,6 +167,9 @@ export class CreateTaskCardComponent implements OnInit {
   submitMarkPolygon() {
     let taskDto: ITaskDto = {
       testId: this.testId,
+      mapCenter: this.markPolygonMapComponent.getMapCenter(),
+      mapZoomLevel: this.markPolygonMapComponent.getZoomLevel(),
+      mapType: this.getMapType(),
       question: this.taskForm.get('question')?.value.editor,
       answer: this.markedPolygon,
       type: this.getTaskType(),
@@ -148,6 +186,9 @@ export class CreateTaskCardComponent implements OnInit {
   submitNonMap() {
     let taskDto: ITaskDto = {
       testId: this.testId,
+      mapCenter: this.nonMapMapComponent.getMapCenter(),
+      mapZoomLevel: this.nonMapMapComponent.getZoomLevel(),
+      mapType: this.getMapType(),
       question: this.taskForm.get('question')?.value.editor,
       //answer: this.markedPoint.toString(),
       nonMapPoint: this.markedPoint.toString(),
@@ -178,6 +219,19 @@ export class CreateTaskCardComponent implements OnInit {
 
       case 'non_map':
         return TaskType.NonMap;
+    }
+  }
+
+  getMapType(): MapType {
+    switch (this.selectedMapTypeOption) {
+      case 'normal':
+        return MapType.Normal;
+
+      case 'blind':
+        return MapType.Blind;
+
+      case 'satellite':
+        return MapType.Satellite;
     }
   }
 }

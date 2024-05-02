@@ -1,7 +1,11 @@
+import { MapType } from '../enums/map-type';
 import { TaskType } from '../enums/task-type';
 
 export interface ITaskInstanceDto {
   id: number;
+  mapType: MapType;
+  mapCenter: string;
+  mapZoomLevel: number;
   question: string;
   answer?: string;
   nonMapPoint?: string;

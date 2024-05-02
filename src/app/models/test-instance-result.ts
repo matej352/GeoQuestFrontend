@@ -1,3 +1,5 @@
+import { MapType } from '../enums/map-type';
+
 export interface ITestInstanceResult {
   testInstanceId: number;
   student: string;
@@ -11,6 +13,9 @@ export interface ITestInstanceResult {
 
 export interface ITestTaskResult {
   id: number;
+  mapType: MapType;
+  mapCenter: string;
+  mapZoomLevel: number;
   type: TaskType;
   question: string;
   correctAnswer: string;
