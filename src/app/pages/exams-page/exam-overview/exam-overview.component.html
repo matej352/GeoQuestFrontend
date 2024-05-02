@@ -85,9 +85,9 @@
                 </div-->
               </div>
             </div>
-            <footer>
+            <footer *ngIf="test.active">
               <div>
-                <span class="button-close">Zatvori</span>
+                <span class="button-close" (click)="closeTest()">Zatvori</span>
               </div>
             </footer>
           </main>
@@ -138,7 +138,7 @@
 
           <div class="progress-container">
             <div class="progress">
-              <p>Napredak ispravnjanja ispita</p>
+              <p>Napredak ispravljanja ispita</p>
               <app-tooltip
                 [message]="teachersExamGradeProgressMessage"
               ></app-tooltip>
@@ -165,9 +165,16 @@
           </thead>
           <tbody>
             <tr *ngFor="let test of test.testInstances">
-              <td class="username" [routerLink]="['instance', test.id]">
-                <p>{{ test.student }}</p>
-              </td>
+              <ng-container *ngIf="test.finished; else notFinished">
+                <td class="username" [routerLink]="['instance', test.id]">
+                  <p>{{ test.student }}</p>
+                </td>
+              </ng-container>
+              <ng-template #notFinished>
+                <td class="username-not-finished">
+                  <p>{{ test.student }}</p>
+                </td>
+              </ng-template>
               <td>
                 <p>{{ test.elapsedTime }}</p>
               </td>

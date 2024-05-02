@@ -51,4 +51,14 @@ export class TestService {
       withCredentials: true,
     });
   }
+
+  closeTest(testInstanceBaseId: number): Observable<any> {
+    return this.http.post<any>(
+      `${this._apiURL}/Test/Close`,
+      testInstanceBaseId,
+      {
+        withCredentials: true,
+      }
+    );
+  }
 }

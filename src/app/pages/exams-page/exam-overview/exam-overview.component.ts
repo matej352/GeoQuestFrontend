@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
 
-import { Observable, tap } from 'rxjs';
+import { EMPTY, Observable, catchError, tap } from 'rxjs';
 
 import {
   ITestInstanceForTeacher,
@@ -100,5 +100,25 @@ export class ExamOverviewComponent implements OnInit {
 
     this.studentsAvgPointsMessage = `Prosječan broj bodova je ${test.avgPoints}`;
   }
-  onCloseTest() {}
+
+  closeTest() {
+    this._testService
+      .closeTest(this.testInstanceBaseId)
+      .pipe(
+        catchError((err) => {
+          console.log(err);
+          return EMPTY;
+        })
+      )
+      .subscribe(() => {
+        this.test$ = this._testService
+          .getPublishedTestOverview(this.testInstanceBaseId)
+          .pipe(
+            tap((test) => {
+              this.filteredTests = test.testInstances;
+              this.prepareDataForProgressBarAndCircle(test);
+            })
+          );
+      });
+  }
 }

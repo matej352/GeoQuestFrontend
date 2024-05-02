@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable, catchError } from 'rxjs';
 import { ITestPublished } from 'src/app/models/test-published';
 import { TestService } from 'src/app/services/test.service';
 
@@ -17,5 +17,17 @@ export class ExamsPageComponent implements OnInit {
   ngOnInit(): void {
     this.tests$ = this._testService.getPublishedTests();
   }
-  onCloseTest() {}
+  closeTest(testInstanceBaseId: number) {
+    this._testService
+      .closeTest(testInstanceBaseId)
+      .pipe(
+        catchError((err) => {
+          console.log(err);
+          return EMPTY;
+        })
+      )
+      .subscribe(() => {
+        this.tests$ = this._testService.getPublishedTests();
+      });
+  }
 }

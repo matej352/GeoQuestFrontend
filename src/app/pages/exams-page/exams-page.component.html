@@ -57,7 +57,9 @@
               </td>
               <td>
                 <ng-container *ngIf="test.active">
-                  <span class="button-close">Zatvori</span>
+                  <span (click)="closeTest(test.id)" class="button-close"
+                    >Zatvori</span
+                  >
                   <app-tooltip message="statusMessage"></app-tooltip
                 ></ng-container>
               </td>
