@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Observable, switchMap, tap } from 'rxjs';
-import { ITestInstanceDetails } from 'src/app/models/test-instance-details';
-import { ITestPublishedDetails } from 'src/app/models/test-published-details';
+import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
+
+import { Observable, tap } from 'rxjs';
+
+import {
+  ITestInstanceForTeacher,
+  ITestPublishedDetails,
+} from 'src/app/models/test-published-details';
 import { TestService } from 'src/app/services/test.service';
 
 @Component({
@@ -11,6 +16,9 @@ import { TestService } from 'src/app/services/test.service';
   styleUrls: ['./exam-overview.component.scss'],
 })
 export class ExamOverviewComponent implements OnInit {
+  //icons
+  public back = faArrowAltCircleLeft;
+
   constructor(
     private _router: Router,
     private _testService: TestService,
@@ -18,6 +26,7 @@ export class ExamOverviewComponent implements OnInit {
   ) {}
 
   test$!: Observable<ITestPublishedDetails>;
+  filteredTests!: ITestInstanceForTeacher[];
   loading = true;
 
   testInstanceBaseId!: number;
@@ -27,9 +36,9 @@ export class ExamOverviewComponent implements OnInit {
       .pipe(
         tap((res: ParamMap) => {
           this.testInstanceBaseId = +res.get('testInstanceBaseId')!;
-          this.test$ = this._testService.getPublishedTestOverview(
-            this.testInstanceBaseId
-          );
+          this.test$ = this._testService
+            .getPublishedTestOverview(this.testInstanceBaseId)
+            .pipe(tap((test) => (this.filteredTests = test.testInstances)));
           /*.pipe(
       tap((testInstance: ITestInstanceDetails) => {
         this.testInstance = testInstance;

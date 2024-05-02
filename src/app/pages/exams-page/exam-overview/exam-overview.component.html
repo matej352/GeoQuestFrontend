@@ -2,11 +2,174 @@
 
 <div class="exam-overview">
   <div class="exam-overview-container">
-    <div class="overview">
-      <p>ante</p>
+    <div class="back-container">
+      <fa-icon
+        [icon]="back"
+        class="fa-2x back"
+        title="Nazad"
+        routerLink="/teacher/exams"
+      ></fa-icon>
     </div>
-    <div class="board">
-      <ng-container *ngIf="test$ | async as test; else loading">
+    <ng-container *ngIf="test$ | async as test; else loading">
+      <div class="overview-container">
+        <div class="overview">
+          <main id="main">
+            <header>
+              <div class="test-name">
+                <h1>{{ test.name }}</h1>
+                <ng-container *ngIf="test.active; else testClosed">
+                  <div class="test-status pending">U tijeku</div>
+                </ng-container>
+                <ng-template #testClosed>
+                  <div class="test-status closed">Zatvoren</div>
+                </ng-template>
+              </div>
+            </header>
+            <div class="main">
+              <div class="description">
+                <div class="row">
+                  <div class="group">
+                    <p class="name">Opis ispita</p>
+                    <p class="value">{{ test.description }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="other-info">
+                <div>
+                  <div class="col">
+                    <div class="row">
+                      <div class="group">
+                        <p class="name">Predmet</p>
+                        <p class="value">{{ test.subject }}</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="group">
+                        <p class="name">Trajanje</p>
+                        <p class="value">{{ test.duration }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="col">
+                    <div class="row">
+                      <div class="group">
+                        <p class="name">Prosjek trajanja ispita</p>
+                        <p class="value">{{ test.avgElapsedTime }}</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="group">
+                        <p class="name">Ukupan broj bodova</p>
+                        <p class="value">{{ test.totalPoints }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--div>
+                  <div class="col">
+                    <div class="row">
+                      <div class="group">
+                        <p class="name">Prosjek bodova</p>
+                        <p class="value">{{ test.avgPoints }}</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="group">
+                        <p class="name">Version</p>
+                        <p class="value">{{ test.avgPoints }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div-->
+              </div>
+            </div>
+            <footer>
+              <div>
+                <span class="button-close">Zatvori</span>
+              </div>
+            </footer>
+          </main>
+        </div>
+        <div class="overview-stats">
+          <main id="main">
+            <header>
+              <div class="test-name">
+                <h1>{{ test.name }}</h1>
+                <ng-container *ngIf="test.active; else testClosed">
+                  <div class="test-status pending">U tijeku</div>
+                </ng-container>
+                <ng-template #testClosed>
+                  <div class="test-status closed">Zatvoren</div>
+                </ng-template>
+              </div>
+            </header>
+            <div class="main">
+              <div class="description">
+                <div class="row">
+                  <div class="group">
+                    <p class="name">Opis ispita</p>
+                    <p class="value">{{ test.description }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="other-info">
+                <div>
+                  <div class="col">
+                    <div class="row">
+                      <div class="group">
+                        <p class="name">Predmet</p>
+                        <p class="value">{{ test.subject }}</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="group">
+                        <p class="name">Broj ispita</p>
+                        <p class="value">{{ test.instanceCount }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="col">
+                    <div class="row">
+                      <div class="group">
+                        <p class="name">Broj predanih ispita</p>
+                        <p class="value">{{ test.finishedInstanceCount }}</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="group">
+                        <p class="name">Broj bodova</p>
+                        <p class="value">{{ test.totalPoints }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--div>
+                  <div class="col">
+                    <div class="row">
+                      <div class="group">
+                        <p class="name">Prosjek bodova</p>
+                        <p class="value">{{ test.avgPoints }}</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="group">
+                        <p class="name">Version</p>
+                        <p class="value">{{ test.avgPoints }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div-->
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+      <app-filter-bar type="parent-role-classroom-statistics"></app-filter-bar>
+      <div class="board">
         <table *ngIf="test.testInstances.length; else noTests">
           <thead>
             <tr>
@@ -41,13 +204,14 @@
           <div class="no-students">
             Nema instanci ispita, to se ne bi smjelo nikad dogodit, takav se
             test nije smio publishat (znaci da se publishao iako nije bilo ni
-            jednog studenta na predmetu)
+            jednog studenta na predmetu) --> zapravo sad kad bum imo filter onda
+            to i moze bit
           </div>
         </ng-template>
-      </ng-container>
-      <ng-template #loading>
-        <div class="loading-container">Loading</div>
-      </ng-template>
-    </div>
+      </div>
+    </ng-container>
+    <ng-template #loading>
+      <div class="loading-container">Loading</div>
+    </ng-template>
   </div>
 </div>

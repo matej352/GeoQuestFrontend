@@ -31,7 +31,7 @@
         min-width: 100%;
         grid-template-columns:
           minmax(150px, 1fr) minmax(150px, 1.67fr) minmax(150px, 1.67fr)
-          minmax(170px, 1.67fr) minmax(150px, 1fr) minmax(150px, 1fr);
+          minmax(170px, 1.67fr) minmax(150px, 1fr) minmax(150px, 1fr) minmax(150px, 1fr);
 
         max-height: 400px;
 
@@ -62,18 +62,33 @@
           justify-content: center;
 
           .button-close {
-            border: 0;
-            color: #fff;
             cursor: pointer;
             font-size: var(--font-size-h5);
             padding: 5px 10px;
-            border-radius: 10px;
-            background-color: var(--alert-color);
+
             text-transform: uppercase;
           }
 
           .button-close:hover {
             transform: scale(1.1);
+            text-decoration: underline;
+            color: var(--primary-color);
+          }
+
+          .test-status {
+            border: 0;
+            color: #fff;
+            font-size: var(--font-size-h5);
+            padding: 5px 10px;
+            border-radius: 10px;
+            margin-right: 10px;
+            text-transform: uppercase;
+          }
+          .closed {
+            background-color: var(--alert-color);
+          }
+          .pending {
+            background-color: var(--blue-color);
           }
         }
 

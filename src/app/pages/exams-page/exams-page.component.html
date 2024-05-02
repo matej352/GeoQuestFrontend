@@ -12,6 +12,7 @@
               <th>Predmet</th>
               <th>Trajanje</th>
               <th>Napredak</th>
+              <th>Status</th>
               <th></th>
             </tr>
           </thead>
@@ -48,12 +49,17 @@
               </td>
               <td>
                 <ng-container *ngIf="test.active; else testClosed">
-                  <button class="button-close">Zatvori</button>
+                  <div class="test-status pending">U tijeku</div>
+                </ng-container>
+                <ng-template #testClosed>
+                  <div class="test-status closed">Zatvoren</div>
+                </ng-template>
+              </td>
+              <td>
+                <ng-container *ngIf="test.active">
+                  <span class="button-close">Zatvori</span>
                   <app-tooltip message="statusMessage"></app-tooltip
                 ></ng-container>
-                <ng-template #testClosed>
-                  <span>Završen</span>
-                </ng-template>
               </td>
             </tr>
           </tbody>
