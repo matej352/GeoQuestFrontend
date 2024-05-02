@@ -11,9 +11,9 @@
     </div>
     <div class="general-info">
       <ng-container *ngIf="test$ | async as test; else loading">
-        <h2>
+        <h1>
           {{ test.name }}
-        </h2>
+        </h1>
         <div><span>Opis: </span>{{ test.description }}</div>
         <div><span>Trajanje: </span> {{ test.duration }}</div></ng-container
       >

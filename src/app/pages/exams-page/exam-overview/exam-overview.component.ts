@@ -79,18 +79,24 @@ export class ExamOverviewComponent implements OnInit {
   }
 
   prepareDataForProgressBarAndCircle(test: ITestPublishedDetails) {
-    this.studentsExamSolvingProgress =
-      (test.finishedInstanceCount / test.instanceCount) * 100;
+    this.studentsExamSolvingProgress = +(
+      (test.finishedInstanceCount / test.instanceCount) *
+      100
+    ).toFixed(2);
 
     this.studentsExamSolvingProgressMessage = `Ispit je riješilo ${test.finishedInstanceCount} od ${test.instanceCount} učenika`;
 
-    this.teachersExamGradeProgress =
-      (test.checkedInstanceCount / test.finishedInstanceCount) * 100;
+    this.teachersExamGradeProgress = +(
+      (test.checkedInstanceCount / test.finishedInstanceCount) *
+      100
+    ).toFixed(2);
 
     this.teachersExamGradeProgressMessage = `Ispravljeno je ${test.checkedInstanceCount} od ${test.finishedInstanceCount} riješenih ispita`;
 
-    this.studentsAvgPointsPercentage =
-      (test.avgPoints / test.totalPoints) * 100;
+    this.studentsAvgPointsPercentage = +(
+      (test.avgPoints / test.totalPoints) *
+      100
+    ).toFixed(2);
 
     this.studentsAvgPointsMessage = `Prosječan broj bodova je ${test.avgPoints}`;
   }

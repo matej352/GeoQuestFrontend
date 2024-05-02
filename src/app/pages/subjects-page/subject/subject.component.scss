@@ -65,8 +65,11 @@
             }
           }
 
-          p {
+          .subject-info {
             padding: 0 0px 10px 15px;
+          }
+
+          p {
             span:nth-child(1) {
               color: #747685;
             }
@@ -273,7 +276,7 @@
           align-items: center;
           padding-right: 10px;
 
-          .no-tests {
+          .no-students {
             font-size: var(--font-size-h4);
             text-align: center;
             color: var(--secondary-color);
@@ -287,7 +290,9 @@
             display: grid;
             border-collapse: collapse;
             min-width: 100%;
-            grid-template-columns: minmax(150px, 1fr) minmax(150px, 1.67fr);
+            grid-template-columns:
+              minmax(150px, 1fr) minmax(150px, 1.67fr) minmax(150px, 1.67fr)
+              minmax(170px, 1.67fr) minmax(150px, 1fr) minmax(150px, 1fr);
 
             max-height: 400px;
 
@@ -299,7 +304,6 @@
             tr td {
               background-color: var(--white-color);
               height: 60px;
-              cursor: pointer;
             }
 
             thead,
@@ -317,6 +321,36 @@
               display: flex;
               align-items: center;
               justify-content: center;
+
+              .button-close {
+                cursor: pointer;
+                font-size: var(--font-size-h5);
+                padding: 5px 10px;
+
+                text-transform: uppercase;
+              }
+
+              .button-close:hover {
+                transform: scale(1.1);
+                text-decoration: underline;
+                color: var(--primary-color);
+              }
+
+              .test-status {
+                border: 0;
+                color: #fff;
+                font-size: var(--font-size-h5);
+                padding: 5px 10px;
+                border-radius: 10px;
+                margin-right: 10px;
+                text-transform: uppercase;
+              }
+              .closed {
+                background-color: var(--alert-color);
+              }
+              .pending {
+                background-color: var(--blue-color);
+              }
             }
 
             th {
@@ -324,7 +358,7 @@
               top: 0;
             }
 
-            th app-info-tooltip {
+            th app-tooltip {
               margin-left: 5px;
             }
 
@@ -336,10 +370,15 @@
               padding-top: 10px;
               padding-bottom: 10px;
               color: #747685;
+
+              app-tooltip {
+                margin-left: 5px;
+              }
             }
 
             td.username {
               color: var(--primary-color);
+              cursor: pointer;
             }
 
             td.username:hover {

@@ -20,12 +20,19 @@
               <h2>Predmet</h2>
             </div>
 
-            <p>
+            <p class="subject-info">
               <span>Naziv:</span>
               <span>{{ subjectDetails.name }}</span>
             </p>
 
-            <p>
+            <p class="subject-info">
+              <span>Broj učenika:</span>
+              <span>{{
+                subjectDetails.students ? subjectDetails.students.length : "0"
+              }}</span>
+            </p>
+
+            <p class="subject-info">
               <span>Opis:</span>
               <span>{{ subjectDetails.description }}</span>
             </p>
@@ -92,33 +99,71 @@
         <div class="tests-container">
           <div class="board">
             <table
-              *ngIf="
-                subjectDetails.testInstancesBase.length !== 0;
-                else noTests
-              "
+              *ngIf="subjectDetails.publishedTests.length !== 0; else noTests"
             >
               <thead>
                 <tr>
-                  <th>Naziv</th>
-                  <th>Aktivan</th>
+                  <th>Naslov</th>
+                  <th>Opis</th>
+                  <th>Trajanje</th>
+                  <th>Napredak</th>
+                  <th>Status</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  *ngFor="let test of subjectDetails.testInstancesBase"
-                  [routerLink]="['student', test.id]"
-                >
-                  <td class="username">
-                    <p>{{ test.testName }}</p>
+                <tr *ngFor="let test of subjectDetails.publishedTests">
+                  <td
+                    class="username"
+                    [routerLink]="'/teacher/exams/exam/' + test.id"
+                  >
+                    <p>{{ test.name }}</p>
                   </td>
                   <td>
-                    <p>{{ test.active ? "DA" : "NE" }}</p>
+                    <p>{{ test.description }}</p>
+                  </td>
+                  <td>
+                    <p>{{ test.duration }}</p>
+                  </td>
+                  <td>
+                    <p>
+                      {{
+                        (test.finishedInstanceCount / test.instanceCount) *
+                          100 +
+                          "%"
+                      }}
+                    </p>
+                    <app-tooltip
+                      [message]="
+                        'Ispit je završilo ' +
+                        test.finishedInstanceCount +
+                        '/' +
+                        test.instanceCount +
+                        ' učenika'
+                      "
+                    ></app-tooltip>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="test.active; else testClosed">
+                      <div class="test-status pending">U tijeku</div>
+                    </ng-container>
+                    <ng-template #testClosed>
+                      <div class="test-status closed">Zatvoren</div>
+                    </ng-template>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="test.active">
+                      <span class="button-close">Zatvori</span>
+                      <app-tooltip message="statusMessage"></app-tooltip
+                    ></ng-container>
                   </td>
                 </tr>
               </tbody>
             </table>
             <ng-template #noTests>
-              <div class="no-tests">Trenutno nema ispita za ovaj predmet</div>
+              <div class="no-students">
+                Trenutno nema ispita za ovaj predmet
+              </div>
             </ng-template>
           </div>
         </div>

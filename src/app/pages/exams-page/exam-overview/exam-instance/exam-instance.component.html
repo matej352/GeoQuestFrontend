@@ -39,7 +39,9 @@
           <div class="row">
             <div class="group">
               <p class="name">Postotak riješenosti</p>
-              <p class="value">{{ testInstance.successPercentage }}</p>
+              <p class="value">
+                {{ testInstance.successPercentage.toFixed(2) + "%" }}
+              </p>
             </div>
           </div>
         </div>
