@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { faArrowAltCircleLeft } from '@fortawesome/free-regular-svg-icons';
+import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
+
 import { Observable, switchMap } from 'rxjs';
 import { IAccount } from 'src/app/models/account';
 import { ITestInstanceResult } from 'src/app/models/test-instance-result';

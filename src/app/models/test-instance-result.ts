@@ -1,7 +1,10 @@
 export interface ITestInstanceResult {
   testInstanceId: number;
+  student: string;
+  testName: string;
   allChecked: boolean;
-  totalPoints: number;
+  studentTotalPoints: number;
+  testTotalPoints: number;
   successPercentage: number;
   testTasks: ITestTaskResult[];
 }

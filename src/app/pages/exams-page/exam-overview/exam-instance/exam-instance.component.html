@@ -14,9 +14,35 @@
     </ng-container>
     <ng-template #loaded>
       <div class="general-info">
-        <h2></h2>
-        <div><span>Opis: </span></div>
-        <div><span>Trajanje: </span></div>
+        <div class="test-name">
+          <h1>{{ testInstance.testName + " - " + testInstance.student }}</h1>
+          <ng-container *ngIf="testInstance.allChecked; else notChecked">
+            <div class="test-status checked">Ispravljeno</div>
+          </ng-container>
+          <ng-template #notChecked>
+            <div class="test-status notChecked">Djelomično ispravljeno</div>
+          </ng-template>
+        </div>
+        <div class="info">
+          <div class="row">
+            <div class="group">
+              <p class="name">Ostvaren broj bodova</p>
+              <p class="value">
+                {{
+                  testInstance.studentTotalPoints +
+                    "/" +
+                    testInstance.testTotalPoints
+                }}
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="group">
+              <p class="name">Postotak riješenosti</p>
+              <p class="value">{{ testInstance.successPercentage }}</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="tasks-container">
