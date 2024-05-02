@@ -33,6 +33,9 @@ export class MarkPolygonMapComponent
   @Input()
   answer!: string;
 
+  @Input()
+  correctAnswer!: string; //used when TaskViewMode.Result
+
   studentAnswerPolygon: L.Polygon | null = null;
 
   @Input()
@@ -125,10 +128,56 @@ export class MarkPolygonMapComponent
 
       console.log('Mapa MARK POLYGON --> ucitelj gleda skicu ispita ');
     } else if (this.mode === TaskViewMode.Result) {
+      this.prepareResultView();
+
       console.log(
         'Mapa MARK POINT --> ucitelj/student gledaju rezultat ispita'
       );
     }
+  }
+  prepareResultView() {
+    // Parse coordinates from JSON strings
+    const studentCoordinates = JSON.parse(this.answer);
+    const correctCoordinates = JSON.parse(this.correctAnswer);
+
+    // Convert coordinates to LatLng objects
+    const studentLatLngs = this.parseCoordinatesToLatLng(studentCoordinates);
+    const correctLatLngs = this.parseCoordinatesToLatLng(correctCoordinates);
+
+    // Create polygons for student answer and correct answer
+    const studentPolygon = this.createPolygon(studentLatLngs);
+    const correctPolygon = this.createPolygon(correctLatLngs, {
+      fillColor: 'green',
+      color: 'green',
+      fillOpacity: 0.4,
+    });
+
+    // Add polygons to the map
+    this.addPolygonToMap(studentPolygon, 'Vaš odgovor');
+    this.addPolygonToMap(correctPolygon, 'Točan odgovor');
+  }
+
+  // Helper function to convert coordinates to LatLng objects
+  private parseCoordinatesToLatLng(coordinates: any[]): L.LatLng[] {
+    return coordinates.map((coord) => L.latLng(coord.lat, coord.lng));
+  }
+
+  // Helper function to create a polygon with optional style
+  private createPolygon(latlngs: L.LatLng[], style?: any): L.Polygon {
+    const polygon = L.polygon(latlngs);
+    if (style) {
+      polygon.setStyle(style);
+    }
+    return polygon;
+  }
+
+  // Helper function to add polygon to the map with a popup
+  private addPolygonToMap(polygon: L.Polygon, popupText: string) {
+    polygon.addTo(this.map);
+    polygon.bindPopup(popupText);
+    polygon.on('click', () => {
+      polygon.openPopup();
+    });
   }
 
   private initializeMap(): void {
