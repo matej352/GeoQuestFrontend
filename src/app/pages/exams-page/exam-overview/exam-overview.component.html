@@ -93,79 +93,62 @@
           </main>
         </div>
         <div class="overview-stats">
-          <main id="main">
-            <header>
-              <div class="test-name">
-                <h1>{{ test.name }}</h1>
-                <ng-container *ngIf="test.active; else testClosed">
-                  <div class="test-status pending">U tijeku</div>
-                </ng-container>
-                <ng-template #testClosed>
-                  <div class="test-status closed">Zatvoren</div>
-                </ng-template>
-              </div>
-            </header>
-            <div class="main">
-              <div class="description">
-                <div class="row">
-                  <div class="group">
-                    <p class="name">Opis ispita</p>
-                    <p class="value">{{ test.description }}</p>
-                  </div>
-                </div>
-              </div>
-              <div class="other-info">
-                <div>
-                  <div class="col">
-                    <div class="row">
-                      <div class="group">
-                        <p class="name">Predmet</p>
-                        <p class="value">{{ test.subject }}</p>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="group">
-                        <p class="name">Broj ispita</p>
-                        <p class="value">{{ test.instanceCount }}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div class="col">
-                    <div class="row">
-                      <div class="group">
-                        <p class="name">Broj predanih ispita</p>
-                        <p class="value">{{ test.finishedInstanceCount }}</p>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="group">
-                        <p class="name">Broj bodova</p>
-                        <p class="value">{{ test.totalPoints }}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!--div>
-                  <div class="col">
-                    <div class="row">
-                      <div class="group">
-                        <p class="name">Prosjek bodova</p>
-                        <p class="value">{{ test.avgPoints }}</p>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="group">
-                        <p class="name">Version</p>
-                        <p class="value">{{ test.avgPoints }}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div-->
-              </div>
+          <div class="cp-progress-container">
+            <div class="cp-container">
+              <circle-progress
+                [backgroundOpacity]="1"
+                [radius]="60"
+                [space]="-10"
+                [maxPercent]="100"
+                [outerStrokeGradient]="true"
+                [outerStrokeWidth]="10"
+                [outerStrokeColor]="'#4882c2'"
+                [outerStrokeGradientStopColor]="'#9980aa'"
+                [innerStrokeColor]="'#e7e8ea'"
+                [innerStrokeWidth]="10"
+                [title]="studentsAvgPointsPercentage + '%'"
+                subtitle="Riješenost ispita"
+                [animateTitle]="false"
+                [animationDuration]="700"
+                [showUnits]="false"
+                [showBackground]="false"
+                [clockwise]="false"
+                [responsive]="true"
+                [startFromZero]="false"
+                [lazy]="true"
+                [percent]="studentsAvgPointsPercentage"
+              ></circle-progress>
             </div>
-          </main>
+
+            <p class="cp-title">{{ studentsAvgPointsMessage }}</p>
+          </div>
+          <div class="progress-container">
+            <div class="progress">
+              <p>Napredak rješavanja ispita</p>
+              <app-tooltip
+                [message]="studentsExamSolvingProgressMessage"
+              ></app-tooltip>
+            </div>
+            <mat-progress-bar
+              mode="determinate"
+              [value]="studentsExamSolvingProgress"
+              [title]="studentsExamSolvingProgress + '%'"
+            ></mat-progress-bar>
+          </div>
+
+          <div class="progress-container">
+            <div class="progress">
+              <p>Napredak ispravnjanja ispita</p>
+              <app-tooltip
+                [message]="teachersExamGradeProgressMessage"
+              ></app-tooltip>
+            </div>
+            <mat-progress-bar
+              mode="determinate"
+              [value]="teachersExamGradeProgress"
+              [title]="teachersExamGradeProgress + '%'"
+            ></mat-progress-bar>
+          </div>
         </div>
       </div>
       <app-filter-bar type="parent-role-classroom-statistics"></app-filter-bar>

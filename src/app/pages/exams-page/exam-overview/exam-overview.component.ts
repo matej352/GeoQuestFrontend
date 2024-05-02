@@ -19,6 +19,15 @@ export class ExamOverviewComponent implements OnInit {
   //icons
   public back = faArrowAltCircleLeft;
 
+  studentsExamSolvingProgress!: number;
+  studentsExamSolvingProgressMessage!: string;
+
+  teachersExamGradeProgress!: number;
+  teachersExamGradeProgressMessage!: string;
+
+  studentsAvgPointsPercentage!: number;
+  studentsAvgPointsMessage!: string;
+
   constructor(
     private _router: Router,
     private _testService: TestService,
@@ -38,7 +47,12 @@ export class ExamOverviewComponent implements OnInit {
           this.testInstanceBaseId = +res.get('testInstanceBaseId')!;
           this.test$ = this._testService
             .getPublishedTestOverview(this.testInstanceBaseId)
-            .pipe(tap((test) => (this.filteredTests = test.testInstances)));
+            .pipe(
+              tap((test) => {
+                this.filteredTests = test.testInstances;
+                this.prepareDataForProgressBarAndCircle(test);
+              })
+            );
           /*.pipe(
       tap((testInstance: ITestInstanceDetails) => {
         this.testInstance = testInstance;
@@ -62,6 +76,23 @@ export class ExamOverviewComponent implements OnInit {
         })
       )
       .subscribe();
+  }
+
+  prepareDataForProgressBarAndCircle(test: ITestPublishedDetails) {
+    this.studentsExamSolvingProgress =
+      (test.finishedInstanceCount / test.instanceCount) * 100;
+
+    this.studentsExamSolvingProgressMessage = `Ispit je riješilo ${test.finishedInstanceCount} od ${test.instanceCount} učenika`;
+
+    this.teachersExamGradeProgress =
+      (test.checkedInstanceCount / test.finishedInstanceCount) * 100;
+
+    this.teachersExamGradeProgressMessage = `Ispravljeno je ${test.checkedInstanceCount} od ${test.finishedInstanceCount} riješenih ispita`;
+
+    this.studentsAvgPointsPercentage =
+      (test.avgPoints / test.totalPoints) * 100;
+
+    this.studentsAvgPointsMessage = `Prosječan broj bodova je ${test.avgPoints}`;
   }
   onCloseTest() {}
 }
