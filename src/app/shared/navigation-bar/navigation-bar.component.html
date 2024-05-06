@@ -4,7 +4,10 @@
   </div>
   <div *ngIf="!ongoingExamOpened" class="middleNavBar">
     <ul *ngIf="currentUser$ | async as user">
-      <li *ngFor="let item of navigationItems">
+      <li
+        *ngFor="let item of navigationItems"
+        [ngClass]="item.isCurrent ? 'current' : 'not-current'"
+      >
         <a *ngIf="item.role.includes(user.role)" routerLink="{{ item.link }}">{{
           item.text
         }}</a>

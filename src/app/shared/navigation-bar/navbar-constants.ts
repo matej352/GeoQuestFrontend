@@ -3,4 +3,5 @@ export interface INavBarData {
   link: string;
   text: string;
   role: number[];
+  isCurrent?: boolean;
 }
