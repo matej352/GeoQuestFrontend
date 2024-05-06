@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { faClock, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import { faCheck, faCross, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { EMPTY, catchError } from 'rxjs';
@@ -38,6 +38,9 @@ export class TaskResultCardComponent implements OnInit {
   @Input()
   currentUser!: IAccount | null;
 
+  @Output()
+  taskGraded: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   constructor(private _taskInstanceService: TaskInstanceService) {}
 
   ngOnInit(): void {}
@@ -59,6 +62,7 @@ export class TaskResultCardComponent implements OnInit {
       .subscribe((res) => {
         this.task.checked = true;
         this.task.isCorrect = correctness;
+        this.taskGraded.emit(correctness);
       });
   }
 

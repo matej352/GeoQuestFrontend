@@ -79,4 +79,28 @@ export class ExamInstanceComponent implements OnInit {
   navigateBack() {
     this._router.navigate(['../../'], { relativeTo: this._route });
   }
+
+  onTaskGraded(correctness: boolean) {
+    if (correctness) {
+      this.testInstance.studentTotalPoints += 1;
+    } else {
+      this.testInstance.studentTotalPoints -= 1;
+    }
+
+    if (!this.testInstance.testTasks.find((task) => task.checked === false)) {
+      this.testInstance.allChecked = true;
+    }
+
+    this.recalculateSuccessPercentage();
+  }
+
+  recalculateSuccessPercentage() {
+    let correctAndChecked = this.testInstance.testTasks.filter(
+      (task) => task.checked && task.isCorrect
+    ).length;
+
+    let all = this.testInstance.testTasks.length;
+
+    this.testInstance.successPercentage = (correctAndChecked / all) * 100;
+  }
 }

@@ -54,6 +54,7 @@
           [task]="task"
           [class]="'task' + task.id"
           [index]="index"
+          (taskGraded)="onTaskGraded($event)"
         ></app-task-result-card>
       </div>
     </ng-template>

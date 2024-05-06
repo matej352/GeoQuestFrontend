@@ -217,8 +217,22 @@
             class="non-map-actions-container"
             *ngIf="currentUser?.role === 0"
           >
-            <span (click)="gradeTask(true)"> Točno </span>
-            <span (click)="gradeTask(false)"> Netočno </span>
+            <button
+              class="correctness-buttons"
+              [ngClass]="{ disabled: task.isCorrect }"
+              [disabled]="task.isCorrect"
+              (click)="gradeTask(true)"
+            >
+              Točno
+            </button>
+            <button
+              class="correctness-buttons"
+              [disabled]="!task.isCorrect"
+              [ngClass]="{ disabled: !task.isCorrect }"
+              (click)="gradeTask(false)"
+            >
+              Netočno
+            </button>
           </div>
         </div>
       </ng-container>
