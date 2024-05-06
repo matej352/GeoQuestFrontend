@@ -117,7 +117,7 @@ export class LandingPageComponent implements OnInit {
           user.role === ROLE_TEACHER
             ? RoleRouteParam.Teacher
             : RoleRouteParam.Student,
-          'home',
+          user.role === ROLE_TEACHER ? 'subjects' : 'my-exams',
         ]);
       });
   }

@@ -4,10 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { QuestComponent } from './pages/quest/quest.component';
 import { MapComponent } from './shared/map/map.component';
-import { HomeComponent } from './pages/home/home.component';
-import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { CookieService } from 'ngx-cookie-service';
 import { NavigationBarComponent } from './shared/navigation-bar/navigation-bar.component';
 import { SharedModule } from './modules/shared.module';
@@ -45,10 +42,7 @@ import { ExamInstanceComponent } from './pages/exams-page/exam-overview/exam-ins
 @NgModule({
   declarations: [
     AppComponent,
-    QuestComponent,
     MapComponent,
-    HomeComponent,
-    LoginPageComponent,
     DraftExamsPageComponent,
     DraftExamComponent,
     NavigationBarComponent,

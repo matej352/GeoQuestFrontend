@@ -37,7 +37,11 @@ export class LandingPageGuardService implements CanActivate {
           if (user) {
             let role = user.role === ROLE_TEACHER ? 'teacher' : 'student';
 
-            this._router.navigate([role, 'home']);
+            if (user.role === ROLE_TEACHER) {
+              this._router.navigate([role, 'subjects']);
+            } else {
+              this._router.navigate([role, 'my-exams']);
+            }
 
             return false;
           }
@@ -59,7 +63,11 @@ export class LandingPageGuardService implements CanActivate {
             this._userProfileStore.setAccountData(account);
             let role = account.role === ROLE_TEACHER ? 'teacher' : 'student';
 
-            this._router.navigate([role, 'home']);
+            if (account.role === ROLE_TEACHER) {
+              this._router.navigate([role, 'subjects']);
+            } else {
+              this._router.navigate([role, 'my-exams']);
+            }
           }
         }),
         map((account: IAccount) => {

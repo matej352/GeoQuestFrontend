@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { QuestComponent } from './pages/quest/quest.component';
-import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { DraftExamsPageComponent } from './pages/draft-exams-page/draft-exams-page.component';
 import { AuthGuardService } from './guards/auth-guard.service';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
@@ -20,11 +18,6 @@ import { ExamOverviewComponent } from './pages/exams-page/exam-overview/exam-ove
 import { ExamInstanceComponent } from './pages/exams-page/exam-overview/exam-instance/exam-instance.component';
 
 const routes: Routes = [
-  {
-    path: ':role/home',
-    component: QuestComponent,
-    canActivate: [AuthGuardService],
-  },
   {
     path: ':role/subjects/subject/:subjectId',
     component: SubjectComponent,
