@@ -38,6 +38,7 @@ import { CreateTaskCardComponent } from './pages/draft-exams-page/draft-exam/cre
 import { ExamsPageComponent } from './pages/exams-page/exams-page.component';
 import { ExamOverviewComponent } from './pages/exams-page/exam-overview/exam-overview.component';
 import { ExamInstanceComponent } from './pages/exams-page/exam-overview/exam-instance/exam-instance.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { ExamInstanceComponent } from './pages/exams-page/exam-overview/exam-ins
     ExamsPageComponent,
     ExamOverviewComponent,
     ExamInstanceComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

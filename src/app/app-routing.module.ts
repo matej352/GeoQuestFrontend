@@ -16,6 +16,7 @@ import { DraftExamComponent } from './pages/draft-exams-page/draft-exam/draft-ex
 import { ExamsPageComponent } from './pages/exams-page/exams-page.component';
 import { ExamOverviewComponent } from './pages/exams-page/exam-overview/exam-overview.component';
 import { ExamInstanceComponent } from './pages/exams-page/exam-overview/exam-instance/exam-instance.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -79,6 +80,15 @@ const routes: Routes = [
     path: ':role/previous-exams',
     component: PreviousExamsPageComponent,
     canActivate: [AuthGuardService],
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    redirectTo: 'not-found',
+  },
+  {
+    path: 'not-found',
+    component: NotFoundComponent,
   },
 ];
 
