@@ -44,3 +44,26 @@
     width: 98%;
   }
 }
+
+//style a specific dialog -> loading dialog
+::ng-deep .loading-dialog {
+  .loading-spinner {
+    display: flex;
+    justify-content: center;
+
+    mat-spinner {
+      width: 100px !important;
+      height: 100px !important;
+    }
+  }
+
+  .mat-dialog-container {
+    background: none;
+    box-shadow: none;
+  }
+
+  .mat-dialog-container svg {
+    width: 100px !important;
+    height: 100px !important;
+  }
+}

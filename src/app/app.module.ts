@@ -39,6 +39,8 @@ import { ExamsPageComponent } from './pages/exams-page/exams-page.component';
 import { ExamOverviewComponent } from './pages/exams-page/exam-overview/exam-overview.component';
 import { ExamInstanceComponent } from './pages/exams-page/exam-overview/exam-instance/exam-instance.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { LoadingComponent } from './services/loading-service/loading/loading.component';
+import { HttpLoadingInterceptor } from './interceptors/HttpLoadingInterceptor';
 
 @NgModule({
   declarations: [
@@ -76,6 +78,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     ExamOverviewComponent,
     ExamInstanceComponent,
     NotFoundComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,7 +87,14 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     AppRoutingModule,
     SharedModule,
   ],
-  providers: [CookieService],
+  providers: [
+    CookieService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpLoadingInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

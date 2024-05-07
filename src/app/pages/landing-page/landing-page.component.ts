@@ -67,7 +67,7 @@ export class LandingPageComponent implements OnInit {
         ],
       }),
       password: new FormControl('', {
-        validators: [Validators.required, Validators.minLength(7)],
+        validators: [Validators.required, Validators.minLength(8)],
       }),
     });
   }
