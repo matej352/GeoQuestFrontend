@@ -41,9 +41,7 @@ export class AddSubjectDialogComponent implements OnInit {
       name: new FormControl('', {
         validators: [Validators.required, Validators.maxLength(50)],
       }),
-      description: new FormControl('', {
-        validators: [Validators.required],
-      }),
+      description: new FormControl(''),
     });
   }
 

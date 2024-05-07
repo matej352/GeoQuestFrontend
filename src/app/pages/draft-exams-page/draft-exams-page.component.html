@@ -8,7 +8,7 @@
       </div>
       <div class="students-container">
         <div class="board">
-          <ng-container *ngIf="tests$ | async as tests; else loading">
+          <ng-container *ngIf="tests$ | async as tests">
             <table *ngIf="tests.length !== 0; else noTests">
               <thead>
                 <tr>
@@ -60,7 +60,6 @@
               <div class="no-students">Trenutno nemate skice ispita</div>
             </ng-template>
           </ng-container>
-          <ng-template #loading> Loading </ng-template>
         </div>
       </div>
     </div>

@@ -26,12 +26,6 @@
           <label for="description"> Opis </label>
           <textarea formControlName="description" cols="30" rows="3"></textarea>
         </div>
-        <div
-          *ngIf="form.get('description')?.errors?.['required'] && form.get('description')?.touched"
-          class="alert"
-        >
-          Opis je obavezan
-        </div>
       </div>
     </form>
   </div>

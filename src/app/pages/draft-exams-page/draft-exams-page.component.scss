@@ -10,11 +10,10 @@
   .draft-exams-page-container {
     .students-container-actions {
       .add-student {
-        height: 60px;
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        padding-right: 25px;
+
         //padding: 0 10px;
 
         .button {
@@ -49,7 +48,7 @@
           .no-students {
             font-size: var(--font-size-h4);
             text-align: center;
-            color: var(--secondary-color);
+            color: white;
             position: absolute;
             top: 50%;
             left: 50%;

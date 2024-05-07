@@ -14,12 +14,13 @@
     </div>
     <div
       class="grid-container-wrapper"
-      style="background: rgba(0, 0, 0, 0.08); padding: 20px; overflow: hidden"
+      style="
+        background: rgba(0, 0, 0, 0.08);
+        margin: 20px 0 20px 20px;
+        overflow: hidden;
+      "
     >
-      <div
-        *ngIf="subjects$ | async as subjects; else loading"
-        class="grid-container"
-      >
+      <div *ngIf="subjects$ | async as subjects" class="grid-container">
         <div class="grid-item" *ngFor="let subject of subjects">
           <app-subject-card
             [subject]="subject"
@@ -30,14 +31,6 @@
           Nema predmeta
         </div>
       </div>
-      <ng-template #loading>
-        <div
-          class="grid-container"
-          style="display: flex; justify-content: center; align-items: center"
-        >
-          Loading
-        </div>
-      </ng-template>
     </div>
   </div>
 </div>
