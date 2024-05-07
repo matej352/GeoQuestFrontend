@@ -1,112 +1,115 @@
-.login, .registration {
-    padding: 200px;
-    height: 80%;
-    width: 100%;
-    background-color: #f2f2f2;
+.login,
+.registration {
+  padding: 100px;
+  width: 100%;
+  background-color: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  .container {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
 
-    .container {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        width: 100%;
-        align-items: center;
-    }
+  .container.action {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    flex-direction: row;
+  }
 }
-
-
-
-
 
 $gray-light: #f5f6f8;
 
-
 .form {
-   min-width: 50%;
+  min-width: 50%;
 }
 
 .loginFailed {
-    margin-top: var(--margin-size-5);
-    margin-bottom: var(--margin-size-5);
-    min-width: 50%;
-    color: red;
-    font-size: var(--font-size-h5);
-    font-family: var(--primary-font-regular);
-    text-align: center;
+  margin-top: var(--margin-size-5);
+  margin-bottom: var(--margin-size-5);
+  min-width: 50%;
+  color: red;
+  font-size: var(--font-size-h5);
+  font-family: var(--primary-font-regular);
+  text-align: center;
 }
 
 .flex-row {
-    display: flex;
-    margin-bottom: 1em;
+  display: flex;
+  margin-bottom: 1em;
 }
 
 .label {
-    width: 3em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: $gray-light;
-    cursor: pointer;
+  width: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $gray-light;
+  cursor: pointer;
 }
 
 .input {
-    flex: 1;
-    padding: 1em;
-    border: 0;
-    color: var(--black-color);
-    font-size: var(--font-size-h5);
-    font-family: var(--primary-font-regular);
-    min-width: 150px;
+  flex: 1;
+  padding: 1em;
+  border: 0;
+  color: var(--black-color);
+  font-size: var(--font-size-h5);
+  font-family: var(--primary-font-regular);
+  min-width: 150px;
 
-    &:focus {
-        outline: none;
-        transition: transform .15s ease;
-        transform: scale(1.2);
-    }
+  &:focus {
+    outline: none;
+    transition: transform 0.15s ease;
+    transform: scale(1.2);
+  }
 }
 
 .submit {
-    display: block;
-    padding: 1em;
-    width: 100%;
-    background-color: var(--primary-color);
-    border: 0;
-    color: #fff;
-    cursor: pointer;
-    font-size: var(--font-size-h5);
-    font-family: var(--secondary-font-bold);
+  display: block;
+  padding: 1em;
+  width: 100%;
+  background-color: var(--primary-color);
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  font-size: var(--font-size-h5);
+  font-family: var(--secondary-font-bold);
 
-    &:focus {
-        outline: none;
-        transition: transform .15s ease;
-        transform: scale(1.1);
-    }
+  &:focus {
+    outline: none;
+    transition: transform 0.15s ease;
+    transform: scale(1.1);
+  }
 }
 
 .forgot {
-    margin-top: 1em;
-    color: blue;
-    font-size: var(--font-size-h5);
-    font-family: var(--primary-font-regular);
-    text-align: center;
-    position: relative;
+  margin-top: 1em;
+  color: blue;
+  font-size: var(--font-size-h5);
+  font-family: var(--primary-font-regular);
+  text-align: center;
+  position: relative;
 }
 
 h1 {
-    color: var(--secondary-color);
-    font-size: var(--heading-font-size);
-    font-family: var(--primary-font-bold);
-    margin-bottom: var(--margin-size-5);
-    text-align: center;
+  color: var(--secondary-color);
+  font-size: var(--heading-font-size);
+  font-family: var(--primary-font-bold);
+  margin-bottom: var(--margin-size-5);
+  text-align: center;
 }
 
 .disabled {
-    pointer-events: none;
-    opacity: 0.6;
+  pointer-events: none;
+  opacity: 0.6;
 }
-
 
 // Tweak these to change the style of the toggle
 $toggle-background-color-on: var(--primary-color);
@@ -116,7 +119,7 @@ $toggle-width: 50px;
 $toggle-height: 25px;
 $toggle-gutter: 5px;
 $toggle-radius: 50%;
-$toggle-control-speed: .15s;
+$toggle-control-speed: 0.15s;
 $toggle-control-ease: ease-in;
 
 // These are our computed variables
@@ -125,51 +128,51 @@ $toggle-radius: $toggle-height / 2;
 $toggle-control-size: $toggle-height - ($toggle-gutter * 2);
 
 .toggle-control {
-    display: block;
-    position: relative;
+  display: block;
+  position: relative;
 
-    padding-left: $toggle-width;
-    margin-bottom: 12px;
+  padding-left: $toggle-width;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  user-select: none;
+
+  input {
+    position: absolute;
+    opacity: 0;
     cursor: pointer;
-    font-size: 22px;
-    user-select: none;
+    height: 0;
+    width: 0;
+  }
 
-    input {
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-        height: 0;
-        width: 0;
+  input:checked ~ .control {
+    background-color: $toggle-background-color-on;
+
+    &:after {
+      left: $toggle-width - $toggle-control-size - $toggle-gutter;
     }
+  }
 
-    input:checked~.control {
-        background-color: $toggle-background-color-on;
+  .control {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: $toggle-height;
+    width: $toggle-width;
+    border-radius: $toggle-radius;
+    background-color: $toggle-background-color-off;
+    transition: background-color $toggle-control-speed $toggle-control-ease;
 
-        &:after {
-            left: $toggle-width - $toggle-control-size - $toggle-gutter;
-        }
+    &:after {
+      content: "";
+      position: absolute;
+      left: $toggle-gutter;
+      top: $toggle-gutter;
+      width: $toggle-control-size;
+      height: $toggle-control-size;
+      border-radius: $toggle-radius;
+      background: $toggle-control-color;
+      transition: left $toggle-control-speed $toggle-control-ease;
     }
-
-    .control {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: $toggle-height;
-        width: $toggle-width;
-        border-radius: $toggle-radius;
-        background-color: $toggle-background-color-off;
-        transition: background-color $toggle-control-speed $toggle-control-ease;
-
-        &:after {
-            content: "";
-            position: absolute;
-            left: $toggle-gutter;
-            top: $toggle-gutter;
-            width: $toggle-control-size;
-            height: $toggle-control-size;
-            border-radius: $toggle-radius;
-            background: $toggle-control-color;
-            transition: left $toggle-control-speed $toggle-control-ease;
-        }
-    }
+  }
 }

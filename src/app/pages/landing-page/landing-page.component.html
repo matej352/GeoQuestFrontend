@@ -44,12 +44,12 @@
     <div *ngIf="loginFailed" class="loginFailed">
       {{ loginErrorMessage }}
     </div>
-    <a class="forgot" href="#">Forgot password?</a>
   </div>
-  <div class="container">
+  <div class="container action">
+    <p>Nemaš korisnički račun?</p>
     <app-button
       title="Registriraj se"
-      mt="30px"
+      ml="30px"
       (click)="showRegisterForm()"
     ></app-button>
   </div>
@@ -135,6 +135,14 @@
           [ngClass]="{ disabled: !registerForm.valid }"
         />
       </form>
+    </div>
+    <div class="container action">
+      <p>Već imaš korisnički račun?</p>
+      <app-button
+        title="Prijavi se"
+        ml="30px"
+        (click)="showLoginForm()"
+      ></app-button>
     </div>
   </div>
 </ng-template>

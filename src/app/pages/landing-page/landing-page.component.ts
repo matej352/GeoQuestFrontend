@@ -164,4 +164,8 @@ export class LandingPageComponent implements OnInit {
   showRegisterForm() {
     this.loginOpened = false;
   }
+
+  showLoginForm() {
+    this.loginOpened = true;
+  }
 }
