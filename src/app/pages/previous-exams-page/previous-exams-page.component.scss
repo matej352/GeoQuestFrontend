@@ -34,6 +34,7 @@
       .students-container {
         flex: 3;
         min-height: 900px;
+        width: 500px;
         position: relative;
 
         padding: 15px;
@@ -49,7 +50,7 @@
           .no-students {
             font-size: var(--font-size-h4);
             text-align: center;
-            color: var(--secondary-color);
+            color: white;
             position: absolute;
             top: 50%;
             left: 50%;
