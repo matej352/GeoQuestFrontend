@@ -32,18 +32,16 @@ $gray-light: #f5f6f8;
 }
 
 .loginFailed {
-  margin-top: var(--margin-size-5);
-  margin-bottom: var(--margin-size-5);
+  margin-top: 10px;
   min-width: 50%;
   color: red;
-  font-size: var(--font-size-h5);
-  font-family: var(--primary-font-regular);
   text-align: center;
 }
 
 .flex-row {
   display: flex;
-  margin-bottom: 1em;
+  margin-top: 15px;
+  margin-bottom: 5px;
 }
 
 .label {
@@ -73,6 +71,7 @@ $gray-light: #f5f6f8;
 
 .submit {
   display: block;
+  margin-top: 30px;
   padding: 1em;
   width: 100%;
   background-color: var(--primary-color);
@@ -87,15 +86,6 @@ $gray-light: #f5f6f8;
     transition: transform 0.15s ease;
     transform: scale(1.1);
   }
-}
-
-.forgot {
-  margin-top: 1em;
-  color: blue;
-  font-size: var(--font-size-h5);
-  font-family: var(--primary-font-regular);
-  text-align: center;
-  position: relative;
 }
 
 h1 {

@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
+  ValidationErrors,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -29,7 +32,6 @@ export class LandingPageComponent implements OnInit {
   password = faKey;
 
   loginFailed: boolean = false;
-  loginErrorMessage!: string;
 
   logInForm!: FormGroup;
   registerForm!: FormGroup;
@@ -69,28 +71,31 @@ export class LandingPageComponent implements OnInit {
   }
 
   private createRegisterForm(): void {
-    this.registerForm = this._formBuilder.group({
-      firstName: new FormControl('', {
-        validators: [Validators.required, Validators.maxLength(50)],
-      }),
-      lastName: new FormControl('', {
-        validators: [Validators.required, Validators.maxLength(50)],
-      }),
-      email: new FormControl('', {
-        validators: [
-          Validators.required,
-          Validators.maxLength(50),
-          Validators.email,
-        ],
-      }),
-      password: new FormControl('', {
-        validators: [Validators.required, Validators.minLength(7)],
-      }),
-      confirmPassword: new FormControl('', {
-        validators: [Validators.required, Validators.minLength(7)],
-      }),
-      isTeacherCheckboxChecked: new FormControl(false),
-    });
+    this.registerForm = new FormGroup(
+      {
+        firstName: new FormControl('', {
+          validators: [Validators.required, Validators.maxLength(50)],
+        }),
+        lastName: new FormControl('', {
+          validators: [Validators.required, Validators.maxLength(50)],
+        }),
+        email: new FormControl('', {
+          validators: [
+            Validators.required,
+            Validators.maxLength(50),
+            Validators.email,
+          ],
+        }),
+        password: new FormControl('', {
+          validators: [Validators.required, Validators.minLength(8)],
+        }),
+        confirmPassword: new FormControl('', {
+          validators: [Validators.required, Validators.minLength(8)],
+        }),
+        isTeacherCheckboxChecked: new FormControl(false),
+      },
+      [this.mustMatch('password', 'confirmPassword')]
+    );
   }
 
   //#endregion
@@ -105,7 +110,7 @@ export class LandingPageComponent implements OnInit {
       .login(data)
       .pipe(
         catchError((err) => {
-          console.log(err);
+          this.loginFailed = true;
           return EMPTY;
         }),
         switchMap((_) => this._accountService.getAccountDetails())
@@ -167,5 +172,30 @@ export class LandingPageComponent implements OnInit {
 
   showLoginForm() {
     this.loginOpened = true;
+  }
+
+  logInError = (controlName: string, errorName: string) => {
+    return (
+      this.logInForm.controls[controlName].hasError(errorName) &&
+      this.logInForm.controls[controlName].dirty
+    );
+  };
+
+  registerError = (controlName: string, errorName: string) => {
+    return (
+      this.registerForm.controls[controlName].hasError(errorName) &&
+      this.registerForm.controls[controlName].dirty
+    );
+  };
+
+  mustMatch(source: string, target: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const sourceCtrl = control.get(source);
+      const targetCtrl = control.get(target);
+
+      return sourceCtrl && targetCtrl && sourceCtrl.value !== targetCtrl.value
+        ? { mismatch: true }
+        : null;
+    };
   }
 }

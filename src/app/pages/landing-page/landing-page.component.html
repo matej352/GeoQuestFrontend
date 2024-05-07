@@ -21,6 +21,15 @@
           formControlName="email"
         />
       </div>
+      <mat-error *ngIf="logInError('email', 'required')"
+        >Email je obavezan</mat-error
+      >
+      <mat-error *ngIf="logInError('email', 'maxLength')"
+        >Email može sadržavati najviše 50 znakova</mat-error
+      >
+      <mat-error *ngIf="logInError('email', 'email')"
+        >Neispravan email</mat-error
+      >
       <div class="flex-row">
         <label class="label" for="password">
           <fa-icon [icon]="password" size="lg"></fa-icon>
@@ -33,6 +42,12 @@
           formControlName="password"
         />
       </div>
+      <mat-error *ngIf="logInError('password', 'required')"
+        >Lozinka je obavezna</mat-error
+      >
+      <mat-error *ngIf="logInError('password', 'minlength')"
+        >Lozinka mora sadržavati barem 8 znakova</mat-error
+      >
       <input
         class="submit"
         type="submit"
@@ -42,7 +57,7 @@
       />
     </form>
     <div *ngIf="loginFailed" class="loginFailed">
-      {{ loginErrorMessage }}
+      Neispravan email ili lozinka
     </div>
   </div>
   <div class="container action">
@@ -71,6 +86,13 @@
             formControlName="firstName"
           />
         </div>
+        <mat-error *ngIf="registerError('firstName', 'required')"
+          >Ime je obavezno</mat-error
+        >
+        <mat-error *ngIf="registerError('firstName', 'maxLength')"
+          >Ime može sadržavati najviše 50 znakova</mat-error
+        >
+
         <div class="flex-row">
           <label class="label" for="lastName">
             <fa-icon [icon]="email" size="lg"></fa-icon>
@@ -83,6 +105,12 @@
             formControlName="lastName"
           />
         </div>
+        <mat-error *ngIf="registerError('lastName', 'required')"
+          >Prezime je obavezno</mat-error
+        >
+        <mat-error *ngIf="registerError('lastName', 'maxLength')"
+          >Prezime može sadržavati najviše 50 znakova</mat-error
+        >
         <div class="flex-row">
           <label class="label" for="email">
             <fa-icon [icon]="email" size="lg"></fa-icon>
@@ -95,6 +123,15 @@
             formControlName="email"
           />
         </div>
+        <mat-error *ngIf="registerError('email', 'required')"
+          >Email je obavezan</mat-error
+        >
+        <mat-error *ngIf="registerError('email', 'maxLength')"
+          >Email može sadržavati najviše 50 znakova</mat-error
+        >
+        <mat-error *ngIf="registerError('email', 'email')"
+          >Neispravan email</mat-error
+        >
         <div class="flex-row">
           <label class="label" for="password">
             <fa-icon [icon]="password" size="lg"></fa-icon>
@@ -107,6 +144,12 @@
             formControlName="password"
           />
         </div>
+        <mat-error *ngIf="registerError('password', 'required')"
+          >Lozinka je obavezna</mat-error
+        >
+        <mat-error *ngIf="registerError('password', 'minlength')"
+          >Lozinka mora sadržavati barem 8 znakova</mat-error
+        >
         <div class="flex-row">
           <label class="label" for="confirmPassword">
             <fa-icon [icon]="password" size="lg"></fa-icon>
@@ -119,6 +162,17 @@
             formControlName="confirmPassword"
           />
         </div>
+        <mat-error *ngIf="registerError('confirmPassword', 'required')"
+          >Potvrda lozinke je obavezna</mat-error
+        >
+        <mat-error
+          *ngIf="
+            registerForm.get('confirmPassword')?.value &&
+            registerForm.hasError('mismatch')
+          "
+        >
+          Lozinke se ne podudaraju
+        </mat-error>
         <div class="flex-row">
           <p style="margin-right: 15px">Nastavite kao učitelj</p>
           <label class="toggle-control">
