@@ -8,6 +8,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faKey } from '@fortawesome/free-solid-svg-icons';
@@ -45,7 +46,8 @@ export class LandingPageComponent implements OnInit {
     private _router: Router,
     private _formBuilder: FormBuilder,
     private _cookieService: CookieService,
-    private _accountService: AccountService
+    private _accountService: AccountService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -147,7 +149,10 @@ export class LandingPageComponent implements OnInit {
           return EMPTY;
         })
       )
-      .subscribe((res) => (this.loginOpened = true));
+      .subscribe((res) => {
+        this.loginOpened = true;
+        this._snackBar.open('Registracija uspješna, prijavite se!', 'Ok');
+      });
   }
 
   logout() {

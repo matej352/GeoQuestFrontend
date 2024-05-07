@@ -24,6 +24,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { QuillModule } from 'ngx-quill';
 import { QuillEditorComponent } from '../shared/quill-editor/quill-editor.component';
 
@@ -61,6 +62,7 @@ import { QuillEditorComponent } from '../shared/quill-editor/quill-editor.compon
     MatTooltipModule,
     MatProgressBarModule,
     MatStepperModule,
+    MatSnackBarModule,
 
     NgCircleProgressModule.forRoot(),
   ],
@@ -99,6 +101,7 @@ import { QuillEditorComponent } from '../shared/quill-editor/quill-editor.compon
     MatTooltipModule,
     MatProgressBarModule,
     MatStepperModule,
+    MatSnackBarModule,
   ],
 })
 export class SharedModule {}
