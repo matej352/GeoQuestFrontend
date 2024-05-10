@@ -54,14 +54,13 @@
             color: var(--primary-color);
             width: 100%;
 
-            .edit-icon,
-            .close-icon {
+            fa-icon {
               cursor: pointer;
+              color: var(--secondary-color);
             }
 
-            .edit-icon:hover,
-            .close-icon:hover {
-              color: var(--secondary-color);
+            fa-icon:hover {
+              color: var(--primary-color);
             }
           }
 

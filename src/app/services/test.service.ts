@@ -46,6 +46,12 @@ export class TestService {
     });
   }
 
+  updateTest(data: ICreateTest): Observable<any> {
+    return this.http.put<any>(`${this._apiURL}/Test/Update`, data, {
+      withCredentials: true,
+    });
+  }
+
   publishTest(testId: number): Observable<any> {
     return this.http.post<any>(`${this._apiURL}/Test/Publish`, testId, {
       withCredentials: true,

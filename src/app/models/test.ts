@@ -1,8 +1,9 @@
 export interface ITest {
   id: number;
   teacherId: string;
-  duration: number;
+  duration: string;
   name: string;
   description: string;
   subject: string;
+  subjectId: number;
 }

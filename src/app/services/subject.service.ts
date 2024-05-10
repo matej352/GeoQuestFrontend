@@ -33,6 +33,12 @@ export class SubjectService {
     });
   }
 
+  updateSubject(data: ISubject): Observable<any> {
+    return this.http.put<any>(`${this._apiURL}/Subject/Update`, data, {
+      withCredentials: true,
+    });
+  }
+
   addStudents(subjectId: number, studentIds: number[]): Observable<any> {
     return this.http.post<any>(
       `${this._apiURL}/Subject/Students?subjectId=${subjectId}`,

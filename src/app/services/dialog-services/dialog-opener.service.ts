@@ -2,6 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { ISubject } from 'src/app/models/subject';
+import { ISubjectDetailsDto } from 'src/app/models/subject-details';
 import { ITest } from 'src/app/models/test';
 import { AddExamDialogComponent } from 'src/app/shared/dialogs/add-exam-dialog/add-exam-dialog.component';
 import { AddStudentsDialogComponent } from 'src/app/shared/dialogs/add-students-dialog/add-students-dialog.component';
@@ -33,10 +34,11 @@ export class DialogOpenerService implements OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  openAddSubjectDialog(): void {
+  openAddSubjectDialog(subject?: ISubjectDetailsDto): void {
     if (!this.addSubjectDialogOpened) {
       this.addSubjectDialogOpened = true;
       const dialogRef = this.dialog.open(AddSubjectDialogComponent, {
+        data: { subject },
         maxHeight: '100%',
         id: 'widthResponsivity',
         width: '80%',
@@ -47,19 +49,24 @@ export class DialogOpenerService implements OnDestroy {
 
       this.subscription = dialogRef
         .afterClosed()
-        .subscribe((createdSubject: ISubject) => {
-          if (createdSubject) {
+        .subscribe((subject: ISubject) => {
+          let isEdit = !!subject;
+
+          if (!isEdit && subject) {
             this.addSubjectDialogResult$.next({ created: true });
+          } else if (subject) {
+            this.addSubjectDialogResult$.next({ updated: true });
           }
           this.addSubjectDialogOpened = false;
         });
     }
   }
 
-  openAddExamDialog(): void {
+  openAddExamDialog(test?: ITest): void {
     if (!this.addExamDialogOpened) {
       this.addExamDialogOpened = true;
       const dialogRef = this.dialog.open(AddExamDialogComponent, {
+        data: { test },
         maxHeight: '100%',
         id: 'widthResponsivity',
         width: '80%',
@@ -68,14 +75,15 @@ export class DialogOpenerService implements OnDestroy {
         hasBackdrop: true,
       });
 
-      this.subscription = dialogRef
-        .afterClosed()
-        .subscribe((createdExam: ITest) => {
-          if (createdExam) {
-            this.addExamDialogResult$.next({ created: true });
-          }
-          this.addExamDialogOpened = false;
-        });
+      this.subscription = dialogRef.afterClosed().subscribe((exam: ITest) => {
+        let isEdit = !!test;
+        if (!isEdit && exam) {
+          this.addExamDialogResult$.next({ created: true });
+        } else if (exam) {
+          this.addExamDialogResult$.next({ updated: true });
+        }
+        this.addExamDialogOpened = false;
+      });
     }
   }
 

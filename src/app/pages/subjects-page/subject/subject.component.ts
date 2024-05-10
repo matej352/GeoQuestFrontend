@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowAltCircleLeft,
+  faEdit,
+} from '@fortawesome/free-solid-svg-icons';
 import { Observable, Subscription, tap } from 'rxjs';
 import { ISubject } from 'src/app/models/subject';
 import { ISubjectDetailsDto } from 'src/app/models/subject-details';
@@ -15,11 +18,13 @@ import { SubjectService } from 'src/app/services/subject.service';
 export class SubjectComponent implements OnInit, OnDestroy {
   //icons
   public back = faArrowAltCircleLeft;
+  public editIcon = faEdit;
 
   subjectId!: number;
-  subjectName!: string;
+  subject!: ISubjectDetailsDto;
 
   subscription!: Subscription;
+  subscription2!: Subscription;
 
   constructor(
     private _route: ActivatedRoute,
@@ -35,6 +40,16 @@ export class SubjectComponent implements OnInit, OnDestroy {
           );
         }
       });
+
+    this.subscription2 = this._dialogOpenerService.addSubjectDialogResult$
+      .asObservable()
+      .subscribe((result) => {
+        if (result.updated) {
+          this.subjectDetails$ = this._subjectService
+            .getSubject(this.subjectId)
+            .pipe(tap((subject) => (this.subject = subject)));
+        }
+      });
   }
 
   subjectDetails$!: Observable<ISubjectDetailsDto>;
@@ -46,7 +61,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
           this.subjectId = +res.get('subjectId')!;
           this.subjectDetails$ = this._subjectService
             .getSubject(this.subjectId)
-            .pipe(tap((subject) => (this.subjectName = subject.name)));
+            .pipe(tap((subject) => (this.subject = subject)));
         })
       )
       .subscribe();
@@ -54,12 +69,17 @@ export class SubjectComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.subscription2.unsubscribe();
   }
 
   onAddStudents() {
     this._dialogOpenerService.openAddStudentsDialog(
       this.subjectId,
-      this.subjectName
+      this.subject.name
     );
+  }
+
+  edit() {
+    this._dialogOpenerService.openAddSubjectDialog(this.subject);
   }
 }
