@@ -178,7 +178,7 @@ export class TaskCardComponent implements OnInit, AfterViewInit {
         if (array[i].tagName.toUpperCase() == 'IMG') {
           array[i].setAttribute(
             'style',
-            'align-self: center; justify-self: center; height: auto;max-width: 530px;'
+            'align-self: center; justify-self: center; height: auto;max-width: 480px;'
           );
         }
         if (
