@@ -14,7 +14,7 @@
                   <th>Predmet</th>
                   <th>Trajanje</th>
                   <th>Učitelj</th>
-                  <th></th>
+                  <th>Bodovi</th>
                 </tr>
               </thead>
               <tbody>
@@ -37,17 +37,7 @@
                     <p>{{ test.teacherName }}</p>
                   </td>
                   <td>
-                    <button
-                      class="button-publish"
-                      [routerLink]="[
-                        '/student',
-                        'previous-exams',
-                        'exam',
-                        test.id
-                      ]"
-                    >
-                      Detalji
-                    </button>
+                    <b>{{ test.score }}</b>
                   </td>
                 </tr>
               </tbody>

@@ -5,4 +5,5 @@ export interface ITestInstance {
   name: string;
   description: string;
   subject: string;
+  score?: string;
 }
