@@ -50,6 +50,43 @@
       span {
         color: #747685;
       }
+
+      span.clickable {
+        text-decoration: underline;
+        cursor: pointer;
+        color: black;
+      }
+
+      .publish-container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        .button-publish {
+          border: 0;
+          color: #fff;
+          cursor: pointer;
+          font-size: var(--font-size-h5);
+          padding: 5px 10px;
+          border-radius: 10px;
+          background-color: var(--success-green-color);
+          margin-right: 10px;
+          text-transform: uppercase;
+        }
+
+        .button-publish.disabled {
+          pointer-events: none;
+          opacity: 0.6;
+        }
+
+        .button-publish.enabled:hover {
+          transform: scale(1.1);
+        }
+
+        app-tooltip {
+          color: #747685;
+        }
+      }
     }
 
     .tasks-container {
@@ -66,6 +103,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        font-size: var(--font-size-h4);
+        color: var(--secondary-color);
       }
     }
   }

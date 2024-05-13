@@ -17,7 +17,10 @@
           ></app-select-polygon-map>
         </div>
         <div class="right">
-          <div class="task-actions">
+          <div
+            *ngIf="mode === TaskViewMode.DraftExamPreview"
+            class="task-actions"
+          >
             <fa-icon
               [icon]="trash"
               title="Obriši"
@@ -53,7 +56,10 @@
           ></app-select-point-map>
         </div>
         <div class="right">
-          <div class="task-actions">
+          <div
+            *ngIf="mode === TaskViewMode.DraftExamPreview"
+            class="task-actions"
+          >
             <fa-icon
               [icon]="trash"
               title="Obriši"
@@ -88,7 +94,10 @@
           ></app-mark-polygon-map>
         </div>
         <div class="right">
-          <div class="task-actions">
+          <div
+            *ngIf="mode === TaskViewMode.DraftExamPreview"
+            class="task-actions"
+          >
             <fa-icon
               [icon]="trash"
               title="Obriši"
@@ -125,7 +134,10 @@
           ></app-non-map-map>
         </div>
         <div class="right">
-          <div class="task-actions">
+          <div
+            *ngIf="mode === TaskViewMode.DraftExamPreview"
+            class="task-actions"
+          >
             <fa-icon
               [icon]="trash"
               title="Obriši"
@@ -161,7 +173,10 @@
           ></app-mark-point-map>
         </div>
         <div class="right">
-          <div class="task-actions">
+          <div
+            *ngIf="mode === TaskViewMode.DraftExamPreview"
+            class="task-actions"
+          >
             <fa-icon
               [icon]="trash"
               title="Obriši"

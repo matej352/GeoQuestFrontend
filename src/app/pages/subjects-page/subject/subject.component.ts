@@ -35,9 +35,11 @@ export class SubjectComponent implements OnInit, OnDestroy {
       .asObservable()
       .subscribe((result) => {
         if (result.isSent) {
-          this.subjectDetails$ = this._subjectService.getSubject(
-            this.subjectId
-          );
+          setTimeout(() => {
+            this.subjectDetails$ = this._subjectService.getSubject(
+              this.subjectId
+            );
+          }, 100);
         }
       });
 

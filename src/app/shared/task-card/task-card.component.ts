@@ -28,6 +28,8 @@ import { TaskService } from 'src/app/services/task.service';
 export class TaskCardComponent implements OnInit, AfterViewInit {
   trash = faTrash;
 
+  TaskViewMode = TaskViewMode;
+
   TaskType = TaskType;
 
   @Input()
@@ -196,7 +198,7 @@ export class TaskCardComponent implements OnInit, AfterViewInit {
       data: {
         title: 'Potvrdite brisanje zadatka',
         description:
-          'Zadatak će se trajno izbrisati. Jeste li sigurni da želite obrisati zadaatak?',
+          'Zadatak će se trajno izbrisati. Jeste li sigurni da želite obrisati zadatak?',
       },
       width: '900px',
       disableClose: true,

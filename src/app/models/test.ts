@@ -6,4 +6,6 @@ export interface ITest {
   description: string;
   subject: string;
   subjectId: number;
+  subjectsStudentsCount: number;
+  testsTasksCount: number;
 }

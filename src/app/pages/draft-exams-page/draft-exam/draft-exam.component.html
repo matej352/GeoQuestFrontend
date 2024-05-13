@@ -10,22 +10,51 @@
       ></fa-icon>
     </div>
     <div class="general-info">
-      <ng-container *ngIf="test$ | async as test; else loading">
+      <ng-container *ngIf="test$ | async as test">
         <div class="title">
           <h1>
             {{ test.name }}
           </h1>
-          <fa-icon [icon]="editIcon" (click)="edit()"></fa-icon>
+          <fa-icon [icon]="editIcon" title="Uredi" (click)="edit()"></fa-icon>
         </div>
-        <div><span>Predmet: </span>{{ test.subject }}</div>
-        <div><span>Opis: </span>{{ test.description }}</div>
-        <div><span>Trajanje: </span> {{ test.duration }}</div></ng-container
-      >
-      <ng-template #loading> Loading</ng-template>
+        <div>
+          <span>Predmet: </span
+          ><span
+            class="clickable"
+            [routerLink]="['/teacher', 'subjects', 'subject', test.subjectId]"
+            >{{ test.subject }}</span
+          >
+        </div>
+        <div>
+          <span>Opis: </span>{{ test.description ? test.description : "-" }}
+        </div>
+        <div><span>Trajanje: </span> {{ test.duration }}</div>
+        <div class="publish-container">
+          <button
+            class="button-publish"
+            (click)="onPublish(test.id)"
+            [disabled]="!test.subjectsStudentsCount || !test.testsTasksCount"
+            [ngClass]="
+              test.subjectsStudentsCount && test.testsTasksCount
+                ? 'enabled'
+                : 'disabled'
+            "
+          >
+            Objavi
+          </button>
+          <app-tooltip
+            *ngIf="!test.subjectsStudentsCount"
+            message="Nije moguće objaviti skicu ispita za odabrani predmet jer na njemu nema niti jednog učenika. Dodajte najprije željene učenike na predmet."
+          ></app-tooltip>
+          <app-tooltip
+            *ngIf="test.subjectsStudentsCount && !test.testsTasksCount"
+            message="Nije moguće objaviti skicu ispita jer ne sadrži niti jedan zadatak. Dodajte najprije zadatke u skicu ispita."
+          ></app-tooltip></div
+      ></ng-container>
     </div>
 
     <div class="tasks-container">
-      <ng-container *ngIf="tasks$ | async as tasks; else loading">
+      <ng-container *ngIf="tasks$ | async as tasks">
         <ng-container *ngIf="tasks.length; else noTasks">
           <app-task-card
             *ngFor="let task of tasks; let index = index"
@@ -41,8 +70,6 @@
           </div>
         </ng-template></ng-container
       >
-
-      <ng-template #loading>Loading</ng-template>
 
       <div *ngIf="createTaskOpened" class="task" id="newTask">
         <app-create-task-card

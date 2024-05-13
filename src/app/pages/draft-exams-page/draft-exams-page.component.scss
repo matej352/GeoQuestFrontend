@@ -102,7 +102,12 @@
                 text-transform: uppercase;
               }
 
-              .button-publish:hover {
+              .button-publish.disabled {
+                pointer-events: none;
+                opacity: 0.6;
+              }
+
+              .button-publish.enabled:hover {
                 transform: scale(1.1);
               }
             }

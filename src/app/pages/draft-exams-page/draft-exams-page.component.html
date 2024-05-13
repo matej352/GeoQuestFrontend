@@ -48,10 +48,31 @@
                     >
                       Pending
                     </div-->
-                    <button class="button-publish" (click)="onPublish(test.id)">
+                    <button
+                      class="button-publish"
+                      (click)="onPublish(test.id)"
+                      [disabled]="
+                        !test.subjectsStudentsCount || !test.testsTasksCount
+                      "
+                      [ngClass]="
+                        test.subjectsStudentsCount && test.testsTasksCount
+                          ? 'enabled'
+                          : 'disabled'
+                      "
+                    >
                       Objavi
                     </button>
-                    <app-tooltip message="statusMessage"></app-tooltip>
+
+                    <app-tooltip
+                      *ngIf="!test.subjectsStudentsCount"
+                      message="Nije moguće objaviti skicu ispita za odabrani predmet jer na njemu nema niti jednog učenika. Dodajte najprije željene učenike na predmet."
+                    ></app-tooltip>
+                    <app-tooltip
+                      *ngIf="
+                        test.subjectsStudentsCount && !test.testsTasksCount
+                      "
+                      message="Nije moguće objaviti skicu ispita jer ne sadrži niti jedan zadatak. Dodajte najprije zadatke u skicu ispita."
+                    ></app-tooltip>
                   </td>
                 </tr>
               </tbody>

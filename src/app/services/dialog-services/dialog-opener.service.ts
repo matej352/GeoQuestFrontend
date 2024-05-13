@@ -49,12 +49,12 @@ export class DialogOpenerService implements OnDestroy {
 
       this.subscription = dialogRef
         .afterClosed()
-        .subscribe((subject: ISubject) => {
+        .subscribe((newSubject: ISubject) => {
           let isEdit = !!subject;
 
-          if (!isEdit && subject) {
+          if (!isEdit && newSubject) {
             this.addSubjectDialogResult$.next({ created: true });
-          } else if (subject) {
+          } else if (newSubject) {
             this.addSubjectDialogResult$.next({ updated: true });
           }
           this.addSubjectDialogOpened = false;
