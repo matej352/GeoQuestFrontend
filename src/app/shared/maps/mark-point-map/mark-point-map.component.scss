@@ -1,16 +1,14 @@
 .map-container {
-    width: 700px;
-    height: 600px;
-    margin-right: 30px;
+  width: 700px;
+  height: 600px;
+  margin-right: 30px;
 
-    
   .map-frame {
-      border: 2px solid var(--primary-color);
-      height: 100%;
+    border: 1px solid var(--primary-color);
+    height: 100%;
 
-      div {
-        height: 100%;
-      }
+    div {
+      height: 100%;
+    }
   }
 }
-    

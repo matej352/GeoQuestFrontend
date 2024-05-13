@@ -53,12 +53,41 @@
                   errorMessage="Tekst zadatka"
                 ></app-quill-editor>
               </div>
+              <p
+                class="validation"
+                *ngIf="
+                  selectPointOrPolygonMapHasAtLeastTwoPoints &&
+                  !selectPointOrPolygonMapHasOneCorrect
+                "
+              >
+                Točno jedna opcija (poligon) na karti mora biti označena kao
+                točna
+              </p>
+              <p
+                class="validation"
+                *ngIf="!selectPointOrPolygonMapHasAtLeastTwoPoints"
+              >
+                Označite barem dvije opcije (poligoni) na karti
+              </p>
+              <div class="info-for-teacher">
+                Označite opcije (poligoni) na karti od kojih jedna mora biti
+                označena kao točna
+              </div>
               <input
                 class="submit"
                 type="submit"
                 value="Stvori"
-                [disabled]="!taskForm.valid"
-                [ngClass]="{ disabled: !taskForm.valid }"
+                [disabled]="
+                  !taskForm.valid ||
+                  !selectPointOrPolygonMapHasOneCorrect ||
+                  !selectPointOrPolygonMapHasAtLeastTwoPoints
+                "
+                [ngClass]="{
+                  disabled:
+                    !taskForm.valid ||
+                    !selectPointOrPolygonMapHasOneCorrect ||
+                    !selectPointOrPolygonMapHasAtLeastTwoPoints
+                }"
               />
             </div>
           </form>
@@ -82,15 +111,43 @@
                 <label for="question"> Tekst zadatka </label>
                 <app-quill-editor
                   formControlName="question"
-                  errorMessage="Answer"
+                  errorMessage="Tekst zadatka"
                 ></app-quill-editor>
+              </div>
+              <p
+                class="validation"
+                *ngIf="
+                  selectPointOrPolygonMapHasAtLeastTwoPoints &&
+                  !selectPointOrPolygonMapHasOneCorrect
+                "
+              >
+                Točno jedna opcija (točka) na karti mora biti označena kao točna
+              </p>
+              <p
+                class="validation"
+                *ngIf="!selectPointOrPolygonMapHasAtLeastTwoPoints"
+              >
+                Označite barem dvije opcije (točke) na karti
+              </p>
+              <div class="info-for-teacher">
+                Označite opcije (točke) na karti od kojih jedna mora biti
+                označena kao točna
               </div>
               <input
                 class="submit"
                 type="submit"
                 value="Stvori"
-                [disabled]="!taskForm.valid"
-                [ngClass]="{ disabled: !taskForm.valid }"
+                [disabled]="
+                  !taskForm.valid ||
+                  !selectPointOrPolygonMapHasOneCorrect ||
+                  !selectPointOrPolygonMapHasAtLeastTwoPoints
+                "
+                [ngClass]="{
+                  disabled:
+                    !taskForm.valid ||
+                    !selectPointOrPolygonMapHasOneCorrect ||
+                    !selectPointOrPolygonMapHasAtLeastTwoPoints
+                }"
               />
             </div>
           </form>
@@ -114,12 +171,15 @@
                   errorMessage="Tekst zadatka"
                 ></app-quill-editor>
               </div>
+              <div class="info-for-teacher">
+                Označite točan odgovor (poligon) na karti
+              </div>
               <input
                 class="submit"
                 type="submit"
                 value="Stvori"
-                [disabled]="!taskForm.valid"
-                [ngClass]="{ disabled: !taskForm.valid }"
+                [disabled]="!taskForm.valid || !markedPolygon"
+                [ngClass]="{ disabled: !taskForm.valid || !markedPolygon }"
               />
             </div>
           </form>
@@ -143,15 +203,15 @@
                   errorMessage="Tekst zadatka"
                 ></app-quill-editor>
               </div>
-              <div>
+              <div class="info-for-teacher">
                 Označite točku na karti gdje će učenik upisivati odgovor
               </div>
               <input
                 class="submit"
                 type="submit"
                 value="Stvori"
-                [disabled]="!taskForm.valid"
-                [ngClass]="{ disabled: !taskForm.valid }"
+                [disabled]="!taskForm.valid || !markedPoint"
+                [ngClass]="{ disabled: !taskForm.valid || !markedPoint }"
               />
             </div>
           </form>
@@ -173,17 +233,19 @@
                 <label for="question"> Tekst zadatka </label>
                 <app-quill-editor
                   formControlName="question"
-                  errorMessage="Answer"
+                  errorMessage="Tekst zadatka"
                 ></app-quill-editor>
               </div>
-              <div>Označite točan odgovor (točku) na karti</div>
+              <div class="info-for-teacher">
+                Označite točan odgovor (točku) na karti
+              </div>
 
               <input
                 class="submit"
                 type="submit"
                 value="Stvori"
-                [disabled]="!taskForm.valid"
-                [ngClass]="{ disabled: !taskForm.valid }"
+                [disabled]="!taskForm.valid || !markedPoint"
+                [ngClass]="{ disabled: !taskForm.valid || !markedPoint }"
               />
             </div>
           </form>

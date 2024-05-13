@@ -109,7 +109,7 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
             showArea: true,
           },
           marker: false, // Disable other drawing tools
-          circle: {},
+          circle: false,
           circlemarker: false,
           polyline: false,
           rectangle: false,

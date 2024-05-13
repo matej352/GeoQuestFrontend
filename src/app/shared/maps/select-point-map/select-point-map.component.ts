@@ -112,7 +112,7 @@ export class SelectPointMapComponent implements AfterViewInit, OnChanges {
 
         // Create buttons for the marker
         const deleteButton = L.DomUtil.create('button', 'delete-button');
-        deleteButton.innerHTML = 'Delete';
+        deleteButton.innerHTML = 'Obriši';
         deleteButton.addEventListener('click', () => {
           this.deleteMarker(marker); // Delete the marker when the delete button is clicked
         });

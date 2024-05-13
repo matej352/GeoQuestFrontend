@@ -45,9 +45,12 @@ export class CreateTaskCardComponent implements OnInit {
   selection!: SelectionType;
   selection2!: SelectionType;
 
-  drawnItems!: IOptionAnwser[];
-  markedPolygon!: string;
-  markedPoint!: number[];
+  drawnItems!: IOptionAnwser[] | null;
+  markedPolygon!: string | null;
+  markedPoint!: number[] | null;
+
+  selectPointOrPolygonMapHasOneCorrect = false;
+  selectPointOrPolygonMapHasAtLeastTwoPoints = false;
 
   //form
   taskForm!: FormGroup;
@@ -60,7 +63,6 @@ export class CreateTaskCardComponent implements OnInit {
   ngOnInit(): void {
     this.taskForm = this.fb.group({
       question: ['', { validators: [Validators.required] }],
-      answer: [''],
     });
 
     this.selection = {
@@ -90,10 +92,37 @@ export class CreateTaskCardComponent implements OnInit {
     console.log(this.selection2.selectedOption);
     this.selectedMapTypeOption = this.selection.selectedOption as mapType;
     this.selectedTaskTypeOption = this.selection2.selectedOption as taskType;
+
+    this.taskForm.reset();
+    this.drawnItems = null;
+    this.markedPoint = null;
+    this.markedPolygon = null;
   }
 
   drawnItemsChange(items: any) {
     this.drawnItems = items;
+
+    if (this.drawnItems) {
+      if (this.drawnItems.length < 2) {
+        this.selectPointOrPolygonMapHasAtLeastTwoPoints = false;
+      } else {
+        this.selectPointOrPolygonMapHasAtLeastTwoPoints = true;
+      }
+
+      let correctItems = this.drawnItems.filter(
+        (option) => option.properties.isCorrect
+      );
+
+      if (correctItems.length != 1) {
+        this.selectPointOrPolygonMapHasOneCorrect = false;
+      } else {
+        this.selectPointOrPolygonMapHasOneCorrect = true;
+      }
+    } else {
+      this.selectPointOrPolygonMapHasOneCorrect = false;
+      this.selectPointOrPolygonMapHasAtLeastTwoPoints = false;
+    }
+
     console.log(this.drawnItems);
   }
 
@@ -110,7 +139,7 @@ export class CreateTaskCardComponent implements OnInit {
   submitSelectPolygonOrPoint(polygonOrPoint: string) {
     let optionAnswers = [] as IOptionAnswerDto[];
 
-    this.drawnItems.forEach((optionAnswer) => {
+    this.drawnItems!.forEach((optionAnswer) => {
       optionAnswers.push({
         content: JSON.stringify(optionAnswer.coordinates),
         correct: optionAnswer.properties.isCorrect,
@@ -152,7 +181,7 @@ export class CreateTaskCardComponent implements OnInit {
       mapZoomLevel: this.markPointMapComponent.getZoomLevel(),
       mapType: this.getMapType(),
       question: this.taskForm.get('question')?.value.editor,
-      answer: this.markedPoint.toString(),
+      answer: this.markedPoint!.toString(),
       type: this.getTaskType(),
     };
 
@@ -171,7 +200,7 @@ export class CreateTaskCardComponent implements OnInit {
       mapZoomLevel: this.markPolygonMapComponent.getZoomLevel(),
       mapType: this.getMapType(),
       question: this.taskForm.get('question')?.value.editor,
-      answer: this.markedPolygon,
+      answer: this.markedPolygon!,
       type: this.getTaskType(),
     };
 
@@ -191,7 +220,7 @@ export class CreateTaskCardComponent implements OnInit {
       mapType: this.getMapType(),
       question: this.taskForm.get('question')?.value.editor,
       //answer: this.markedPoint.toString(),
-      nonMapPoint: this.markedPoint.toString(),
+      nonMapPoint: this.markedPoint!.toString(),
       type: this.getTaskType(),
     };
 

@@ -188,14 +188,10 @@ export class MarkPolygonMapComponent
           showArea: true,
         },
         marker: false, // Disable other drawing tools
-        circle: {},
+        circle: false,
         circlemarker: false,
         polyline: false,
         rectangle: false,
-      },
-      edit: {
-        featureGroup: this.drawnItem, // Enable editing of drawn polygons
-        remove: false,
       },
     });
     this.map.addControl(this.drawControl);

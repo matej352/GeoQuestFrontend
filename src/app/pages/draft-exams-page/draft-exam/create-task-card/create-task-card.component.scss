@@ -1,183 +1,163 @@
 $gray-light: #f5f6f8;
 
 main {
-    padding: 20px;
+  padding: 20px;
 
-    .filters-container {
-        display: flex;
-        gap: 30px;
-        margin-bottom: 15px;
-        
-            .filter-item {
-            
-                padding: 0 5px;
-                font-size: 14px;
-                display: flex;
-                align-items: center;
-                overflow: auto;
-               
-                ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
-                    padding: 0 !important;
-                }
-                
-                ::ng-deep .mat-form-field-underline {
-                    display: none !important;
-                }
-                
-                ::ng-deep .mat-select-arrow {
-                    color: black !important;
-                }
-                
-                ::ng-deep .mat-select-value {
-                    color: black !important;
-                }
-                
-                
-                ::ng-deep .mat-select-arrow-wrapper {
-                    height: auto !important;
-                }
-                
-                ::ng-deep .mat-form-field-wrapper {
-                    padding-bottom: 0px !important;
-                }
-                
-                ::ng-deep .mat-select-value-text {
-                    margin-left: 25px;
-                }
+  .filters-container {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 15px;
 
-                p {
-                    margin-right: 10px;
-                }
-                
-                mat-form-field.task-type {
-                    width: 220px;
-                }
-            
-            
-            
-            
-            }
-        
-        }
+    .filter-item {
+      padding: 0 5px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      overflow: auto;
 
-        .configuration-container {
+      ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+        padding: 0 !important;
+      }
 
-            display: flex;
+      ::ng-deep .mat-form-field-underline {
+        display: none !important;
+      }
 
-            .right {
-                width: 100%;
-            }
-            
-            
+      ::ng-deep .mat-select-arrow {
+        color: black !important;
+      }
 
-            form {
-                min-width: 50%;
-                width: 90%;
-                height: 95%;
-                margin-bottom: 10px;
-            }
-            
-            
-            
-            .form-container {
-                padding: 15px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: column;     
-            }
-            
-            
-            
-            .form-group {
-                display: flex;
-                flex-wrap: wrap;
-                margin-bottom: 15px;
-                width: 100%;
-            }
-            
-            .form-group-column {
-                margin-bottom: 15px;
-                width: 100%;
-            }
-            
-            .form-group-column label {
-                height: 56px;
-            }
-            
-            .form-group-column input {
-                width: 100%;
-            }
-            
-            textarea {
-                height: 20vh;
-                width: 100%;
-                resize: none;
-                padding: 10px;
-                padding: 1em;
-                border: 0;
-                outline: none;
-                color: var(--black-color);
-                font-size: var(--font-size-h5);
-                font-family: var(--primary-font-regular);
-                min-width: 150px;
-            }
-            
-            
-            input {
-                flex: 4;
-                padding: 1em;
-                border: 0;
-                outline: none;
-                color: var(--black-color);
-                font-size: var(--font-size-h5);
-                font-family: var(--primary-font-regular);
-                min-width: 150px;
-            }
-            
-            app-dropdown, app-attach-file {
-                flex: 4;
-                padding: 0 1em;
-                border: 0;
-                outline: none;
-                color: var(--black-color);
-                font-size: var(--font-size-h5);
-                font-family: var(--primary-font-regular);
-                min-width: 150px;
-            }
-            
-            label {
-                flex: 2;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background: $gray-light;
-            }
-            
-            .submit {
-                display: block;
-                width: 100%;
-                background-color: var(--primary-color);
-                border: 0;
-                color: #fff;
-                cursor: pointer;
-                font-size: var(--font-size-h5);
-                font-family: var(--secondary-font-bold);
-            }
-            
-            .disabled {
-                pointer-events: none;
-                opacity: 0.6;
-            }
-            
-            .alert {
-                color: red;
-                margin-bottom: 20px;
-            }
-        }
-        
-        
+      ::ng-deep .mat-select-value {
+        color: black !important;
+      }
 
-        
+      ::ng-deep .mat-select-arrow-wrapper {
+        height: auto !important;
+      }
 
+      ::ng-deep .mat-form-field-wrapper {
+        padding-bottom: 0px !important;
+      }
+
+      ::ng-deep .mat-select-value-text {
+        margin-left: 25px;
+      }
+
+      p {
+        margin-right: 10px;
+      }
+
+      mat-form-field.task-type {
+        width: 220px;
+      }
+    }
+  }
+
+  .configuration-container {
+    display: flex;
+
+    .right {
+      width: 100%;
+    }
+
+    form {
+      min-width: 50%;
+      margin-bottom: 10px;
+    }
+
+    .form-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .form-group {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+      width: 100%;
+    }
+
+    .form-group-column {
+      width: 100%;
+    }
+
+    .form-group-column label {
+      height: 56px;
+    }
+
+    .form-group-column input {
+      width: 100%;
+    }
+
+    textarea {
+      height: 20vh;
+      width: 100%;
+      resize: none;
+      padding: 10px;
+      padding: 1em;
+      border: 0;
+      outline: none;
+      color: var(--black-color);
+      font-size: var(--font-size-h5);
+      font-family: var(--primary-font-regular);
+      min-width: 150px;
+    }
+
+    input {
+      flex: 4;
+      padding: 1em;
+      border: 0;
+      outline: none;
+      color: var(--black-color);
+      font-size: var(--font-size-h5);
+      font-family: var(--primary-font-regular);
+      min-width: 150px;
+    }
+
+    app-dropdown,
+    app-attach-file {
+      flex: 4;
+      padding: 0 1em;
+      border: 0;
+      outline: none;
+      color: var(--black-color);
+      font-size: var(--font-size-h5);
+      font-family: var(--primary-font-regular);
+      min-width: 150px;
+    }
+
+    label {
+      flex: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: $gray-light;
+    }
+
+    .submit {
+      display: block;
+      width: 100%;
+      background-color: var(--primary-color);
+      border: 0;
+      color: #fff;
+      cursor: pointer;
+      font-size: var(--font-size-h5);
+      font-family: var(--secondary-font-bold);
+    }
+
+    .disabled {
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    .validation {
+      color: red;
+    }
+
+    .info-for-teacher {
+      margin: 10px 0;
+    }
+  }
 }
