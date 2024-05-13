@@ -23,7 +23,7 @@
                     <p>{{ test.name }}</p>
                   </td>
                   <td>
-                    <p>{{ test.description }}</p>
+                    <p>{{ test.description ? test.description : "-" }}</p>
                   </td>
                   <td>
                     <p>{{ test.subject }}</p>
@@ -46,7 +46,6 @@
                     >
                       Detalji
                     </button>
-                    <app-tooltip message="statusMessage"></app-tooltip>
                   </td>
                 </tr>
               </tbody>

@@ -160,6 +160,7 @@
               <th>Proteklo vrijeme</th>
               <th>Bodovi</th>
               <th>Riješeno</th>
+              <th>Završeno</th>
               <th>Ispravljeno</th>
             </tr>
           </thead>
@@ -182,10 +183,13 @@
                 <p>{{ test.points }}</p>
               </td>
               <td>
-                <p>{{ test.finished ? "da" : "ne" }}</p>
+                <p>{{ test.started && test.finished ? "Da" : "Ne" }}</p>
               </td>
               <td>
-                <p>{{ test.checked ? "da" : "ne" }}</p>
+                <p>{{ test.finished ? "Da" : "Ne" }}</p>
+              </td>
+              <td>
+                <p>{{ test.checked ? "Da" : "Ne" }}</p>
               </td>
             </tr>
           </tbody>

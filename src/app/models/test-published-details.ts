@@ -5,6 +5,7 @@ export interface ITestPublishedDetails {
   description: string;
   subject: string;
   finishedInstanceCount: number;
+  finishedByStudentsInstanceCount: number;
   instanceCount: number;
   active: boolean;
   checkedInstanceCount: number;
@@ -20,5 +21,6 @@ export interface ITestInstanceForTeacher {
   elapsedTime: string; // Assuming TimeSpan is represented as a string
   points: number;
   finished: boolean;
+  started: boolean;
   checked: boolean;
 }

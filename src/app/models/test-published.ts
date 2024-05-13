@@ -5,7 +5,7 @@ export interface ITestPublished {
   name: string;
   description: string;
   subject: string;
-  finishedInstanceCount: number;
+  finishedByStudentInstanceCount: number;
   instanceCount: number;
   active: boolean;
 }

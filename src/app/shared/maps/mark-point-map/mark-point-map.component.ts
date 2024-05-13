@@ -98,13 +98,17 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
     }
     //slucaj da ucitelj/ucenik gleda rezultat ispita sa pripadnim zadacima (ucitelj gleda i moze jos ocjeniti, student samo gleda)
     else if (this.mode === TaskViewMode.Result) {
-      var [lat, lng] = this.answer.split(',').map(Number);
+      var lat = undefined,
+        lng = undefined;
+      if (this.answer) {
+        [lat, lng] = this.answer.split(',').map(Number);
 
-      const studentAnswer = L.marker([lat, lng]).addTo(this.map);
-      studentAnswer.bindPopup('Vaš odgovor');
-      studentAnswer.on('click', () => {
-        studentAnswer.openPopup();
-      });
+        const studentAnswer = L.marker([lat, lng]).addTo(this.map);
+        studentAnswer.bindPopup('Vaš odgovor');
+        studentAnswer.on('click', () => {
+          studentAnswer.openPopup();
+        });
+      }
 
       [lat, lng] = this.correctAnswer.split(',').map(Number);
 

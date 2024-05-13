@@ -25,7 +25,8 @@
             </ng-container>
             <ng-template #incorrect>
               <div class="correctness false">
-                Netočno <fa-icon [icon]="correctFalse"></fa-icon>
+                {{ task.studentAnswer ? "Netočno" : "Neodgovoreno" }}
+                <fa-icon [icon]="correctFalse"></fa-icon>
               </div>
             </ng-template>
           </div>

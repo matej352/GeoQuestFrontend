@@ -34,7 +34,6 @@
       .students-container {
         flex: 3;
         min-height: 900px;
-        width: 500px;
         position: relative;
 
         padding: 15px;
@@ -64,8 +63,6 @@
             grid-template-columns:
               minmax(150px, 1fr) minmax(150px, 1.67fr) minmax(150px, 1.67fr)
               minmax(170px, 1.67fr) minmax(150px, 1fr) minmax(150px, 1fr);
-
-            max-height: 400px;
 
             th {
               background-color: var(--gray-background-color);

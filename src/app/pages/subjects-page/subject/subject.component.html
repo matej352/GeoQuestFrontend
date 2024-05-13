@@ -119,7 +119,7 @@
                     <p>{{ test.name }}</p>
                   </td>
                   <td>
-                    <p>{{ test.description }}</p>
+                    <p>{{ test.description ? test.description : "-" }}</p>
                   </td>
                   <td>
                     <p>{{ test.duration }}</p>
@@ -127,15 +127,16 @@
                   <td>
                     <p>
                       {{
-                        (test.finishedInstanceCount / test.instanceCount) *
+                        (test.finishedByStudentInstanceCount /
+                          test.instanceCount) *
                           100 +
                           "%"
                       }}
                     </p>
                     <app-tooltip
                       [message]="
-                        'Ispit je završilo ' +
-                        test.finishedInstanceCount +
+                        'Ispit je riješilo ' +
+                        test.finishedByStudentInstanceCount +
                         '/' +
                         test.instanceCount +
                         ' učenika'
@@ -153,7 +154,9 @@
                   <td>
                     <ng-container *ngIf="test.active">
                       <span class="button-close">Zatvori</span>
-                      <app-tooltip message="statusMessage"></app-tooltip
+                      <app-tooltip
+                        message="Učenici više neće moći pokrenuti ispit"
+                      ></app-tooltip
                     ></ng-container>
                   </td>
                 </tr>

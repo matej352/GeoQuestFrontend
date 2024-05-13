@@ -24,7 +24,9 @@
 ::ng-deep app-ongoing-exam .ongoing-exam-container,
 ::ng-deep app-exam-overview .exam-overview-container,
 ::ng-deep app-exam-instance .exam-instance-container,
-::ng-deep app-previous-exam .previous-exam-container {
+::ng-deep app-previous-exam .previous-exam-container,
+::ng-deep app-my-exams-page .exams-page-container,
+::ng-deep app-previous-exams-page .previous-exams-page-container {
   width: var(--breakpoint-desktop);
 }
 
@@ -40,7 +42,9 @@
   ::ng-deep app-ongoing-exam .ongoing-exam-container,
   ::ng-deep app-exam-overview .exam-overview-container,
   ::ng-deep app-exam-instance .exam-instance-container,
-  ::ng-deep app-previous-exam .previous-exam-container {
+  ::ng-deep app-previous-exam .previous-exam-container,
+  ::ng-deep app-my-exams-page .exams-page-container,
+  ::ng-deep app-previous-exams-page .previous-exams-page-container {
     width: 98%;
   }
 }
