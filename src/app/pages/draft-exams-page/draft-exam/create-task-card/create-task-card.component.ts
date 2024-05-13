@@ -88,8 +88,12 @@ export class CreateTaskCardComponent implements OnInit {
     };
   }
 
-  onSelect() {
-    console.log(this.selection2.selectedOption);
+  onSelectMapType() {
+    this.selectedMapTypeOption = this.selection.selectedOption as mapType;
+    this.selectedTaskTypeOption = this.selection2.selectedOption as taskType;
+  }
+
+  onSelectTaskType() {
     this.selectedMapTypeOption = this.selection.selectedOption as mapType;
     this.selectedTaskTypeOption = this.selection2.selectedOption as taskType;
 

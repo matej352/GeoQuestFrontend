@@ -7,7 +7,7 @@
           <mat-option
             [value]="option.value"
             *ngFor="let option of selection.otherOptions"
-            (click)="onSelect()"
+            (click)="onSelectMapType()"
             >{{ option.viewValue }}</mat-option
           >
         </mat-select>
@@ -23,7 +23,7 @@
           <mat-option
             [value]="option.value"
             *ngFor="let option of selection2.otherOptions"
-            (click)="onSelect()"
+            (click)="onSelectTaskType()"
             >{{ option.viewValue }}</mat-option
           >
         </mat-select>

@@ -42,6 +42,20 @@
               <div class="question" [innerHTML]="task.question"></div>
             </div>
           </div>
+          <div class="legend">
+            <div class="item">
+              <img src="assets/marker-correct-icon.png" />
+              <span> - Točan odgovor</span>
+            </div>
+            <div class="item">
+              <img src="assets/marker-icon.png" /><span>
+                -
+                {{
+                  currentUser!.role === 0 ? " Učenikov odgovor" : " Vaš odgovor"
+                }}
+              </span>
+            </div>
+          </div>
         </div>
       </ng-container>
       <ng-container *ngSwitchCase="TaskType.SelectPolygon">
@@ -84,6 +98,29 @@
             <div class="form-group-column">
               <label for="question"> Tekst zadatka </label>
               <div class="question" [innerHTML]="task.question"></div>
+            </div>
+          </div>
+          <div class="legend">
+            <div class="item">
+              <div class="square green"></div>
+              <span>
+                -{{
+                  task.isCorrect
+                    ? currentUser!.role === 0
+                      ? " Učenikov točan odgovor"
+                      : " Vaš točan odgovor"
+                    : " Točan odgovor"
+                }}</span
+              >
+            </div>
+            <div class="item" *ngIf="!task.isCorrect">
+              <div class="square red"></div>
+              <span>
+                -
+                {{
+                  currentUser!.role === 0 ? " Učenikov odgovor" : " Vaš odgovor"
+                }}
+              </span>
             </div>
           </div>
         </div>
@@ -130,6 +167,29 @@
               <div class="question" [innerHTML]="task.question"></div>
             </div>
           </div>
+          <div class="legend">
+            <div class="item">
+              <img src="assets/marker-correct-icon.png" />
+              <span>
+                -
+                {{
+                  task.isCorrect
+                    ? currentUser!.role === 0
+                      ? " Učenikov točan odgovor"
+                      : " Vaš točan odgovor"
+                    : " Točan odgovor"
+                }}
+              </span>
+            </div>
+            <div class="item" *ngIf="!task.isCorrect">
+              <img src="assets/marker-icon.png" /><span>
+                -
+                {{
+                  currentUser!.role === 0 ? " Učenikov odgovor" : " Vaš odgovor"
+                }}
+              </span>
+            </div>
+          </div>
         </div>
       </ng-container>
       <ng-container *ngSwitchCase="TaskType.MarkPolygon">
@@ -171,6 +231,21 @@
             <div class="form-group-column">
               <label for="question"> Tekst zadatka </label>
               <div class="question" [innerHTML]="task.question"></div>
+            </div>
+          </div>
+          <div class="legend">
+            <div class="item">
+              <div class="square green"></div>
+              <span> - Točan odgovor</span>
+            </div>
+            <div class="item">
+              <div class="square blue"></div>
+              <span>
+                -
+                {{
+                  currentUser!.role === 0 ? "Učenikov odgovor" : "Vaš odgovor"
+                }}
+              </span>
             </div>
           </div>
         </div>

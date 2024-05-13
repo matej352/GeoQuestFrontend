@@ -62,7 +62,7 @@ main {
           align-items: center;
           justify-content: center;
           background: $gray-light;
-          height: 56px;
+          height: 30px;
         }
 
         .form-group {
@@ -88,6 +88,47 @@ main {
         .question {
           max-height: 380px;
           overflow-y: auto;
+        }
+      }
+
+      .legend {
+        height: 100%;
+        align-items: end;
+        display: flex;
+        flex-direction: row;
+
+        .item {
+          display: flex;
+          flex-direction: row;
+
+          img {
+            width: 20px;
+            margin-right: 5px;
+          }
+          span {
+            height: 32px;
+            display: flex;
+            align-items: center;
+            margin-right: 13px;
+          }
+
+          .square {
+            width: 32px;
+            height: 32px;
+            margin-right: 5px;
+          }
+
+          .green {
+            background-color: #08b108;
+          }
+
+          .blue {
+            background-color: #6262dd;
+          }
+
+          .red {
+            background-color: red;
+          }
         }
       }
 

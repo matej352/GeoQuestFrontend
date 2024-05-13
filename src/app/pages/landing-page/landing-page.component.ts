@@ -151,7 +151,9 @@ export class LandingPageComponent implements OnInit {
       )
       .subscribe((res) => {
         this.loginOpened = true;
-        this._snackBar.open('Registracija uspješna, prijavite se!', 'Ok');
+        this._snackBar.open('Registracija uspješna, prijavite se!', 'Ok', {
+          duration: 3000,
+        });
       });
   }
 
