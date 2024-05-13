@@ -23,9 +23,12 @@
       width: 100%;
       font-size: var(--paragraph-font-size);
       background: white;
-      height: 200px;
       box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
         0 2px 10px 0 rgba(0, 0, 0, 0.12);
+
+      .padding-bottom {
+        padding-bottom: 10px;
+      }
 
       .title {
         display: flex;
@@ -47,8 +50,12 @@
         }
       }
 
-      span {
+      span:nth-child(1) {
         color: #747685;
+      }
+
+      span:nth-child(2) {
+        margin-left: 15px;
       }
 
       span.clickable {

@@ -17,7 +17,7 @@
           </h1>
           <fa-icon [icon]="editIcon" title="Uredi" (click)="edit()"></fa-icon>
         </div>
-        <div>
+        <div class="padding-bottom">
           <span>Predmet: </span
           ><span
             class="clickable"
@@ -25,10 +25,13 @@
             >{{ test.subject }}</span
           >
         </div>
-        <div>
-          <span>Opis: </span>{{ test.description ? test.description : "-" }}
+        <div class="padding-bottom">
+          <span>Opis: </span
+          ><span>{{ test.description ? test.description : "-" }}</span>
         </div>
-        <div><span>Trajanje: </span> {{ test.duration }}</div>
+        <div class="padding-bottom">
+          <span>Trajanje: </span> <span> {{ test.duration }}</span>
+        </div>
         <div class="publish-container">
           <button
             class="button-publish"
