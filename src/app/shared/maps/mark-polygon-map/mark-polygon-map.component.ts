@@ -36,6 +36,9 @@ export class MarkPolygonMapComponent
   @Input()
   correctAnswer!: string; //used when TaskViewMode.Result
 
+  @Input()
+  currentUserRole!: number;
+
   studentAnswerPolygon: L.Polygon | null = null;
 
   @Input()
@@ -153,7 +156,10 @@ export class MarkPolygonMapComponent
     });
 
     // Add polygons to the map
-    this.addPolygonToMap(studentPolygon, 'Vaš odgovor');
+    this.addPolygonToMap(
+      studentPolygon,
+      this.currentUserRole === 0 ? 'Učenikov odgovor' : 'Vaš odgovor'
+    );
     this.addPolygonToMap(correctPolygon, 'Točan odgovor');
   }
 

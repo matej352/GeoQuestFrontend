@@ -46,6 +46,9 @@ export class SelectPointMapComponent implements AfterViewInit, OnChanges {
   @Input()
   mode = TaskViewMode.DraftExamPreview;
 
+  @Input()
+  currentUserRole!: number;
+
   private map!: L.Map;
   tileLayer!: L.TileLayer; // Store the current tile layer
   drawnMarkers: CustomMarker[] = [];
@@ -221,7 +224,9 @@ export class SelectPointMapComponent implements AfterViewInit, OnChanges {
           (obj as ITestTaskOptionAnswerResult).id === this.answer
         ) {
           const marker = L.marker([lat, lng]);
-          marker.bindPopup('Vaš odgovor');
+          marker.bindPopup(
+            this.currentUserRole === 0 ? 'Učenikov odgovor' : 'Vaš odgovor'
+          );
 
           marker.on('click', () => {
             marker.openPopup();

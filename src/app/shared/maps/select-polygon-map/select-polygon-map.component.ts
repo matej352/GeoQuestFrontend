@@ -44,6 +44,9 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
   correctAnswer!: number; //used when TaskViewMode.Result
 
   @Input()
+  currentUserRole!: number;
+
+  @Input()
   mode = TaskViewMode.DraftExamPreview;
 
   private map!: L.Map;
@@ -266,7 +269,9 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
           !studentAnsweredCorrectly &&
           (obj as ITestTaskOptionAnswerResult).id === this.answer
         ) {
-          polygon.bindPopup('Vaš odgovor');
+          polygon.bindPopup(
+            this.currentUserRole === 0 ? 'Učenikov odgovor' : 'Vaš odgovor'
+          );
           polygon.setStyle({
             fillColor: 'red',
             color: 'red',

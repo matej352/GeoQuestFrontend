@@ -13,6 +13,7 @@
               mapCenter: task.mapCenter,
               mapZoomLevel: task.mapZoomLevel
             }"
+            [currentUserRole]="currentUser!.role"
           ></app-mark-point-map>
         </div>
         <div class="right">
@@ -56,6 +57,7 @@
               mapCenter: task.mapCenter,
               mapZoomLevel: task.mapZoomLevel
             }"
+            [currentUserRole]="currentUser!.role"
           ></app-select-polygon-map>
         </div>
         <div class="right">
@@ -98,6 +100,7 @@
               mapCenter: task.mapCenter,
               mapZoomLevel: task.mapZoomLevel
             }"
+            [currentUserRole]="currentUser!.role"
           ></app-select-point-map>
         </div>
         <div class="right">
@@ -139,6 +142,7 @@
               mapCenter: task.mapCenter,
               mapZoomLevel: task.mapZoomLevel
             }"
+            [currentUserRole]="currentUser!.role"
           ></app-mark-polygon-map>
         </div>
         <div class="right">

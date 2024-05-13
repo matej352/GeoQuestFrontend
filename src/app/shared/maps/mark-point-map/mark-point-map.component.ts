@@ -56,6 +56,9 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
   @Input()
   mode = TaskViewMode.DraftExamPreview;
 
+  @Input()
+  currentUserRole!: number;
+
   @Output()
   onPointMarked: EventEmitter<any> = new EventEmitter();
 
@@ -104,7 +107,9 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
         [lat, lng] = this.answer.split(',').map(Number);
 
         const studentAnswer = L.marker([lat, lng]).addTo(this.map);
-        studentAnswer.bindPopup('Vaš odgovor');
+        studentAnswer.bindPopup(
+          this.currentUserRole === 0 ? 'Učenikov odgovor' : 'Vaš odgovor'
+        );
         studentAnswer.on('click', () => {
           studentAnswer.openPopup();
         });
