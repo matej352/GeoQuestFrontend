@@ -303,16 +303,16 @@
           >
             <button
               class="correctness-buttons"
-              [ngClass]="{ disabled: task.isCorrect }"
-              [disabled]="task.isCorrect"
+              [ngClass]="{ disabled: task.checked && task.isCorrect }"
+              [disabled]="task.checked && task.isCorrect"
               (click)="gradeTask(true)"
             >
               Točno
             </button>
             <button
               class="correctness-buttons"
-              [disabled]="!task.isCorrect"
-              [ngClass]="{ disabled: !task.isCorrect }"
+              [disabled]="task.checked && !task.isCorrect"
+              [ngClass]="{ disabled: task.checked && !task.isCorrect }"
               (click)="gradeTask(false)"
             >
               Netočno
