@@ -17,6 +17,7 @@ import { ExamsPageComponent } from './pages/exams-page/exams-page.component';
 import { ExamOverviewComponent } from './pages/exams-page/exam-overview/exam-overview.component';
 import { ExamInstanceComponent } from './pages/exams-page/exam-overview/exam-instance/exam-instance.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { MyExamComponent } from './pages/my-exams-page/my-exam/my-exam.component';
 
 const routes: Routes = [
   {
@@ -45,6 +46,11 @@ const routes: Routes = [
     component: OngoingExamComponent,
     canActivate: [AuthGuardService],
     canDeactivate: [LeaveOngoingExamGuard],
+  },
+  {
+    path: ':role/my-exam/:testInstanceId',
+    component: MyExamComponent,
+    canActivate: [AuthGuardService],
   },
   {
     path: ':role/draft-exams',

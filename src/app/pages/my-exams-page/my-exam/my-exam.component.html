@@ -1,0 +1,40 @@
+<app-header></app-header>
+<div class="ongoing-exam">
+  <div class="ongoing-exam-container">
+    <div class="back-container">
+      <fa-icon
+        [icon]="back"
+        class="fa-2x back"
+        title="Nazad"
+        routerLink="/student/my-exams"
+      ></fa-icon>
+    </div>
+    <div class="general-info">
+      <ng-container *ngIf="test$ | async as test">
+        <div class="title">
+          <h1>
+            {{ test.name }}
+          </h1>
+        </div>
+        <div class="padding-bottom">
+          <span>Predmet: </span><span>{{ test.subject }}</span>
+        </div>
+        <div class="padding-bottom">
+          <span>Opis: </span
+          ><span>{{ test.description ? test.description : "-" }}</span>
+        </div>
+        <div class="padding-bottom">
+          <span>Trajanje: </span> <span> {{ test.duration }}</span>
+        </div>
+        <div class="publish-container">
+          <button
+            class="button-publish"
+            [routerLink]="['/student', 'ongoing-exam', test.id]"
+          >
+            Pokreni
+          </button>
+        </div></ng-container
+      >
+    </div>
+  </div>
+</div>

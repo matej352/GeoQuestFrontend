@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="ongoing-exam">
   <div class="ongoing-exam-container">
-    <div *ngIf="loading; else loaded" class="loading">Loading</div>
+    <div *ngIf="loading; else loaded" class="loading"></div>
     <ng-template #loaded>
       <div class="timer-container">
         <p>Preostalo vrijeme: {{ formattedTime }}</p>
@@ -21,7 +21,7 @@
         <div class="submit-button-container">
           <app-button title="Predaj ispit" (click)="submitTest()"></app-button>
         </div>
-        <ng-template #loading>Loading</ng-template>
+        <ng-template #loading></ng-template>
       </div>
     </ng-template>
   </div>

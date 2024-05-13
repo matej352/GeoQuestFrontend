@@ -4,6 +4,7 @@ export interface ITestInstanceResult {
   testInstanceId: number;
   student: string;
   testName: string;
+  description: string;
   allChecked: boolean;
   studentTotalPoints: number;
   testTotalPoints: number;

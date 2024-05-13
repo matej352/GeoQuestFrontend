@@ -5,7 +5,7 @@
     <div class="students-container-actions">
       <div class="students-container">
         <div class="board">
-          <ng-container *ngIf="tests$ | async as tests; else loading">
+          <ng-container *ngIf="tests$ | async as tests">
             <table *ngIf="tests.length !== 0; else noTests">
               <thead>
                 <tr>
@@ -23,7 +23,9 @@
                     <p>{{ test.name }}</p>
                   </td>
                   <td>
-                    <p>{{ test.description ? test.description : "-" }}</p>
+                    <p>
+                      {{ test.description ? test.description : "-" }}
+                    </p>
                   </td>
                   <td>
                     <p>{{ test.subject }}</p>
@@ -54,9 +56,6 @@
               <div class="no-students">Nemate prethodnih ispita</div>
             </ng-template>
           </ng-container>
-          <ng-template #loading>
-            <div class="loading-container">Loading</div>
-          </ng-template>
         </div>
       </div>
     </div>

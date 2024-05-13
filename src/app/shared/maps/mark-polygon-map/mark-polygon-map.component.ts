@@ -139,16 +139,24 @@ export class MarkPolygonMapComponent
     }
   }
   prepareResultView() {
+    // Convert coordinates to LatLng objects
+    if (this.answer) {
+      const studentCoordinates = JSON.parse(this.answer);
+      const studentLatLngs = this.parseCoordinatesToLatLng(studentCoordinates);
+      const studentPolygon = this.createPolygon(studentLatLngs);
+      this.addPolygonToMap(
+        studentPolygon,
+        this.currentUserRole === 0 ? 'Učenikov odgovor' : 'Vaš odgovor'
+      );
+    }
+
     // Parse coordinates from JSON strings
-    const studentCoordinates = JSON.parse(this.answer);
     const correctCoordinates = JSON.parse(this.correctAnswer);
 
-    // Convert coordinates to LatLng objects
-    const studentLatLngs = this.parseCoordinatesToLatLng(studentCoordinates);
     const correctLatLngs = this.parseCoordinatesToLatLng(correctCoordinates);
 
     // Create polygons for student answer and correct answer
-    const studentPolygon = this.createPolygon(studentLatLngs);
+
     const correctPolygon = this.createPolygon(correctLatLngs, {
       fillColor: 'green',
       color: 'green',
@@ -156,10 +164,7 @@ export class MarkPolygonMapComponent
     });
 
     // Add polygons to the map
-    this.addPolygonToMap(
-      studentPolygon,
-      this.currentUserRole === 0 ? 'Učenikov odgovor' : 'Vaš odgovor'
-    );
+
     this.addPolygonToMap(correctPolygon, 'Točan odgovor');
   }
 

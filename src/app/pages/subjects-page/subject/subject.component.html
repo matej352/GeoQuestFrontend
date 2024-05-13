@@ -55,10 +55,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    *ngFor="let student of subjectDetails.students"
-                    [routerLink]="['student', student.id]"
-                  >
+                  <tr *ngFor="let student of subjectDetails.students">
                     <td class="username">
                       <p>{{ student.firstName }}</p>
                     </td>
@@ -103,7 +100,6 @@
               <thead>
                 <tr>
                   <th>Naslov</th>
-                  <th>Opis</th>
                   <th>Trajanje</th>
                   <th>Napredak</th>
                   <th>Status</th>
@@ -117,9 +113,6 @@
                     [routerLink]="'/teacher/exams/exam/' + test.id"
                   >
                     <p>{{ test.name }}</p>
-                  </td>
-                  <td>
-                    <p>{{ test.description ? test.description : "-" }}</p>
                   </td>
                   <td>
                     <p>{{ test.duration }}</p>

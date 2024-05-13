@@ -70,7 +70,8 @@
             </ng-container>
             <ng-template #incorrect>
               <div class="correctness false">
-                Netočno <fa-icon [icon]="correctFalse"></fa-icon>
+                {{ task.studentAnswer ? "Netočno" : "Neodgovoreno" }}
+                <fa-icon [icon]="correctFalse"></fa-icon>
               </div>
             </ng-template>
           </div>
@@ -113,7 +114,8 @@
             </ng-container>
             <ng-template #incorrect>
               <div class="correctness false">
-                Netočno <fa-icon [icon]="correctFalse"></fa-icon>
+                {{ task.studentAnswer ? "Netočno" : "Neodgovoreno" }}
+                <fa-icon [icon]="correctFalse"></fa-icon>
               </div>
             </ng-template>
           </div>
@@ -155,7 +157,8 @@
             </ng-container>
             <ng-template #incorrect>
               <div class="correctness false">
-                Netočno <fa-icon [icon]="correctFalse"></fa-icon>
+                {{ task.studentAnswer ? "Netočno" : "Neodgovoreno" }}
+                <fa-icon [icon]="correctFalse"></fa-icon>
               </div>
             </ng-template>
           </div>
@@ -197,7 +200,8 @@
               </ng-container>
               <ng-template #incorrect>
                 <div class="correctness false">
-                  Netočno <fa-icon [icon]="correctFalse"></fa-icon>
+                  {{ task.studentAnswer ? "Netočno" : "Neodgovoreno" }}
+                  <fa-icon [icon]="correctFalse"></fa-icon>
                 </div>
               </ng-template>
             </ng-container>
@@ -220,7 +224,7 @@
           </div>
           <div
             class="non-map-actions-container"
-            *ngIf="currentUser?.role === 0"
+            *ngIf="currentUser?.role === 0 && task.studentAnswer"
           >
             <button
               class="correctness-buttons"

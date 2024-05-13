@@ -30,7 +30,9 @@
                 <div class="row">
                   <div class="group">
                     <p class="name">Opis ispita</p>
-                    <p class="value">{{ test.description }}</p>
+                    <p class="value">
+                      {{ test.description ? test.description : "-" }}
+                    </p>
                   </div>
                 </div>
               </div>

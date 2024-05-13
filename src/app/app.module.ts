@@ -41,6 +41,7 @@ import { ExamInstanceComponent } from './pages/exams-page/exam-overview/exam-ins
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { LoadingComponent } from './services/loading-service/loading/loading.component';
 import { HttpLoadingInterceptor } from './interceptors/HttpLoadingInterceptor';
+import { MyExamComponent } from './pages/my-exams-page/my-exam/my-exam.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { HttpLoadingInterceptor } from './interceptors/HttpLoadingInterceptor';
     ExamInstanceComponent,
     NotFoundComponent,
     LoadingComponent,
+    MyExamComponent,
   ],
   imports: [
     BrowserModule,

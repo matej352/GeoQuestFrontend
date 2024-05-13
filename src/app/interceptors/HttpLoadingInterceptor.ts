@@ -18,6 +18,9 @@ export class HttpLoadingInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    if (request.url.endsWith('SaveAnswer')) {
+      return next.handle(request);
+    }
     this.loadingDialogService.openDialog();
     return next.handle(request).pipe(
       //delay(1000),                    //slow network simulated 1 sec

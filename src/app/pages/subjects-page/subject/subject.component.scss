@@ -143,7 +143,6 @@
             tr td {
               background-color: var(--white-color);
               height: 60px;
-              cursor: pointer;
             }
 
             thead,
@@ -180,14 +179,6 @@
               padding-top: 10px;
               padding-bottom: 10px;
               color: #747685;
-            }
-
-            td.username {
-              color: var(--primary-color);
-            }
-
-            td.username:hover {
-              font-weight: bold;
             }
 
             tr:nth-child(even) td {
@@ -290,7 +281,7 @@
             border-collapse: collapse;
             min-width: 100%;
             grid-template-columns:
-              minmax(150px, 1fr) minmax(150px, 1.67fr) minmax(150px, 1.67fr)
+              minmax(150px, 1.67fr) minmax(150px, 1.67fr)
               minmax(170px, 1.67fr) minmax(150px, 1fr) minmax(150px, 1fr);
 
             max-height: 400px;
@@ -349,6 +340,11 @@
               }
               .pending {
                 background-color: var(--blue-color);
+              }
+
+              p {
+                overflow: hidden;
+                text-overflow: ellipsis;
               }
             }
 

@@ -5,7 +5,7 @@
     <div class="students-container-actions">
       <div class="students-container">
         <div class="board">
-          <ng-container *ngIf="tests$ | async as tests; else loading">
+          <ng-container *ngIf="tests$ | async as tests">
             <table *ngIf="tests.length !== 0; else noTests">
               <thead>
                 <tr>
@@ -19,11 +19,17 @@
               </thead>
               <tbody>
                 <tr *ngFor="let test of tests">
-                  <td class="username" [routerLink]="['exam', test.id]">
+                  <td
+                    class="username"
+                    [routerLink]="['/student', 'my-exam', test.id]"
+                  >
                     <p>{{ test.name }}</p>
                   </td>
                   <td>
-                    <p>{{ test.description ? test.description : "-" }}</p>
+                    <p>
+                      {{ test.description ? test.description : "-" }}
+                      <span *ngIf="test.description"> </span>
+                    </p>
                   </td>
                   <td>
                     <p>{{ test.subject }}</p>
@@ -49,9 +55,6 @@
               <div class="no-students">Trenutno nemate neriješenih ispita</div>
             </ng-template>
           </ng-container>
-          <ng-template #loading>
-            <div class="loading-container">Loading</div>
-          </ng-template>
         </div>
       </div>
     </div>
