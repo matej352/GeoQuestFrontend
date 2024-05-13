@@ -32,6 +32,7 @@
             [task]="task"
             [class]="'task' + task.id"
             [index]="index"
+            (taskDeleted)="onTaskDeleted()"
           ></app-task-card>
         </ng-container>
         <ng-template #noTasks>

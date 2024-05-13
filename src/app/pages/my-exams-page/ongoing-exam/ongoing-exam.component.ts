@@ -27,7 +27,7 @@ import {
 import { DialogOpenerService } from 'src/app/services/dialog-services/dialog-opener.service';
 import { TaskInstanceService } from 'src/app/services/task-instance.service';
 import { TestInstanceService } from 'src/app/services/test-instance.service';
-import { ConfirmLeaveOngoingExamDialogComponent } from 'src/app/shared/dialogs/confirm-leave-ongoing-exam-dialog/confirm-leave-ongoing-exam-dialog.component';
+import { YesNoDialogComponent } from 'src/app/shared/dialogs/confirm-leave-ongoing-exam-dialog/confirm-leave-ongoing-exam-dialog.component';
 import { UserProfileStoreService } from 'src/app/storage/user-profile-store.service';
 
 @Component({
@@ -178,13 +178,15 @@ export class OngoingExamComponent
       !this.properTestSubmition
     ) {
       this.dialogOpened = true;
-      const dialogRef = this.dialog.open(
-        ConfirmLeaveOngoingExamDialogComponent,
-        {
-          width: '900px',
-          disableClose: true,
-        }
-      );
+      const dialogRef = this.dialog.open(YesNoDialogComponent, {
+        data: {
+          title: 'Potvrdite odlazak',
+          description:
+            'Ispit će se automatski završiti i predati. Jeste li sigurni da želite napustiti ispit?',
+        },
+        width: '900px',
+        disableClose: true,
+      });
 
       return dialogRef.afterClosed().pipe(
         tap((trueOrFlase: boolean) => {

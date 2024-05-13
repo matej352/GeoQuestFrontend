@@ -94,6 +94,10 @@ export class DraftExamComponent implements OnInit, OnDestroy {
     );
   }
 
+  onTaskDeleted() {
+    this.tasks$ = this._taskService.getTasks(this.testId);
+  }
+
   edit() {
     this._dialogOpenerService.openAddExamDialog(this.test);
   }

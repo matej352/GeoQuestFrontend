@@ -25,7 +25,7 @@ import { AddStudentsDialogComponent } from './shared/dialogs/add-students-dialog
 import { StudentsInvitationComponent } from './shared/dialogs/add-students-dialog/students-invitation/students-invitation.component';
 import { MyExamsPageComponent } from './pages/my-exams-page/my-exams-page.component';
 import { OngoingExamComponent } from './pages/my-exams-page/ongoing-exam/ongoing-exam.component';
-import { ConfirmLeaveOngoingExamDialogComponent } from './shared/dialogs/confirm-leave-ongoing-exam-dialog/confirm-leave-ongoing-exam-dialog.component';
+import { YesNoDialogComponent } from './shared/dialogs/confirm-leave-ongoing-exam-dialog/confirm-leave-ongoing-exam-dialog.component';
 import { PreviousExamsPageComponent } from './pages/previous-exams-page/previous-exams-page.component';
 import { PreviousExamComponent } from './pages/previous-exams-page/previous-exam/previous-exam.component';
 import { MarkPolygonMapComponent } from './shared/maps/mark-polygon-map/mark-polygon-map.component';
@@ -67,7 +67,7 @@ import { HttpLoadingInterceptor } from './interceptors/HttpLoadingInterceptor';
     StudentsInvitationComponent,
     MyExamsPageComponent,
     OngoingExamComponent,
-    ConfirmLeaveOngoingExamDialogComponent,
+    YesNoDialogComponent,
     PreviousExamsPageComponent,
     PreviousExamComponent,
     MarkPolygonMapComponent,

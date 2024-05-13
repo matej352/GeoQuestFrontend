@@ -1,8 +1,5 @@
-<h1 mat-dialog-title>Potvrdite odlazak</h1>
-<div mat-dialog-content>
-  Ispit će se automatski završiti i predati. Jeste li sigurni da želite
-  napustiti ispit?
-</div>
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<div mat-dialog-content>{{ data.description }}</div>
 <div mat-dialog-actions>
   <button mat-button (click)="confirmClose()">Da</button>
   <button mat-button (click)="cancelClose()">Ne</button>

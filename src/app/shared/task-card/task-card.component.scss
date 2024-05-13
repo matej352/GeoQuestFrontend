@@ -22,6 +22,24 @@ main {
         padding-left: 10px;
       }
 
+      .task-actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+
+        fa-icon {
+          cursor: pointer;
+          color: var(--secondary-color);
+        }
+
+        fa-icon:hover {
+          color: var(--primary-color);
+        }
+      }
+
       .form-container {
         display: flex;
         justify-content: center;

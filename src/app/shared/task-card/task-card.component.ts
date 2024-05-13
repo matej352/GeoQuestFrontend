@@ -1,5 +1,14 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import { EMPTY, catchError } from 'rxjs';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { EMPTY, catchError, take, tap } from 'rxjs';
 import { MapType } from 'src/app/enums/map-type';
 import { TaskType } from 'src/app/enums/task-type';
 import { TaskViewMode } from 'src/app/enums/task-view-mode';
@@ -8,6 +17,8 @@ import { ITaskInstanceAnswer } from 'src/app/models/taskInstanceAnswerDto';
 import { ITaskInstanceDto } from 'src/app/models/taskInstanceDto';
 import { TaskInstanceService } from 'src/app/services/task-instance.service';
 import { mapType } from 'src/app/types/types';
+import { YesNoDialogComponent } from '../dialogs/confirm-leave-ongoing-exam-dialog/confirm-leave-ongoing-exam-dialog.component';
+import { TaskService } from 'src/app/services/task.service';
 
 @Component({
   selector: 'app-task-card',
@@ -15,6 +26,8 @@ import { mapType } from 'src/app/types/types';
   styleUrls: ['./task-card.component.scss'],
 })
 export class TaskCardComponent implements OnInit, AfterViewInit {
+  trash = faTrash;
+
   TaskType = TaskType;
 
   @Input()
@@ -29,7 +42,14 @@ export class TaskCardComponent implements OnInit, AfterViewInit {
   @Input()
   testInstanceId!: number | null;
 
-  constructor(private _taskInstanceService: TaskInstanceService) {}
+  @Output()
+  taskDeleted: EventEmitter<void> = new EventEmitter<void>();
+
+  constructor(
+    private _taskInstanceService: TaskInstanceService,
+    private _taskService: TaskService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {}
 
@@ -170,6 +190,33 @@ export class TaskCardComponent implements OnInit, AfterViewInit {
   }
 
   //#endregion
+
+  deleteTask() {
+    const dialogRef = this.dialog.open(YesNoDialogComponent, {
+      data: {
+        title: 'Potvrdite brisanje zadatka',
+        description:
+          'Zadatak će se trajno izbrisati. Jeste li sigurni da želite obrisati zadaatak?',
+      },
+      width: '900px',
+      disableClose: true,
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(
+        take(1),
+        tap((trueOrFlase: boolean) => {
+          if (trueOrFlase == true) {
+            // obrisi
+            this._taskService
+              .deleteTask(this.task.id!)
+              .subscribe((res) => this.taskDeleted.emit());
+          }
+        })
+      )
+      .subscribe();
+  }
 
   getMapType(mapType: MapType): mapType {
     switch (mapType) {

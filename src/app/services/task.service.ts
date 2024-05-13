@@ -18,6 +18,15 @@ export class TaskService {
     });
   }
 
+  deleteTask(taskId: number): Observable<any> {
+    return this.http.delete<any>(
+      `${this._apiURL}/Task/Delete?taskId=${taskId}`,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
   getTasks(testId: number): Observable<any> {
     return this.http.get<any>(`${this._apiURL}/Task/Tasks?testId=${testId}`, {
       withCredentials: true,
