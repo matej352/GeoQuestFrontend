@@ -33,7 +33,9 @@
 
             <p class="subject-info">
               <span>Opis:</span>
-              <span>{{ subjectDetails.description }}</span>
+              <span>{{
+                subjectDetails.description ? subjectDetails.description : "-"
+              }}</span>
             </p>
           </div>
         </div>
@@ -69,9 +71,7 @@
                 </tbody>
               </table>
               <ng-template #noStudents>
-                <div class="no-students">
-                  Trenutno na ovom predmetu nema učenika
-                </div>
+                <div class="no-students">Nema učenika na predmetu</div>
               </ng-template>
             </div>
           </div>
@@ -156,9 +156,7 @@
               </tbody>
             </table>
             <ng-template #noTests>
-              <div class="no-students">
-                Trenutno nema ispita za ovaj predmet
-              </div>
+              <div class="no-students">Nema ispita na predmetu</div>
             </ng-template>
           </div>
         </div>

@@ -2,8 +2,19 @@
   <h2>
     {{ subject.name }}
   </h2>
-  <div><span>Broj učenika: </span>{{ subject.studentsCount }}</div>
-  <div><span>Opis: </span> {{ subject.description }}</div>
+  <div style="padding: 0 0px 10px 0px">
+    <span>Broj učenika: </span
+    ><span style="margin-left: 15px; color: black">
+      {{ subject.studentsCount }}
+    </span>
+  </div>
+  <div style="padding: 0 0px 10px 0px">
+    <span>Opis: </span>
+
+    <span style="margin-left: 15px; color: black">
+      {{ subject.description ? subject.description : "-" }}</span
+    >
+  </div>
 
   <!--div class="date-container">
         <div>
