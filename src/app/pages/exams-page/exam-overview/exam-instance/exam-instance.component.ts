@@ -53,10 +53,10 @@ export class ExamInstanceComponent implements OnInit {
     this._router.navigate(['../../'], { relativeTo: this._route });
   }
 
-  onTaskGraded(correctness: boolean) {
-    if (correctness) {
+  onTaskGraded(obj: { correctness: boolean; wasChecked: boolean }) {
+    if (obj.correctness) {
       this.testInstance.studentTotalPoints += 1;
-    } else {
+    } else if (!obj.correctness && obj.wasChecked) {
       this.testInstance.studentTotalPoints -= 1;
     }
 

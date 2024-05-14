@@ -87,27 +87,30 @@ export class DraftExamComponent implements OnInit, OnDestroy {
     }, 1);
   }
 
-  onTaskCreated() {
+  onTaskCreated(isCreated: boolean) {
     this.createTaskOpened = false;
-    this.tasks$ = this._taskService.getTasks(this.testId).pipe(
-      tap((tasks: ITaskDto[]) => {
-        setTimeout(() => {
-          let elementId = tasks.at(tasks.length - 1)?.id;
-          if (elementId) {
-            let el = document.getElementsByClassName(
-              'task' + elementId.toString()
-            )[0];
-            el?.scrollIntoView({
-              behavior: 'smooth',
-            });
-          }
-        }, 10);
-      })
-    );
 
-    this.test$ = this._testService
-      .getTest(this.testId)
-      .pipe(tap((test) => (this.test = test)));
+    if (isCreated) {
+      this.tasks$ = this._taskService.getTasks(this.testId).pipe(
+        tap((tasks: ITaskDto[]) => {
+          setTimeout(() => {
+            let elementId = tasks.at(tasks.length - 1)?.id;
+            if (elementId) {
+              let el = document.getElementsByClassName(
+                'task' + elementId.toString()
+              )[0];
+              el?.scrollIntoView({
+                behavior: 'smooth',
+              });
+            }
+          }, 10);
+        })
+      );
+
+      this.test$ = this._testService
+        .getTest(this.testId)
+        .pipe(tap((test) => (this.test = test)));
+    }
   }
 
   onTaskDeleted() {

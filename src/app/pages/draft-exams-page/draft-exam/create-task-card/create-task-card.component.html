@@ -29,6 +29,12 @@
         </mat-select>
       </mat-form-field>
     </div>
+    <fa-icon
+      title="Odustani"
+      mat-dialog-close
+      [icon]="closeIcon"
+      (click)="close()"
+    ></fa-icon>
   </div>
   <div class="configuration-container">
     <ng-container [ngSwitch]="selectedTaskTypeOption">

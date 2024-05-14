@@ -166,7 +166,7 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
     } else {
       this.map = L.map(this.mapId, {
         center: [44.5, 16],
-        zoom: 8,
+        zoom: 2,
       });
     }
 

@@ -7,6 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MapType } from 'src/app/enums/map-type';
 import { TaskType } from 'src/app/enums/task-type';
 import { IOptionAnwser } from 'src/app/models/option-anwser';
@@ -40,7 +41,7 @@ export class CreateTaskCardComponent implements OnInit {
   testId!: number;
 
   @Output()
-  taskCreatedSuccessfully: EventEmitter<void> = new EventEmitter();
+  taskCreatedSuccessfully: EventEmitter<boolean> = new EventEmitter();
 
   selection!: SelectionType;
   selection2!: SelectionType;
@@ -51,6 +52,9 @@ export class CreateTaskCardComponent implements OnInit {
 
   selectPointOrPolygonMapHasOneCorrect = false;
   selectPointOrPolygonMapHasAtLeastTwoPoints = false;
+
+  //icons
+  closeIcon = faTimes;
 
   //form
   taskForm!: FormGroup;
@@ -167,7 +171,7 @@ export class CreateTaskCardComponent implements OnInit {
     };
 
     this._taskService.createTask(taskDto).subscribe((res) => {
-      this.taskCreatedSuccessfully.emit();
+      this.taskCreatedSuccessfully.emit(true);
     });
   }
 
@@ -183,7 +187,7 @@ export class CreateTaskCardComponent implements OnInit {
     };
 
     this._taskService.createTask(taskDto).subscribe((res) => {
-      this.taskCreatedSuccessfully.emit();
+      this.taskCreatedSuccessfully.emit(true);
     });
   }
 
@@ -199,7 +203,7 @@ export class CreateTaskCardComponent implements OnInit {
     };
 
     this._taskService.createTask(taskDto).subscribe((res) => {
-      this.taskCreatedSuccessfully.emit();
+      this.taskCreatedSuccessfully.emit(true);
     });
   }
 
@@ -216,8 +220,12 @@ export class CreateTaskCardComponent implements OnInit {
     };
 
     this._taskService.createTask(taskDto).subscribe((res) => {
-      this.taskCreatedSuccessfully.emit();
+      this.taskCreatedSuccessfully.emit(true);
     });
+  }
+
+  close() {
+    this.taskCreatedSuccessfully.emit(false);
   }
 
   getTaskType(): TaskType {

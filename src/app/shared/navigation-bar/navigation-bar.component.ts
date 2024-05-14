@@ -139,7 +139,7 @@ export class NavigationBarComponent implements OnInit {
       {
         id: 7,
         link: '/student/my-exams',
-        text: 'Moji ispiti',
+        text: 'Ispiti',
         role: [ROLE_STUDENT],
       },
     ];

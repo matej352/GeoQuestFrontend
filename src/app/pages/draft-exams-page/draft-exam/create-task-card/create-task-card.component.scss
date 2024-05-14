@@ -7,6 +7,18 @@ main {
     display: flex;
     gap: 30px;
     margin-bottom: 15px;
+    position: relative;
+
+    fa-icon {
+      cursor: pointer;
+      color: var(--secondary-color);
+      position: absolute;
+      right: 0;
+    }
+
+    fa-icon:hover {
+      color: var(--primary-color);
+    }
 
     .filter-item {
       padding: 0 5px;

@@ -77,7 +77,7 @@
       <div *ngIf="createTaskOpened" class="task" id="newTask">
         <app-create-task-card
           [testId]="testId"
-          (taskCreatedSuccessfully)="onTaskCreated()"
+          (taskCreatedSuccessfully)="onTaskCreated($event)"
         ></app-create-task-card>
       </div>
     </div>

@@ -46,7 +46,8 @@ export class TaskResultCardComponent implements OnInit, AfterViewInit {
   currentUser!: IAccount | null;
 
   @Output()
-  taskGraded: EventEmitter<boolean> = new EventEmitter<boolean>();
+  taskGraded: EventEmitter<{ correctness: boolean; wasChecked: boolean }> =
+    new EventEmitter<{ correctness: boolean; wasChecked: boolean }>();
 
   constructor(private _taskInstanceService: TaskInstanceService) {}
 
@@ -104,9 +105,11 @@ export class TaskResultCardComponent implements OnInit, AfterViewInit {
         })
       )
       .subscribe((res) => {
+        let wasChecked = this.task.checked;
+
         this.task.checked = true;
         this.task.isCorrect = correctness;
-        this.taskGraded.emit(correctness);
+        this.taskGraded.emit({ correctness, wasChecked });
       });
   }
 

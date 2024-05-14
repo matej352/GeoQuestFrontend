@@ -90,6 +90,9 @@
             <footer *ngIf="test.active">
               <div>
                 <span class="button-close" (click)="closeTest()">Zatvori</span>
+                <app-tooltip
+                  message="Učenici više neće moći pokrenuti ispit"
+                ></app-tooltip>
               </div>
             </footer>
           </main>

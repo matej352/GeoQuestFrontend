@@ -78,7 +78,9 @@ export class ExamOverviewComponent implements OnInit {
       100
     ).toFixed(2);
 
-    this.studentsAvgPointsMessage = `Prosječan broj bodova je ${test.avgPoints}`;
+    this.studentsAvgPointsMessage = `Prosječan broj bodova je ${test.avgPoints.toFixed(
+      2
+    )}`;
   }
 
   closeTest() {
