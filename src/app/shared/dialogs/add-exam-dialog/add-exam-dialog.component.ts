@@ -82,14 +82,6 @@ export class AddExamDialogComponent implements OnInit {
   }
 
   confirmed() {
-    //send invites to selected students
-    /*if (this.selectedStudents.length !== 0) {
-       let studentIds = this.selectedStudents.map(student => student.id);
-       this.classroomService.sendClassroomInvites(this.data.classroomId, studentIds).subscribe( () =>  this.dialogRef.close(true) )
-     }
-     this.dialogRef.close(true);
-     */
-
     let data = {
       id: this.isEdit ? this.data.test.id : undefined,
       name: this.form.controls['name'].value,
@@ -103,7 +95,6 @@ export class AddExamDialogComponent implements OnInit {
         .updateTest(data)
         .pipe(
           catchError((err) => {
-            console.log(err);
             return EMPTY;
           })
         )
@@ -113,7 +104,6 @@ export class AddExamDialogComponent implements OnInit {
         .createTest(data)
         .pipe(
           catchError((err) => {
-            console.log(err);
             return EMPTY;
           })
         )

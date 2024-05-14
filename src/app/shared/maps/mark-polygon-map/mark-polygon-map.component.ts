@@ -88,7 +88,6 @@ export class MarkPolygonMapComponent
     //slucaj da ucitelj radi novi zadatak
     if (this.mapId === 'mark_polygon') {
       this.initializeMap();
-      console.log('Mapa MARK POLYGON --> radi se novi zadatak');
     }
     //slucaj da student rjesava zadatak
     else if (this.mode === TaskViewMode.Solving) {
@@ -119,7 +118,6 @@ export class MarkPolygonMapComponent
         // Create a popup and bind it to the polygon layer
         polygonLayer.bindPopup(deleteButton);
       }
-      console.log('Mapa MARK POLYGON --> student rjesava zadatak');
     }
     //slucaj da ucitelj gleda skicu ispita sa pripadnim zadacima
     else if (this.mode === TaskViewMode.DraftExamPreview) {
@@ -128,14 +126,8 @@ export class MarkPolygonMapComponent
         L.latLng(coord.lat, coord.lng)
       );
       L.polygon(latLngs).addTo(this.map);
-
-      console.log('Mapa MARK POLYGON --> ucitelj gleda skicu ispita ');
     } else if (this.mode === TaskViewMode.Result) {
       this.prepareResultView();
-
-      console.log(
-        'Mapa MARK POINT --> ucitelj/student gledaju rezultat ispita'
-      );
     }
   }
   prepareResultView() {
@@ -209,7 +201,6 @@ export class MarkPolygonMapComponent
 
     if (!this.polygonDrawn) {
       this.map.on(L.Draw.Event.CREATED, (event: any) => {
-        //console.log(event);
         const layer = event.layer;
 
         (layer as CustomLayer).properties = {
@@ -244,9 +235,7 @@ export class MarkPolygonMapComponent
         this.map.removeControl(this.drawControl);
       });
 
-      this.drawnItem.on('click', (event: any) => {
-        //console.log(event.layer.properties); // Access the custom properties
-      });
+      this.drawnItem.on('click', (event: any) => {});
     }
   }
 

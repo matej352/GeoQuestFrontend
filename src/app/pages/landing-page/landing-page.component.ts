@@ -118,7 +118,6 @@ export class LandingPageComponent implements OnInit {
         switchMap((_) => this._accountService.getAccountDetails())
       )
       .subscribe((user: IAccount) => {
-        console.log(user);
         this._userProfileStore.setAccountData(user);
         this._router.navigate([
           user.role === ROLE_TEACHER
@@ -145,7 +144,6 @@ export class LandingPageComponent implements OnInit {
       .registerAccount(data)
       .pipe(
         catchError((err) => {
-          console.log(err);
           return EMPTY;
         })
       )
@@ -162,12 +160,10 @@ export class LandingPageComponent implements OnInit {
       .logout()
       .pipe(
         catchError((err) => {
-          console.log(err);
           return EMPTY;
         })
       )
       .subscribe((res) => {
-        console.log(res);
         this._userProfileStore.setAccountData(null);
         this._cookieService.deleteAll();
       });

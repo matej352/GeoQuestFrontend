@@ -142,7 +142,6 @@ export class DraftExamComponent implements OnInit, OnDestroy {
               .publishTest(testId)
               .pipe(
                 catchError((err) => {
-                  console.log(err);
                   return EMPTY;
                 })
               )

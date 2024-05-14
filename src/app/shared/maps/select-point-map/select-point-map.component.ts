@@ -97,8 +97,6 @@ export class SelectPointMapComponent implements AfterViewInit, OnChanges {
 
     //slucaj da ucitelj radi novi zadatak
     if (this.mapId === 'select_point') {
-      console.log('Mapa SELECT POINT --> radi se novi zadatak');
-
       this.map.on('click', (e) => {
         // Get the clicked coordinates
         var lat = e.latlng.lat;
@@ -153,13 +151,11 @@ export class SelectPointMapComponent implements AfterViewInit, OnChanges {
 
     //slucaj da student rjesava zadatak
     else if (this.mode === TaskViewMode.Solving) {
-      console.log('Mapa SELECT POINT --> student rjesava zadatak');
       this.initializeMapForSolving();
     }
 
     //slucaj da ucitelj gleda skicu ispita sa pripadnim zadacima
     else if (this.mode === TaskViewMode.DraftExamPreview) {
-      console.log('Mapa SELECT POINT --> ucitelj gleda skicu ispita');
       let studentAnsweredCorrectly = false;
 
       this.answers.forEach((obj) => {
@@ -238,10 +234,6 @@ export class SelectPointMapComponent implements AfterViewInit, OnChanges {
           marker.addTo(this.map);
         }
       });
-
-      console.log(
-        'Mapa SELECT POINT --> ucitelj/student gledaju rezultat ispita'
-      );
     }
   }
 
@@ -379,7 +371,6 @@ export class SelectPointMapComponent implements AfterViewInit, OnChanges {
   }
 
   emitDrawnMarkersChange() {
-    //console.log(this.drawnItems);
     let items: IOptionAnwser[] = [];
 
     this.drawnMarkers.forEach((marker) => {

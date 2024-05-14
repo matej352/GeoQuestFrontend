@@ -101,8 +101,6 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
 
     //slucaj da ucitelj radi novi zadatak
     if (this.mapId === 'select_polygon') {
-      console.log('Mapa SELECT POLYGON --> radi se novi zadatak');
-
       this.map.addLayer(this.drawnItems);
 
       var drawControl = new L.Control.Draw({
@@ -125,8 +123,6 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
       this.map.addControl(drawControl);
 
       this.map.on(L.Draw.Event.CREATED, (event: any) => {
-        //console.log(this.drawnItems);
-
         const layer = event.layer;
 
         (layer as CustomLayer).properties = {
@@ -190,21 +186,16 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
         this.emitDrawnItemsChange();
       });
 
-      this.drawnItems.on('click', (event: any) => {
-        console.log(event.layer.properties); // Access the custom properties
-      });
+      this.drawnItems.on('click', (event: any) => {});
     }
 
     //slucaj da student rjesava zadatak
     else if (this.mode === TaskViewMode.Solving) {
-      console.log('Mapa SELECT POLYGON --> student rjesava zadatak');
       this.initializeMapForSolving();
     }
 
     //slucaj da ucitelj gleda skicu ispita sa pripadnim zadacima
     else if (this.mode === TaskViewMode.DraftExamPreview) {
-      console.log('Mapa SELECT POLYGON --> ucitelj gleda skicu ispita');
-
       this.answers.forEach((obj) => {
         // Parse the content to extract coordinates
         const coordinates = JSON.parse(obj.content);
@@ -286,10 +277,6 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
         // Add polygon to map
         polygon.addTo(this.map);
       });
-
-      console.log(
-        'Mapa SELECT POLYGON --> ucitelj/student gledaju rezultat ispita'
-      );
     }
   }
 
@@ -336,7 +323,6 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
   }
 
   emitDrawnItemsChange() {
-    //console.log(this.drawnItems);
     let items: IOptionAnwser[] = [];
 
     Object.values((this.drawnItems as any)._layers).forEach((layer) => {
@@ -352,7 +338,6 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
       // Access properties of the layer
       const properties = (layer as any).properties;
       item.properties = properties;
-      //console.log(properties);
 
       // Access coordinates (_latlngs) of the layer
       const latlngs = (layer as any)._latlngs[0];
@@ -362,13 +347,11 @@ export class SelectPolygonMapComponent implements AfterViewInit, OnChanges {
           lng: pair.lng,
         });
       });
-      //console.log(latlngs);
 
       items.push(item);
     });
 
     this.onDrawnItemsChange.emit(items);
-    //console.log(items);
   }
 
   initializeMapForSolving() {

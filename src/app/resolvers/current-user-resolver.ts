@@ -23,7 +23,6 @@ export class CurrentUserResolver implements Resolve<IAccount> {
   ): Observable<IAccount> {
     return this._accountService.getAccountDetails().pipe(
       catchError((err) => {
-        console.log(err);
         this._userProfileStore.setAccountData(null);
         return EMPTY;
       }),

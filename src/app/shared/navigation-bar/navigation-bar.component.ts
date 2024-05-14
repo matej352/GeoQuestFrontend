@@ -91,12 +91,10 @@ export class NavigationBarComponent implements OnInit {
       .logout()
       .pipe(
         catchError((err) => {
-          console.log(err);
           return EMPTY;
         })
       )
       .subscribe((res) => {
-        console.log(res);
         this._userProfileStore.setAccountData(null);
         this._router.navigate(['landing']);
 

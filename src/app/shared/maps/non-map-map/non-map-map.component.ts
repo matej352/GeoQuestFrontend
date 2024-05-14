@@ -60,7 +60,6 @@ export class NonMapMapComponent implements OnInit, OnChanges, AfterViewInit {
     //slucaj da ucitelj radi novi zadatak
     if (this.mapId === 'non_map') {
       this.initializeClickListener();
-      console.log('Mapa NON MAP --> radi se novi zadatak');
     }
     //slucaj da student rjesava zadatak
     else if (this.mode === TaskViewMode.Solving) {
@@ -121,14 +120,11 @@ export class NonMapMapComponent implements OnInit, OnChanges, AfterViewInit {
           document.getElementById('answer-non-map') as HTMLTextAreaElement
         ).value;
       });
-
-      console.log('Mapa NON MAP --> student rjesava zadatak');
     }
     //slucaj da ucitelj gleda skicu ispita sa pripadnim zadacima
     else if (this.mode === TaskViewMode.DraftExamPreview) {
       const [lat, lng] = this.nonMapPoint.split(',').map(Number);
       L.marker([lat, lng]).addTo(this.map);
-      console.log('Mapa NON MAP --> ucitelj gleda skicu ispita ');
     } else if (this.mode === TaskViewMode.Result) {
       const [lat, lng] = this.nonMapPoint.split(',').map(Number);
       const marker = L.marker([lat, lng]).addTo(this.map);
@@ -153,8 +149,6 @@ export class NonMapMapComponent implements OnInit, OnChanges, AfterViewInit {
       });
 
       marker.openPopup();
-
-      console.log('Mapa NON MAP --> ucitelj/student gledaju rezultat ispita ');
     }
   }
 
@@ -176,9 +170,6 @@ export class NonMapMapComponent implements OnInit, OnChanges, AfterViewInit {
     this.marker = L.marker([lat, lng]).addTo(this.map);
 
     this.onPointMarked.emit([lat, lng]);
-
-    // Do whatever you need with the coordinates (lat, lng)
-    console.log(`Clicked at: ${lat}, ${lng}`);
   }
 
   private initializeMap(): void {

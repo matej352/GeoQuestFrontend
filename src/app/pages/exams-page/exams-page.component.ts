@@ -22,7 +22,6 @@ export class ExamsPageComponent implements OnInit {
       .closeTest(testInstanceBaseId)
       .pipe(
         catchError((err) => {
-          console.log(err);
           return EMPTY;
         })
       )

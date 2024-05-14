@@ -100,7 +100,6 @@ export class TaskResultCardComponent implements OnInit, AfterViewInit {
       .gradeTaskInstance(grade)
       .pipe(
         catchError((err) => {
-          console.log(err);
           return EMPTY;
         })
       )

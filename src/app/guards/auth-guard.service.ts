@@ -72,7 +72,6 @@ export class AuthGuardService implements CanActivate {
     } else {
       return this._accountService.getAccountDetails().pipe(
         catchError((err) => {
-          console.log(err);
           this._userProfileStore.setAccountData(null);
           this._router.navigate(['landing']);
           return of(false);

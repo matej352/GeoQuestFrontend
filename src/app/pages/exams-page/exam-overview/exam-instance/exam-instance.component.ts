@@ -32,13 +32,7 @@ export class ExamInstanceComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.currentUser$ = this._userProfileStore
-      .getAccountData()
-      .pipe
-      /*tap((user: IAccount | null) => {
-      this.currentUser = user;
-    }) */
-      ();
+    this.currentUser$ = this._userProfileStore.getAccountData();
 
     this._route.paramMap
       .pipe(
@@ -47,32 +41,11 @@ export class ExamInstanceComponent implements OnInit {
           return this._testInstanceService.getTestInstanceResult(
             this.testInstanceId
           );
-          /*.pipe(
-        tap((testInstance: ITestInstanceDetails) => {
-          this.testInstance = testInstance;
-          console.log(testInstance);
-
-
-        }),
-        switchMap((testInstance: ITestInstanceDetails) => {
-          return this._taskInstanceService.getTaskInstances(
-            testInstance.id
-          );
-        }),
-        catchError((err) => {
-          console.log(err);
-          // Handle error here, e.g., open a snackbar and reroute
-          this.testAlreadyFinished = true;
-          this._router.navigateByUrl('/student/my-exams');
-          return EMPTY; // Return an empty observable to continue the stream
-        })
-      ); */
         })
       )
       .subscribe((result: ITestInstanceResult) => {
         this.testInstance = result;
         this.loading = false;
-        console.log(this.loading);
       });
   }
 

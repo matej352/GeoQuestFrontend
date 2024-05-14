@@ -53,26 +53,6 @@ export class ExamOverviewComponent implements OnInit {
                 this.prepareDataForProgressBarAndCircle(test);
               })
             );
-          /*.pipe(
-      tap((testInstance: ITestInstanceDetails) => {
-        this.testInstance = testInstance;
-        console.log(testInstance);
-
-
-      }),
-      switchMap((testInstance: ITestInstanceDetails) => {
-        return this._taskInstanceService.getTaskInstances(
-          testInstance.id
-        );
-      }),
-      catchError((err) => {
-        console.log(err);
-        // Handle error here, e.g., open a snackbar and reroute
-        this.testAlreadyFinished = true;
-        this._router.navigateByUrl('/student/my-exams');
-        return EMPTY; // Return an empty observable to continue the stream
-      })
-    ); */
         })
       )
       .subscribe();
@@ -106,7 +86,6 @@ export class ExamOverviewComponent implements OnInit {
       .closeTest(this.testInstanceBaseId)
       .pipe(
         catchError((err) => {
-          console.log(err);
           return EMPTY;
         })
       )

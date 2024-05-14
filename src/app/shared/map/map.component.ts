@@ -114,7 +114,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   private highlightFeature(e: L.LeafletMouseEvent) {
     const layer = e.target;
-    console.log(e.target.feature.properties.name);
 
     layer.setStyle({
       weight: 10,

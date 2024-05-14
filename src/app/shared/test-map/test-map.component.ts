@@ -63,7 +63,6 @@ export class TestMapComponent implements OnInit {
     this.map.addControl(drawControl);
 
     this.map.on(L.Draw.Event.CREATED, (event: any) => {
-      console.log(event);
       const layer = event.layer;
 
       (layer as CustomLayer).properties = {
@@ -85,9 +84,7 @@ export class TestMapComponent implements OnInit {
       drawnItems.addLayer(layer);
     });
 
-    drawnItems.on('click', (event: any) => {
-      console.log(event.layer.properties); // Access the custom properties
-    });
+    drawnItems.on('click', (event: any) => {});
   }
 }
 

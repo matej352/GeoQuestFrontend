@@ -126,18 +126,14 @@ export class CreateTaskCardComponent implements OnInit {
       this.selectPointOrPolygonMapHasOneCorrect = false;
       this.selectPointOrPolygonMapHasAtLeastTwoPoints = false;
     }
-
-    console.log(this.drawnItems);
   }
 
   drawnItemChange(markedPolygon: string) {
     this.markedPolygon = markedPolygon;
-    console.log(this.markedPolygon);
   }
 
   markedPointChanged(point: any) {
     this.markedPoint = point;
-    console.log(this.markedPoint);
   }
 
   submitSelectPolygonOrPoint(polygonOrPoint: string) {
@@ -170,10 +166,7 @@ export class CreateTaskCardComponent implements OnInit {
       },
     };
 
-    console.log(taskDto);
-
     this._taskService.createTask(taskDto).subscribe((res) => {
-      console.log(res);
       this.taskCreatedSuccessfully.emit();
     });
   }
@@ -189,10 +182,7 @@ export class CreateTaskCardComponent implements OnInit {
       type: this.getTaskType(),
     };
 
-    console.log(taskDto);
-
     this._taskService.createTask(taskDto).subscribe((res) => {
-      console.log(res);
       this.taskCreatedSuccessfully.emit();
     });
   }
@@ -208,10 +198,7 @@ export class CreateTaskCardComponent implements OnInit {
       type: this.getTaskType(),
     };
 
-    console.log(taskDto);
-
     this._taskService.createTask(taskDto).subscribe((res) => {
-      console.log(res);
       this.taskCreatedSuccessfully.emit();
     });
   }
@@ -228,10 +215,7 @@ export class CreateTaskCardComponent implements OnInit {
       type: this.getTaskType(),
     };
 
-    console.log(taskDto);
-
     this._taskService.createTask(taskDto).subscribe((res) => {
-      console.log(res);
       this.taskCreatedSuccessfully.emit();
     });
   }

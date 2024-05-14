@@ -77,7 +77,6 @@ export class OngoingExamComponent
             .pipe(
               tap((testInstance: ITestInstanceDetails) => {
                 this.testInstance = testInstance;
-                console.log(testInstance);
 
                 if (!testInstance.started) {
                   this.startTestInstance();
@@ -98,7 +97,6 @@ export class OngoingExamComponent
                 );
               }),
               catchError((err) => {
-                console.log(err);
                 // Handle error here, e.g., open a snackbar and reroute
                 this.testAlreadyFinished = true;
                 this._router.navigateByUrl('/student/my-exams');
@@ -164,7 +162,6 @@ export class OngoingExamComponent
       .startTestInstance(this.testInstanceId)
       .pipe(
         catchError((err) => {
-          console.log(err);
           return EMPTY;
         })
       )

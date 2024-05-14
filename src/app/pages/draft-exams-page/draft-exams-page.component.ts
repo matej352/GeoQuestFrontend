@@ -61,7 +61,6 @@ export class DraftExamsPageComponent implements OnInit {
               .publishTest(testId)
               .pipe(
                 catchError((err) => {
-                  console.log(err);
                   return EMPTY;
                 })
               )

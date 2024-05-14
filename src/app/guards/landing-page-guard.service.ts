@@ -54,7 +54,6 @@ export class LandingPageGuardService implements CanActivate {
     } else {
       return this._accountService.getAccountDetails().pipe(
         catchError((err) => {
-          console.log(err);
           this._userProfileStore.setAccountData(null);
           return of(true);
         }),

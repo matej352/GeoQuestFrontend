@@ -30,7 +30,6 @@ export class DialogOpenerService implements OnDestroy {
   constructor(private dialog: MatDialog) {}
 
   ngOnDestroy(): void {
-    console.log('Unsubscribeeeeeeeeee iz dialog servisa');
     this.subscription.unsubscribe();
   }
 

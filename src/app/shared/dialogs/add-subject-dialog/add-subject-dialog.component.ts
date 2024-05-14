@@ -61,14 +61,6 @@ export class AddSubjectDialogComponent implements OnInit {
   }
 
   confirmed() {
-    //send invites to selected students
-    /*if (this.selectedStudents.length !== 0) {
-      let studentIds = this.selectedStudents.map(student => student.id);
-      this.classroomService.sendClassroomInvites(this.data.classroomId, studentIds).subscribe( () =>  this.dialogRef.close(true) )
-    }
-    this.dialogRef.close(true);
-    */
-
     let data = {
       id: this.isEdit ? this.data.subject.id : undefined,
       name: this.form.controls['name'].value,
@@ -80,7 +72,6 @@ export class AddSubjectDialogComponent implements OnInit {
         .updateSubject(data)
         .pipe(
           catchError((err) => {
-            console.log(err);
             return EMPTY;
           })
         )
@@ -92,7 +83,6 @@ export class AddSubjectDialogComponent implements OnInit {
         .createSubject(data)
         .pipe(
           catchError((err) => {
-            console.log(err);
             return EMPTY;
           })
         )

@@ -82,7 +82,6 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
     //slucaj da ucitelj radi novi zadatak
     if (this.mapId === 'mark_point') {
       this.initializeClickListener();
-      console.log('Mapa MARK POINT --> radi se novi zadatak');
     }
     //slucaj da student rjesava zadatak
     else if (this.mode === TaskViewMode.Solving) {
@@ -91,13 +90,11 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
         const [lat, lng] = this.answer.split(',').map(Number);
         this.studentAnswerMarker = L.marker([lat, lng]).addTo(this.map);
       }
-      console.log('Mapa MARK POINT --> student rjesava zadatak');
     }
     //slucaj da ucitelj gleda skicu ispita sa pripadnim zadacima
     else if (this.mode === TaskViewMode.DraftExamPreview) {
       const [lat, lng] = this.answer.split(',').map(Number);
       L.marker([lat, lng]).addTo(this.map);
-      console.log('Mapa MARK POINT --> ucitelj gleda skicu ispita ');
     }
     //slucaj da ucitelj/ucenik gleda rezultat ispita sa pripadnim zadacima (ucitelj gleda i moze jos ocjeniti, student samo gleda)
     else if (this.mode === TaskViewMode.Result) {
@@ -129,10 +126,6 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
       correctAnswer.on('click', () => {
         correctAnswer.openPopup();
       });
-
-      console.log(
-        'Mapa MARK POINT --> ucitelj/student gledaju rezultat ispita'
-      );
     }
   }
 
@@ -158,9 +151,6 @@ export class MarkPointMapComponent implements OnInit, OnChanges, AfterViewInit {
     this.marker = L.marker([lat, lng]).addTo(this.map);
 
     this.onPointMarked.emit([lat, lng]);
-
-    // Do whatever you need with the coordinates (lat, lng)
-    console.log(`Clicked at: ${lat}, ${lng}`);
   }
 
   private initializeMap(): void {

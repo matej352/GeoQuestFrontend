@@ -67,7 +67,6 @@ export class TaskCardComponent implements OnInit, AfterViewInit {
         .saveAnswer(answer)
         .pipe(
           catchError((err) => {
-            console.log(err);
             return EMPTY;
           })
         )
@@ -87,7 +86,6 @@ export class TaskCardComponent implements OnInit, AfterViewInit {
         .saveAnswer(answer)
         .pipe(
           catchError((err) => {
-            console.log(err);
             return EMPTY;
           })
         )
@@ -107,7 +105,6 @@ export class TaskCardComponent implements OnInit, AfterViewInit {
         .saveAnswer(answer)
         .pipe(
           catchError((err) => {
-            console.log(err);
             return EMPTY;
           })
         )
@@ -127,7 +124,6 @@ export class TaskCardComponent implements OnInit, AfterViewInit {
         .saveAnswer(answer)
         .pipe(
           catchError((err) => {
-            console.log(err);
             return EMPTY;
           })
         )
@@ -147,7 +143,6 @@ export class TaskCardComponent implements OnInit, AfterViewInit {
         .saveAnswer(answer)
         .pipe(
           catchError((err) => {
-            console.log(err);
             return EMPTY;
           })
         )
