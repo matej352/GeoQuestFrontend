@@ -47,7 +47,7 @@ export class AddExamDialogComponent implements OnInit {
   ngOnInit(): void {
     this.createSubjectForm();
 
-    this.subjects$ = this._subjectService.getSubjects();
+    this.subjects$ = this._subjectService.getSubjectsList();
   }
 
   private createSubjectForm(): void {

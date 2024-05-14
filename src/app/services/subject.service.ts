@@ -18,6 +18,12 @@ export class SubjectService {
     });
   }
 
+  getSubjectsList(): Observable<any> {
+    return this.http.get<any>(`${this._apiURL}/Subject/Subjects/List`, {
+      withCredentials: true,
+    });
+  }
+
   getSubject(id: number): Observable<any> {
     return this.http.get<any>(
       `${this._apiURL}/Subject/Subject?subjectId=${id}`,

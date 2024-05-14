@@ -1,6 +1,6 @@
 <details class="custom-select" (click)="onOpen()">
   <summary class="radios">
-    <span *ngIf="!selectedDropdownOptionId">Odaberite razred...</span>
+    <span *ngIf="!selectedDropdownOptionId">Odaberite predmet...</span>
     <input
       type="radio"
       name="item"
@@ -20,5 +20,6 @@
     <li *ngFor="let item of list$ | async">
       <label [for]="item" (click)="onSelect(item.id)">{{ item.name }} </label>
     </li>
+    <li *ngIf="!(list$ | async)">Nema predmeta</li>
   </ul>
 </details>

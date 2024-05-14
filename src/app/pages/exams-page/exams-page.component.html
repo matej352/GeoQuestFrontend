@@ -29,9 +29,11 @@
               <td>
                 <p>
                   {{
-                    (test.finishedByStudentInstanceCount / test.instanceCount) *
-                      100 +
-                      "%"
+                    (
+                      (test.finishedByStudentInstanceCount /
+                        test.instanceCount) *
+                      100
+                    ).toFixed(2) + "%"
                   }}
                 </p>
                 <app-tooltip
