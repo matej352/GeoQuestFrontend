@@ -5,7 +5,6 @@ import { UserProfileStoreService } from 'src/app/storage/user-profile-store.serv
 import { IAccount } from 'src/app/models/account';
 import { EMPTY, Observable, catchError, filter, tap } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { CookieService } from 'ngx-cookie-service';
 import { ROLE_STUDENT, ROLE_TEACHER } from 'src/app/constants/global-constants';
 
 @Component({
@@ -24,7 +23,6 @@ export class NavigationBarComponent implements OnInit {
     private _router: Router,
     private _userProfileStore: UserProfileStoreService,
     private _authenticationService: AuthenticationService,
-    private _cookieService: CookieService,
     private _cdr: ChangeDetectorRef
   ) {
     this._router.events
@@ -97,24 +95,6 @@ export class NavigationBarComponent implements OnInit {
       .subscribe((res) => {
         this._userProfileStore.setAccountData(null);
         this._router.navigate(['landing']);
-
-        // for local
-        this._cookieService.delete(
-          'GeoQuestCookie',
-          '/',
-          'localhost',
-          false,
-          'Lax'
-        );
-
-        // for deployed
-        this._cookieService.delete(
-          'GeoQuestCookie',
-          '/',
-          'geoquest20240515160138.azurewebsites.net',
-          false,
-          'Lax'
-        );
       });
   }
 

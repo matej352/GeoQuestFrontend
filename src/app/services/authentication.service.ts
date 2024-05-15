@@ -20,7 +20,7 @@ export class AuthenticationService {
   }
 
   logout(): Observable<any> {
-    return this.http.post<any>(`${this._apiURL}/Auth/Logout`, {
+    return this.http.post<any>(`${this._apiURL}/Auth/Logout`, null, {
       withCredentials: true,
     });
   }

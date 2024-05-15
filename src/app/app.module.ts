@@ -5,7 +5,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MapComponent } from './shared/map/map.component';
-import { CookieService } from 'ngx-cookie-service';
 import { NavigationBarComponent } from './shared/navigation-bar/navigation-bar.component';
 import { SharedModule } from './modules/shared.module';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
@@ -90,7 +89,6 @@ import { MyExamComponent } from './pages/my-exams-page/my-exam/my-exam.component
     SharedModule,
   ],
   providers: [
-    CookieService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpLoadingInterceptor,

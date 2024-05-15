@@ -12,7 +12,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faKey } from '@fortawesome/free-solid-svg-icons';
-import { CookieService } from 'ngx-cookie-service';
 import { EMPTY, catchError, switchMap } from 'rxjs';
 import { ROLE_STUDENT, ROLE_TEACHER } from 'src/app/constants/global-constants';
 import { RoleRouteParam } from 'src/app/guards/auth-guard.service';
@@ -45,7 +44,6 @@ export class LandingPageComponent implements OnInit {
     private _userProfileStore: UserProfileStoreService,
     private _router: Router,
     private _formBuilder: FormBuilder,
-    private _cookieService: CookieService,
     private _accountService: AccountService,
     private _snackBar: MatSnackBar
   ) {}
@@ -165,7 +163,6 @@ export class LandingPageComponent implements OnInit {
       )
       .subscribe((res) => {
         this._userProfileStore.setAccountData(null);
-        this._cookieService.deleteAll();
       });
   }
 
