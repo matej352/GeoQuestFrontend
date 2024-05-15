@@ -9,7 +9,8 @@ import { IRegisterData } from '../models/register-data';
   providedIn: 'root',
 })
 export class AccountService {
-  private _apiURL = environment.apiURL;
+  //private _apiURL = 'https://localhost:7161';
+  private _apiURL = 'https://geoquest20240515160138.azurewebsites.net';
 
   constructor(private http: HttpClient) {}
 

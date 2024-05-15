@@ -8,7 +8,8 @@ import { ISubject } from '../models/subject';
   providedIn: 'root',
 })
 export class SubjectService {
-  private _apiURL = environment.apiURL;
+  //private _apiURL = 'https://localhost:7161';
+  private _apiURL = 'https://geoquest20240515160138.azurewebsites.net';
 
   constructor(private http: HttpClient) {}
 
