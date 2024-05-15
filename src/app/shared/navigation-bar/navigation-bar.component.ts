@@ -98,10 +98,20 @@ export class NavigationBarComponent implements OnInit {
         this._userProfileStore.setAccountData(null);
         this._router.navigate(['landing']);
 
+        // for local
         this._cookieService.delete(
           'GeoQuestCookie',
           '/',
           'localhost',
+          false,
+          'Lax'
+        );
+
+        // for deployed
+        this._cookieService.delete(
+          'GeoQuestCookie',
+          '/',
+          'geoquest20240515160138.azurewebsites.net',
           false,
           'Lax'
         );
