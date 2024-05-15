@@ -10,7 +10,9 @@
         routerLink="/teacher/subjects"
       ></fa-icon>
     </div>
-    <ng-container *ngIf="subjectDetails$ | async as subjectDetails">
+    <ng-container
+      *ngIf="subjectDetails$ | async as subjectDetails; else loading"
+    >
       <div class="general-info-containers">
         <div class="general-info-container padding-right" style="height: 495px">
           <div class="rows-container">
@@ -162,5 +164,8 @@
         </div>
       </div>
     </ng-container>
+    <ng-template #loading>
+      <div style="height: 1000px"></div>
+    </ng-template>
   </div>
 </div>
