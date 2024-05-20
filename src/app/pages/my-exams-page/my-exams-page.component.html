@@ -9,8 +9,7 @@
             <table *ngIf="tests.length !== 0; else noTests">
               <thead>
                 <tr>
-                  <th>Naslov</th>
-                  <th>Opis</th>
+                  <th>Naziv</th>
                   <th>Predmet</th>
                   <th>Trajanje</th>
                   <th>Učitelj</th>
@@ -24,12 +23,6 @@
                     [routerLink]="['/student', 'my-exam', test.id]"
                   >
                     <p>{{ test.name }}</p>
-                  </td>
-                  <td>
-                    <p>
-                      {{ test.description ? test.description : "-" }}
-                      <span *ngIf="test.description"> </span>
-                    </p>
                   </td>
                   <td>
                     <p>{{ test.subject }}</p>
