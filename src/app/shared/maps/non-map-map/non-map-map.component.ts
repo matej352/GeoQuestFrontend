@@ -70,7 +70,7 @@ export class NonMapMapComponent implements OnInit, OnChanges, AfterViewInit {
       const popupContent = `
       <div class="popup-content">
       <label for="answer">Odgovor:</label>
-      <textarea id="answer-non-map" rows="4"></textarea>
+      <textarea id="answer-non-map-${this.mapId}" rows="4"></textarea>
       <button id="saveButton">Spremi</button>
     </div>
                             `;
@@ -89,7 +89,9 @@ export class NonMapMapComponent implements OnInit, OnChanges, AfterViewInit {
         if (saveButton && saveButton.id === 'saveButton') {
           // Retrieve the value of the textarea
           inputValue = (
-            document.getElementById('answer-non-map') as HTMLTextAreaElement
+            document.getElementById(
+              `answer-non-map-${this.mapId}`
+            ) as HTMLTextAreaElement
           ).value;
 
           this.onAnswerSaved.emit(inputValue);
@@ -101,7 +103,9 @@ export class NonMapMapComponent implements OnInit, OnChanges, AfterViewInit {
 
       if (this.answer) {
         (
-          document.getElementById('answer-non-map') as HTMLTextAreaElement
+          document.getElementById(
+            `answer-non-map-${this.mapId}`
+          ) as HTMLTextAreaElement
         ).value = this.answer;
       }
 
@@ -109,7 +113,9 @@ export class NonMapMapComponent implements OnInit, OnChanges, AfterViewInit {
       marker.on('popupopen', () => {
         // Update the input value with the stored value
         (
-          document.getElementById('answer-non-map') as HTMLTextAreaElement
+          document.getElementById(
+            `answer-non-map-${this.mapId}`
+          ) as HTMLTextAreaElement
         ).value = inputValue;
       });
 
@@ -117,7 +123,9 @@ export class NonMapMapComponent implements OnInit, OnChanges, AfterViewInit {
       marker.on('popupclose', () => {
         // Retrieve the value of the textarea
         inputValue = (
-          document.getElementById('answer-non-map') as HTMLTextAreaElement
+          document.getElementById(
+            `answer-non-map-${this.mapId}`
+          ) as HTMLTextAreaElement
         ).value;
       });
     }
@@ -133,7 +141,7 @@ export class NonMapMapComponent implements OnInit, OnChanges, AfterViewInit {
       const popupContent = `
                           <div class="popup-content">
                             <label for="answer">Odgovor:</label>
-                            <div id="answer-non-map"></div>
+                            <div id="answer-non-map-${this.mapId}"></div>
                           </div>
                             `;
 
@@ -144,7 +152,9 @@ export class NonMapMapComponent implements OnInit, OnChanges, AfterViewInit {
       marker.on('popupopen', () => {
         // Update the input value with the stored value
         (
-          document.getElementById('answer-non-map') as HTMLTextAreaElement
+          document.getElementById(
+            `answer-non-map-${this.mapId}`
+          ) as HTMLTextAreaElement
         ).innerHTML = this.answer;
       });
 
